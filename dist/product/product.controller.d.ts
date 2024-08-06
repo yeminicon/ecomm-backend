@@ -39,9 +39,7 @@ export declare class ProductController {
     findBYMerchant(merchantId: string): Promise<(import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
         _id: unknown;
     }>)[]>;
-    findOne(productId: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
-        _id: unknown;
-    }>>;
+    findOne(productId: string): Promise<import("../schemas/Product.schema").Product>;
     update(productId: string, updateProductDto: UpdateProductDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
         _id: unknown;
     }>>;

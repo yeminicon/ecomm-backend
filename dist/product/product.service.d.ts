@@ -51,7 +51,5 @@ export declare class ProductService {
     findAllByMerchant(merchantId: string): Promise<(import("mongoose").Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>)[]>;
-    findOne(productId: string): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
-        _id: unknown;
-    }>>;
+    findOne(productId: string): Promise<Product>;
 }

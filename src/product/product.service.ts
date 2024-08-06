@@ -52,7 +52,7 @@ export class ProductService {
     return this.productModel.find({ merchant: merchantId }).exec();
   }
 
-  async findOne(productId: string) {
+  async findOne(productId: string): Promise<Product> {
     console.log(productId);
     return this.productModel.findOne({ _id: productId });
   }
