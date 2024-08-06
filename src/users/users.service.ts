@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/schemas/User.schema';
+import { User } from '../schemas/User.schema';
 import { Model } from 'mongoose';
 import { Merchant } from 'src/schemas/Merchant.schema';
 

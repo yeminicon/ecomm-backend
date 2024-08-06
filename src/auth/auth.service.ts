@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
-import { User } from 'src/schemas/user.schema';
+import { User } from '../schemas/user.schema';
 import { UserOTPVerification } from 'src/schemas/UserOTPVerification';
 import { SignUpDto } from './dto/signup.dto';
 import { MerchantService } from 'src/merchant/merchant.service';

@@ -6,7 +6,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { UsersService } from 'src/users/users.service';
 import { MerchantService } from 'src/merchant/merchant.service';
 import { Merchant } from 'src/schemas/Merchant.schema';
-import { User } from 'src/schemas/User.schema';
+import { User } from '../schemas/User.schema';
 import { Order } from 'src/schemas/Order.schema';
 import { Product } from 'src/schemas/Product.schema';
 import { promises } from 'dns';

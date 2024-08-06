@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UsersService } from 'src/users/users.service';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/schemas/User.schema';
+import { User } from '../schemas/User.schema';
 import { Model } from 'mongoose';
 import { Product } from 'src/schemas/Product.schema';
 import { Merchant } from 'src/schemas/Merchant.schema';

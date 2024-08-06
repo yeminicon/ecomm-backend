@@ -1,7 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
-import { Merchant } from './Merchant.schema';
-import { Product } from './Product.schema';
 import { User } from 'src/users/entities/user.entity';
 
 export enum PaymentStatus {
