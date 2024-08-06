@@ -17,7 +17,7 @@ import {
   ApiOkResponse,
   ApiBadRequestResponse,
 } from '@nestjs/swagger';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 @ApiTags('Authentication')
 @Controller('auth')

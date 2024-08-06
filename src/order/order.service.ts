@@ -3,13 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { UsersService } from 'src/users/users.service';
-import { MerchantService } from 'src/merchant/merchant.service';
-import { Merchant } from 'src/schemas/Merchant.schema';
+import { UsersService } from '../users/users.service';
+import { MerchantService } from '../merchant/merchant.service';
+import { Merchant } from '../schemas/Merchant.schema';
 import { User } from '../schemas/User.schema';
-import { Order } from 'src/schemas/Order.schema';
-import { Product } from 'src/schemas/Product.schema';
-import { promises } from 'dns';
+import { Order } from '../schemas/Order.schema';
+import { Product } from '../schemas/Product.schema';
 
 @Injectable()
 export class OrderService {

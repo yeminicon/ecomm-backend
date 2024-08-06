@@ -16,7 +16,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import mongoose from 'mongoose';
-import { MerchantService } from 'src/merchant/merchant.service';
+import { MerchantService } from '../merchant/merchant.service';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')

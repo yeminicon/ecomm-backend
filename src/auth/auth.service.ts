@@ -5,9 +5,9 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
 import { User } from '../schemas/user.schema';
-import { UserOTPVerification } from 'src/schemas/UserOTPVerification';
+import { UserOTPVerification } from '../schemas/UserOTPVerification';
 import { SignUpDto } from './dto/signup.dto';
-import { MerchantService } from 'src/merchant/merchant.service';
+import { MerchantService } from '../merchant/merchant.service';
 
 import { MailerService } from '@nestjs-modules/mailer';
 

@@ -2,22 +2,22 @@ import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from 'src/schemas/User.schema';
-import { Merchant, MerchantSchema } from 'src/schemas/Merchant.schema';
-import { Order, OrderSchema } from 'src/schemas/Order.schema';
-import { OrderService } from 'src/order/order.service';
-import { MerchantService } from 'src/merchant/merchant.service';
+import { User, UserSchema } from '../schemas/User.schema';
+import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
+import { Order, OrderSchema } from '../schemas/Order.schema';
+import { OrderService } from '../order/order.service';
+import { MerchantService } from '../merchant/merchant.service';
 
-import { AnalyticsService } from 'src/analytics/analytics.service';
+import { AnalyticsService } from '../analytics/analytics.service';
 
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 import { JwtService } from '@nestjs/jwt';
-import { Product, ProductSchema } from 'src/schemas/Product.schema';
+import { Product, ProductSchema } from '../schemas/Product.schema';
 import {
   UserOTPVerification,
   UserOTPVerificationSchema,
-} from 'src/schemas/UserOTPVerification';
+} from '../schemas/UserOTPVerification';
 
 @Module({
   imports: [

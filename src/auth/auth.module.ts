@@ -7,17 +7,17 @@ import { User, UserSchema } from '../schemas/User.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
-import { MerchantService } from 'src/merchant/merchant.service';
+import { MerchantService } from '../merchant/merchant.service';
 
-import { Merchant, MerchantSchema } from 'src/schemas/Merchant.schema';
+import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
 
 import {
   UserOTPVerification,
   UserOTPVerificationSchema,
-} from 'src/schemas/UserOTPVerification';
-import { MailService } from 'src/mailer/mailer.service';
-import { Wallet, WalletSchema } from 'src/schemas/Wallet.schema';
-import { UsersService } from 'src/users/users.service';
+} from '../schemas/UserOTPVerification';
+import { MailService } from '../mailer/mailer.service';
+import { Wallet, WalletSchema } from '../schemas/Wallet.schema';
+import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [

@@ -6,7 +6,7 @@ import {
   IsArray,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { PaymentStatus } from 'src/schemas/Order.schema';
+import { PaymentStatus } from '../../schemas/Order.schema';
 import { CartItemDto } from './cartItem.dto'; // Adjust the import path accordingly
 
 export class CreateOrderDto {

@@ -3,17 +3,17 @@ import { AnalyticsService } from './analytics.service';
 import { AnalyticsController } from './analytics.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { OrderService } from 'src/order/order.service';
+import { OrderService } from '../order/order.service';
 
-import { User, UserSchema } from 'src/schemas/User.schema';
+import { User, UserSchema } from '../schemas/User.schema';
 
-import { Merchant, MerchantSchema } from 'src/schemas/Merchant.schema';
+import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
 
-import { MerchantService } from 'src/merchant/merchant.service';
-import { UsersService } from 'src/users/users.service';
-import { Order, OrderSchema } from 'src/schemas/Order.schema';
-import { Product, ProductSchema } from 'src/schemas/Product.schema';
-import { ProductService } from 'src/product/product.service';
+import { MerchantService } from '../merchant/merchant.service';
+import { UsersService } from '../users/users.service';
+import { Order, OrderSchema } from '../schemas/Order.schema';
+import { Product, ProductSchema } from '../schemas/Product.schema';
+import { ProductService } from '../product/product.service';
 
 @Module({
   imports: [

@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
-import { Merchant } from 'src/schemas/Merchant.schema';
 
 export class CreateProductDto {
   @IsString()

@@ -27,7 +27,7 @@ export class MailService {
     });
 
     this.templateDir = fs.existsSync('src')
-      ? 'src/email/templates'
+      ? '../email/templates'
       : 'dist/email/templates';
     this.logger.verbose(`Template directory: ${this.templateDir}`);
   }

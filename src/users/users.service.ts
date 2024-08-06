@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/User.schema';
 import { Model } from 'mongoose';
-import { Merchant } from 'src/schemas/Merchant.schema';
+import { Merchant } from '../schemas/Merchant.schema';
 
 @Injectable()
 export class UsersService {

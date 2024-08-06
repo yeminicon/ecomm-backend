@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { MerchantService } from './merchant.service';
 import { MerchantController } from './merchant.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from 'src/schemas/User.schema';
-import { Merchant, MerchantSchema } from 'src/schemas/Merchant.schema';
-import { Product, ProductSchema } from 'src/schemas/Product.schema';
-import { ProductService } from 'src/product/product.service';
-import { UsersService } from 'src/users/users.service';
+import { User, UserSchema } from '../schemas/User.schema';
+import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
+import { Product, ProductSchema } from '../schemas/Product.schema';
+import { ProductService } from '../product/product.service';
+import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [
