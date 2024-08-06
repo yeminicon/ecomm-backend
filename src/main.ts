@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors({
-    origin: ['http://localhost:5173'], // Allow only specific origins
+    origin: ['https://deepisces.com.ng/'], // Allow only specific origins
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Specify allowed methods
     credentials: true, // Allow cookies to be sent with requests
   });
