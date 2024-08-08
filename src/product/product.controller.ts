@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
   Query,
+  BadRequestException,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+//import { Query as ExpressQuery } from 'express-serve-static-core';
+import { Product } from 'src/schemas/Product.schema';
 
 @Controller('product')
 export class ProductController {
@@ -23,9 +26,20 @@ export class ProductController {
   }
 
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  async findAll(
+    @Query('page') page: string,
+    @Query('keyword') keyword?: string,
+  ): Promise<{ products: Product[]; total: number }> {
+    const pageNumber = page ? parseInt(page, 10) : 1;
+    if (isNaN(pageNumber) || pageNumber < 1) {
+      throw new BadRequestException('Invalid page number');
+    }
+
+    const searchWord = keyword || '';
+
+    return this.productService.findAll(pageNumber, searchWord);
   }
+
   @Get()
   findBYMerchant(@Body() merchantId: string) {
     return this.productService.findAllByMerchant(merchantId);

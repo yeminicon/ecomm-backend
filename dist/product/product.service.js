@@ -28,8 +28,7 @@ let ProductService = class ProductService {
         this.merchantModel = merchantModel;
     }
     async createNewProduct(createProductDto) {
-        const product = new this.productModel(createProductDto);
-        await product.save();
+        const product = await this.productModel.create(createProductDto);
         return product;
     }
     async updateProductInfo(productId, updateProduct) {
@@ -40,16 +39,40 @@ let ProductService = class ProductService {
     async deleteProduct(productId) {
         return this.productModel.findByIdAndDelete(productId);
     }
-    async findAll() {
-        console.log('hello');
-        return this.productModel.find().exec();
+    async findAll(pageNumber, searchWord) {
+        const resPerPage = 4;
+        const currentPage = pageNumber > 0 ? pageNumber : 1;
+        const skip = resPerPage * (currentPage - 1);
+        const keyword = searchWord
+            ? {
+                name: {
+                    $regex: searchWord,
+                    $options: 'i',
+                },
+            }
+            : {};
+        const total = await this.productModel.countDocuments({ ...keyword });
+        const products = await this.productModel
+            .find({ ...keyword })
+            .limit(resPerPage)
+            .skip(skip);
+        console.log(total);
+        return { products, total };
     }
     async findAllByMerchant(merchantId) {
         return this.productModel.find({ merchant: merchantId }).exec();
     }
     async findOne(productId) {
+        const isValidId = mongoose_2.default.isValidObjectId(productId);
+        if (!isValidId) {
+            throw new common_1.BadRequestException('Please enter correct id,');
+        }
         console.log(productId);
-        return this.productModel.findOne({ _id: productId });
+        const product = this.productModel.findOne({ _id: productId });
+        if (!product) {
+            throw new common_1.NotFoundException('product not found');
+        }
+        return product;
     }
 };
 exports.ProductService = ProductService;

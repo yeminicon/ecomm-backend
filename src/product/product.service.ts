@@ -1,12 +1,18 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UsersService } from '../users/users.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/User.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Product } from '../schemas/Product.schema';
 import { Merchant } from '../schemas/Merchant.schema';
+// import { Query } from 'express-serve-static-core';
+// import { ParsedQs } from 'qs';
 
 @Injectable()
 export class ProductService {
@@ -17,7 +23,7 @@ export class ProductService {
     @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
   ) {}
 
-  async createNewProduct(createProductDto: CreateProductDto) {
+  async createNewProduct(createProductDto: CreateProductDto): Promise<Product> {
     // const { merchant } = createProductDto;
 
     // const findMerchant = await this.merchantModel.findById(merchant);
@@ -26,9 +32,10 @@ export class ProductService {
     //   throw new BadRequestException('No Merchant record found for this user.');
     // }
 
-    const product = new this.productModel(createProductDto);
+   // const product = new this.productModel(createProductDto);
+    const product = await this.productModel.create(createProductDto);
 
-    await product.save();
+    // await product.save();
 
     return product;
   }
@@ -43,17 +50,50 @@ export class ProductService {
     return this.productModel.findByIdAndDelete(productId);
   }
 
-  async findAll() {
-    console.log('hello');
-    return this.productModel.find().exec();
+  async findAll(
+    pageNumber: number,
+    searchWord: string,
+  ): Promise<{ products: Product[]; total: number }> {
+    const resPerPage = 4;
+    const currentPage = pageNumber > 0 ? pageNumber : 1;
+    const skip = resPerPage * (currentPage - 1);
+    const keyword = searchWord
+      ? {
+          name: {
+            $regex: searchWord,
+            $options: 'i',
+          },
+        }
+      : {};
+
+    const total = await this.productModel.countDocuments({ ...keyword });
+    const products = await this.productModel
+      .find({ ...keyword })
+      .limit(resPerPage)
+      .skip(skip);
+
+    console.log(total);
+
+    return { products, total };
   }
 
-  async findAllByMerchant(merchantId: string) {
+  async findAllByMerchant(merchantId: string): Promise<Product[]> {
     return this.productModel.find({ merchant: merchantId }).exec();
   }
 
   async findOne(productId: string): Promise<Product> {
+    const isValidId = mongoose.isValidObjectId(productId);
+
+    if (!isValidId) {
+      throw new BadRequestException('Please enter correct id,');
+    }
     console.log(productId);
-    return this.productModel.findOne({ _id: productId });
+    const product = this.productModel.findOne({ _id: productId });
+
+    if (!product) {
+      throw new NotFoundException('product not found');
+    }
+
+    return product;
   }
 }

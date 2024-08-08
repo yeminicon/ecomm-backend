@@ -25,8 +25,13 @@ let ProductController = class ProductController {
         console.log(createProductDto);
         return this.productService.createNewProduct(createProductDto);
     }
-    findAll() {
-        return this.productService.findAll();
+    async findAll(page, keyword) {
+        const pageNumber = page ? parseInt(page, 10) : 1;
+        if (isNaN(pageNumber) || pageNumber < 1) {
+            throw new common_1.BadRequestException('Invalid page number');
+        }
+        const searchWord = keyword || '';
+        return this.productService.findAll(pageNumber, searchWord);
     }
     findBYMerchant(merchantId) {
         return this.productService.findAllByMerchant(merchantId);
@@ -52,9 +57,11 @@ __decorate([
 ], ProductController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('page')),
+    __param(1, (0, common_1.Query)('keyword')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(),

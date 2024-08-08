@@ -71,10 +71,6 @@ let OrderService = class OrderService {
         }
         return this.orderModel.find({ merchantId }).exec();
     }
-    async findAllByGofer(goferId) {
-        const goferInfo = goferId;
-        return this.orderModel.find({ goferInfo }).exec();
-    }
     async findAllByUser(userId) {
         console.log(userId + 'yemmy');
         const findUser = await this.userModel.findById(userId);
@@ -91,7 +87,7 @@ let OrderService = class OrderService {
             throw new common_1.HttpException('Orders not found', 404);
         }
         return orders.map((order) => {
-            const { _id, shippingAddress, shippingCity, shippingState, shippingCountry, shippingZipCode, name, email: orderEmail, phoneNumber, cartItem, paymentMethod, orderStatus, orderQuantity, orderSum, merchant, createdAt, updatedAt, } = order.toObject();
+            const { _id, shippingAddress, shippingCity, shippingState, shippingCountry, shippingZipCode, name, email: orderEmail, phoneNumber, cartItem, paymentMethod, orderStatus, orderQuantity, orderSum, merchant, createdAt, updatedAt, } = order;
             return {
                 _id,
                 shippingAddress,

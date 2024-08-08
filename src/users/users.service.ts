@@ -20,12 +20,12 @@ export class UsersService {
       throw new HttpException('User with this email already exists', 400);
     }
 
-    const newUser = new this.userModel(createUserDto);
-    return newUser.save();
+    const newUser = await this.userModel.create(createUserDto);
+    return newUser;
   }
 
   findByEmail(email: string) {
-    return this.userModel.findOne({ email: email }).exec();
+    return this.userModel.findOne({ email: email });
   }
 
   findAll() {

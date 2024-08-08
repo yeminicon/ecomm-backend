@@ -1,20 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
 import { AnalyticsController } from './analytics.controller';
 import { AnalyticsService } from './analytics.service';
 
 describe('AnalyticsController', () => {
-  let controller: AnalyticsController;
+  let analyticsController: AnalyticsController;
+  let analyticsService: AnalyticsService;
+
+  const mockAnalyticsService = {
+    // Mock any methods from AnalyticsService that you plan to use in your tests
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AnalyticsController],
-      providers: [AnalyticsService],
+      providers: [
+        {
+          provide: AnalyticsService,
+          useValue: mockAnalyticsService,
+        },
+      ],
     }).compile();
 
-    controller = module.get<AnalyticsController>(AnalyticsController);
+    analyticsController = module.get<AnalyticsController>(AnalyticsController);
+    analyticsService = module.get<AnalyticsService>(AnalyticsService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(analyticsController).toBeDefined();
   });
+
+  // Add more tests here as you implement methods in the controller
 });

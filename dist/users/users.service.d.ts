@@ -35,9 +35,11 @@ export declare class UsersService {
     create(createUserDto: CreateUserDto): Promise<import("mongoose").Document<unknown, {}, User> & User & Required<{
         _id: unknown;
     }>>;
-    findByEmail(email: string): Promise<import("mongoose").Document<unknown, {}, User> & User & Required<{
+    findByEmail(email: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, User> & User & Required<{
         _id: unknown;
-    }>>;
+    }>, import("mongoose").Document<unknown, {}, User> & User & Required<{
+        _id: unknown;
+    }>, {}, User, "findOne", {}>;
     findAll(): import("mongoose").Query<(import("mongoose").Document<unknown, {}, User> & User & Required<{
         _id: unknown;
     }>)[], import("mongoose").Document<unknown, {}, User> & User & Required<{

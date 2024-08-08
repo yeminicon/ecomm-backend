@@ -87,10 +87,7 @@ export class OrderService {
     return this.orderModel.find({ merchantId }).exec();
   }
 
-  async findAllByGofer(goferId: string): Promise<Order[]> {
-    const goferInfo = goferId;
-    return this.orderModel.find({ goferInfo }).exec();
-  }
+
 
   // async findAllByUser(userId: string): Promise<Order[]> {
   //   const findUser = await this.userModel.findOne({ userId });
@@ -188,7 +185,7 @@ export class OrderService {
         merchant,
         createdAt,
         updatedAt,
-      } = order.toObject();
+      } = order;
 
       return {
         _id,

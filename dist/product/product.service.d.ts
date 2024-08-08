@@ -27,7 +27,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UsersService } from '../users/users.service';
 import { User } from '../schemas/User.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Product } from '../schemas/Product.schema';
 import { Merchant } from '../schemas/Merchant.schema';
 export declare class ProductService {
@@ -36,20 +36,17 @@ export declare class ProductService {
     private productModel;
     private merchantModel;
     constructor(userService: UsersService, userModel: Model<User>, productModel: Model<Product>, merchantModel: Model<Merchant>);
-    createNewProduct(createProductDto: CreateProductDto): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
+    createNewProduct(createProductDto: CreateProductDto): Promise<Product>;
+    updateProductInfo(productId: string, updateProduct: UpdateProductDto): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
-    updateProductInfo(productId: string, updateProduct: UpdateProductDto): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
+    deleteProduct(productId: string): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
-    deleteProduct(productId: string): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
-        _id: unknown;
-    }>>;
-    findAll(): Promise<(import("mongoose").Document<unknown, {}, Product> & Product & Required<{
-        _id: unknown;
-    }>)[]>;
-    findAllByMerchant(merchantId: string): Promise<(import("mongoose").Document<unknown, {}, Product> & Product & Required<{
-        _id: unknown;
-    }>)[]>;
+    findAll(pageNumber: number, searchWord: string): Promise<{
+        products: Product[];
+        total: number;
+    }>;
+    findAllByMerchant(merchantId: string): Promise<Product[]>;
     findOne(productId: string): Promise<Product>;
 }

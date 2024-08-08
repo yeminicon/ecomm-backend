@@ -27,23 +27,21 @@
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from 'src/schemas/Product.schema';
 export declare class ProductController {
     private readonly productService;
     constructor(productService: ProductService);
-    create(createProductDto: CreateProductDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
+    create(createProductDto: CreateProductDto): Promise<Product>;
+    findAll(page: string, keyword?: string): Promise<{
+        products: Product[];
+        total: number;
+    }>;
+    findBYMerchant(merchantId: string): Promise<Product[]>;
+    findOne(productId: string): Promise<Product>;
+    update(productId: string, updateProductDto: UpdateProductDto): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
-    findAll(): Promise<(import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
-        _id: unknown;
-    }>)[]>;
-    findBYMerchant(merchantId: string): Promise<(import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
-        _id: unknown;
-    }>)[]>;
-    findOne(productId: string): Promise<import("../schemas/Product.schema").Product>;
-    update(productId: string, updateProductDto: UpdateProductDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
-        _id: unknown;
-    }>>;
-    remove(productId: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Product.schema").Product> & import("../schemas/Product.schema").Product & Required<{
+    remove(productId: string): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
 }

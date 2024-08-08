@@ -42,7 +42,6 @@ export declare class OrderService {
     constructor(usersService: UsersService, merchantService: MerchantService, merchantModel: Model<Merchant>, userModel: Model<User>, productModel: Model<Product>, orderModel: Model<Order>);
     createOrder({ ...createOrderDto }: CreateOrderDto): Promise<any>;
     findAllByMerchant(merchantId: string): Promise<Order[]>;
-    findAllByGofer(goferId: string): Promise<Order[]>;
     findAllByUser(userId: string): Promise<any>;
     findOne(id: string, userId: string): Promise<any>;
     update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order>;
