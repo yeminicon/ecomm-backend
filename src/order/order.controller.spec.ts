@@ -2,31 +2,30 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { PaymentStatus } from 'src/schemas/Order.schema';
 
 describe('OrderController', () => {
   let orderController: OrderController;
   let orderService: OrderService;
-  const mockOrder = {
-    _id: '66ade75e04802b152b1f465d',
-    shippingAddress: '13 Immaculate',
-    shippingCity: 'Ado Ota',
-    shippingState: 'Ogun',
-    shippingCountry: 'GD',
-    shippingZipCode: '112102',
-    name: 'home',
-    email: 'akinyele.adeyemi9005@gmail.com',
-    phoneNumber: '08144616094',
-    cartItem: [],
-    paymentMethod: 'Pick-Up',
-    orderStatus: 'PENDING',
-    orderQuantity: 2,
-    orderSum: 32000,
-    merchant: 'home',
-    createdAt: '2024-08-03T08:16:30.105+00:00',
-    updatedAt: '2024-08-03T08:16:30.105+00:00',
-  };
+  // const mockOrder = {
+  //   _id: '66ade75e04802b152b1f465d',
+  //   shippingAddress: '13 Immaculate',
+  //   shippingCity: 'Ado Ota',
+  //   shippingState: 'Ogun',
+  //   shippingCountry: 'GD',
+  //   shippingZipCode: '112102',
+  //   name: 'home',
+  //   email: 'akinyele.adeyemi9005@gmail.com',
+  //   phoneNumber: '08144616094',
+  //   cartItem: [],
+  //   paymentMethod: 'Pick-Up',
+  //   orderStatus: 'PENDING',
+  //   orderQuantity: 2,
+  //   orderSum: 32000,
+  //   merchant: 'home',
+  //   createdAt: '2024-08-03T08:16:30.105+00:00',
+  //   updatedAt: '2024-08-03T08:16:30.105+00:00',
+  // };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

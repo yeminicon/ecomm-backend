@@ -87,8 +87,6 @@ export class OrderService {
     return this.orderModel.find({ merchantId }).exec();
   }
 
-
-
   // async findAllByUser(userId: string): Promise<Order[]> {
   //   const findUser = await this.userModel.findOne({ userId });
   //   if (!findUser) {
@@ -158,7 +156,7 @@ export class OrderService {
     if (findUser) {
       console.log(findUser);
     }
-    const merchant = 'home';
+    // const merchant = 'home';
     const orders = await this.orderModel.find({ user: findUser._id }).exec();
 
     console.log('Found Orders: ', orders);

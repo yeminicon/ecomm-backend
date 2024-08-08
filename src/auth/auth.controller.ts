@@ -75,7 +75,7 @@ export class AuthController {
   @Post('/adminlogin')
   @HttpCode(HttpStatus.OK)
   async adminLogin(@Body() adminLoginDto: any) {
-    const { email, password, adminLogin } = adminLoginDto;
+    const { email, password } = adminLoginDto;
     console.log(adminLoginDto);
     const user = await this.authService.validateUser(email, password);
 

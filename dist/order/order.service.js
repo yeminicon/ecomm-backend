@@ -80,7 +80,6 @@ let OrderService = class OrderService {
         if (findUser) {
             console.log(findUser);
         }
-        const merchant = 'home';
         const orders = await this.orderModel.find({ user: findUser._id }).exec();
         console.log('Found Orders: ', orders);
         if (!orders.length) {

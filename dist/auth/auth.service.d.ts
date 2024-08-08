@@ -30,7 +30,6 @@ import { UserOTPVerification } from '../schemas/UserOTPVerification';
 import { SignUpDto } from './dto/signup.dto';
 import { MerchantService } from '../merchant/merchant.service';
 import { MailerService } from '@nestjs-modules/mailer';
-import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 export declare class AuthService {
     private readonly userModel;
@@ -47,7 +46,7 @@ export declare class AuthService {
     regenerateOTP(userId: string): Promise<void>;
     validateUser(email: string, password: string): Promise<User | null>;
     generateAuthToken(user: User): Promise<string>;
-    loginUser(loginDto: LoginDto): Promise<User>;
+    loginUser(): Promise<User>;
     verifyUser(user: any): Promise<{
         id: any;
         email: any;

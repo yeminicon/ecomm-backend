@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
-import { MongooseModule, Schema } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../schemas/User.schema';
 import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
 import { MerchantService } from '../merchant/merchant.service';

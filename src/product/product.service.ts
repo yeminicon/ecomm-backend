@@ -32,7 +32,7 @@ export class ProductService {
     //   throw new BadRequestException('No Merchant record found for this user.');
     // }
 
-   // const product = new this.productModel(createProductDto);
+    // const product = new this.productModel(createProductDto);
     const product = await this.productModel.create(createProductDto);
 
     // await product.save();

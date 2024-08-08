@@ -54,7 +54,7 @@ let AuthController = class AuthController {
         };
     }
     async adminLogin(adminLoginDto) {
-        const { email, password, adminLogin } = adminLoginDto;
+        const { email, password } = adminLoginDto;
         console.log(adminLoginDto);
         const user = await this.authService.validateUser(email, password);
         if (!user.verified) {

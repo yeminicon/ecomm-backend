@@ -63,13 +63,6 @@ let AuthService = AuthService_1 = class AuthService {
             const verifyUrl = `${serverAppUrl}/email_verification/${email}`;
             console.log(verifyUrl);
         }
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: email,
-            subject: 'Verify your Email',
-            html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-             <p>This code <b>expires in 1 hour</b>.</p>`,
-        };
         const text = `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
              <p>This code <b>expires in 1 hour</b>.</p>`;
         const hashedOTP = await bcrypt.hash(otp, 10);
@@ -86,7 +79,6 @@ let AuthService = AuthService_1 = class AuthService {
             text: text,
         });
         this.logger.log('Email verification result', result);
-        const message = 'Sent Succeffully';
         return;
     }
     async verifyOTP(userId, otp) {
@@ -112,16 +104,8 @@ let AuthService = AuthService_1 = class AuthService {
         return userOtpRecord;
     }
     async regenerateOTP(userId) {
-        const findUser = await this.userModel.findOne({ userId });
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
         console.log(otp);
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: findUser.email,
-            subject: 'reverify your Email',
-            html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-             <p>This code <b>expires in 1 hour</b>.</p>`,
-        };
         const hashedOTP = await bcrypt.hash(otp, 10);
         const newOTPVerification = new this.userOtpVerificationModel({
             userId,
@@ -141,8 +125,7 @@ let AuthService = AuthService_1 = class AuthService {
     async generateAuthToken(user) {
         return this.jwtService.sign({ id: user._id });
     }
-    async loginUser(loginDto) {
-        const { email, password } = loginDto;
+    async loginUser() {
         return;
     }
     async verifyUser(user) {
