@@ -32,9 +32,9 @@ export declare class UsersController {
     private readonly usersService;
     private readonly merchantService;
     constructor(usersService: UsersService, merchantService: MerchantService);
-    create(createUserDto: CreateUserDto): Promise<(mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & Required<{
+    create(createUserDto: CreateUserDto): Promise<import("../schemas/Merchant.schema").Merchant | (mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & Required<{
         _id: unknown;
-    }>) | import("../schemas/Merchant.schema").Merchant>;
+    }>)>;
     findAll(): mongoose.Query<(mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & Required<{
         _id: unknown;
     }>)[], mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & Required<{
