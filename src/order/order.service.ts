@@ -24,7 +24,6 @@ export class OrderService {
   async createOrder({ ...createOrderDto }: CreateOrderDto): Promise<any> {
     const email = createOrderDto.email;
     const findUser = await this.usersService.findByEmail(email);
-    console.log(findUser);
     if (!findUser) {
       throw new HttpException('Merchant not found', 404);
     }
@@ -146,7 +145,6 @@ export class OrderService {
     // if (!Types.ObjectId.isValid(userId)) {
     //   throw new HttpException('Invalid user ID', 400);
     // }
-    console.log(userId + 'yemmy');
 
     const findUser = await this.userModel.findById(userId);
     if (!findUser) {
@@ -154,12 +152,10 @@ export class OrderService {
     }
 
     if (findUser) {
-      console.log(findUser);
     }
     // const merchant = 'home';
     const orders = await this.orderModel.find({ user: findUser._id }).exec();
 
-    console.log('Found Orders: ', orders);
     if (!orders.length) {
       throw new HttpException('Orders not found', 404);
     }
@@ -209,12 +205,10 @@ export class OrderService {
 
   async findOne(id: string, userId: string): Promise<any> {
     const findUser = await this.userModel.findById(userId);
-    console.log(userId);
 
     if (!findUser) {
       throw new HttpException('User not found', 404);
     }
-    console.log(id);
     const order = await this.orderModel.findOne({ _id: id }).exec();
     if (!order) {
       throw new HttpException('Order not found', 404);

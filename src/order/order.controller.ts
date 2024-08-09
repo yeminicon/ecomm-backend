@@ -19,16 +19,12 @@ export class OrderController {
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
-    console.log(createOrderDto);
     const result = this.orderService.createOrder(createOrderDto);
-    console.log(result);
     return result;
   }
 
   @Get('/userId')
   findAllByUser(@Query('userId') userId: string) {
-    console.log(userId);
-    console.log('first step');
     return this.orderService.findAllByUser(userId);
   }
 

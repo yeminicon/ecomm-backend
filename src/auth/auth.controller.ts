@@ -34,7 +34,6 @@ export class AuthController {
   @Post('/signup')
   @HttpCode(HttpStatus.CREATED)
   async signUp(@Body() signUpDto: SignUpDto) {
-    console.log(signUpDto);
     const user = await this.authService.createUser(signUpDto);
     return {
       message:
@@ -58,10 +57,6 @@ export class AuthController {
       throw new UnauthorizedException('Invalid email or password');
     }
     const token = await this.authService.generateAuthToken(user);
-    console.log(user.name);
-
-    console.log(token);
-    console.log(user);
     return {
       token,
       userId: user._id,
@@ -76,7 +71,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async adminLogin(@Body() adminLoginDto: any) {
     const { email, password } = adminLoginDto;
-    console.log(adminLoginDto);
     const user = await this.authService.validateUser(email, password);
 
     if (!user.verified) {
@@ -86,10 +80,6 @@ export class AuthController {
       throw new UnauthorizedException('Invalid email or password');
     }
     const token = await this.authService.generateAuthToken(user);
-    console.log(user.name);
-
-    console.log(token);
-    console.log(user);
     return {
       token,
       userId: user._id,

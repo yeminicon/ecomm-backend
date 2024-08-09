@@ -49,12 +49,10 @@ export class UsersController {
     @Param('id') id: string,
     @Query('userId') userId: string,
   ): Promise<{ name: string; email: string }> {
-    console.log(userId);
     const isValid = mongoose.Types.ObjectId.isValid(userId);
     if (!isValid) throw new HttpException('User not found', 404);
     const findUser = await this.usersService.findOne(userId);
     if (!findUser) throw new HttpException('User not found', 404);
-    console.log(findUser);
 
     const { name, email } = findUser;
     return { name: name, email: email };

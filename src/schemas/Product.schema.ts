@@ -22,7 +22,7 @@ export class Product extends Document {
   packaging?: string;
 
   @Prop({ required: false })
-  dimensions?: string;
+  pm?: string;
 
   @Prop({ required: false })
   ingredient?: string;

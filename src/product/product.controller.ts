@@ -21,7 +21,6 @@ export class ProductController {
 
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
-    console.log(createProductDto);
     return this.productService.createNewProduct(createProductDto);
   }
 
@@ -46,7 +45,6 @@ export class ProductController {
   }
   @Get('/findProduct')
   findOne(@Query('productId') productId: string) {
-    console.log(productId);
     return this.productService.findOne(productId);
   }
 

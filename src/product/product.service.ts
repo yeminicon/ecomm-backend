@@ -72,8 +72,6 @@ export class ProductService {
       .limit(resPerPage)
       .skip(skip);
 
-    console.log(total);
-
     return { products, total };
   }
 
@@ -87,7 +85,6 @@ export class ProductService {
     if (!isValidId) {
       throw new BadRequestException('Please enter correct id,');
     }
-    console.log(productId);
     const product = this.productModel.findOne({ _id: productId });
 
     if (!product) {

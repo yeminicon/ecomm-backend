@@ -27,7 +27,7 @@ export class CreateProductDto {
 
   @IsString()
   @IsNotEmpty()
-  dimensions?: string;
+  pm?: string;
 
   @IsString()
   @IsNotEmpty()
