@@ -5,7 +5,7 @@ export declare class CreateProductDto {
     imageurl?: string;
     quantity?: number;
     packaging?: string;
-    dimensions?: string;
+    pm?: string;
     ingredient?: string;
     nutritionalInfo?: string;
     storage?: string;

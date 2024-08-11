@@ -32,7 +32,7 @@ export declare class ProductController {
     private readonly productService;
     constructor(productService: ProductService);
     create(createProductDto: CreateProductDto): Promise<Product>;
-    findAll(page: string, keyword?: string): Promise<{
+    findAll(page?: string, keyword?: string): Promise<{
         products: Product[];
         total: number;
     }>;

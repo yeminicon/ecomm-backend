@@ -36,14 +36,12 @@ let UsersController = class UsersController {
         return this.usersService.findAll();
     }
     async findOne(id, userId) {
-        console.log(userId);
         const isValid = mongoose_1.default.Types.ObjectId.isValid(userId);
         if (!isValid)
             throw new common_1.HttpException('User not found', 404);
         const findUser = await this.usersService.findOne(userId);
         if (!findUser)
             throw new common_1.HttpException('User not found', 404);
-        console.log(findUser);
         const { name, email } = findUser;
         return { name: name, email: email };
     }

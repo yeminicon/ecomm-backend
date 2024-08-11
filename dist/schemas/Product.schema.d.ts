@@ -31,7 +31,7 @@ export declare class Product extends Document {
     description?: string;
     quantity: number;
     packaging?: string;
-    dimensions?: string;
+    pm?: string;
     ingredient?: string;
     nutritionalInfo?: string;
     storage?: string;

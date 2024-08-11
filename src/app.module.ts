@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { ProductModule } from './product/product.module';
+import { PaymentModule } from './payment/payment.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -64,6 +65,7 @@ dotenv.config();
     AuthModule,
     AnalyticsModule,
     ProductModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],

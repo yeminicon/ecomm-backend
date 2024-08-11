@@ -22,7 +22,6 @@ let ProductController = class ProductController {
         this.productService = productService;
     }
     create(createProductDto) {
-        console.log(createProductDto);
         return this.productService.createNewProduct(createProductDto);
     }
     async findAll(page, keyword) {
@@ -37,7 +36,6 @@ let ProductController = class ProductController {
         return this.productService.findAllByMerchant(merchantId);
     }
     findOne(productId) {
-        console.log(productId);
         return this.productService.findOne(productId);
     }
     update(productId, updateProductDto) {

@@ -23,7 +23,7 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
-import { User } from '../schemas/user.schema';
+import { User } from 'src/schemas/User.schema';
 import { Model } from 'mongoose';
 declare const JwtStrategy_base: new (...args: any[]) => any;
 export declare class JwtStrategy extends JwtStrategy_base {

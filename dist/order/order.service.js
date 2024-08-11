@@ -34,7 +34,6 @@ let OrderService = class OrderService {
     async createOrder({ ...createOrderDto }) {
         const email = createOrderDto.email;
         const findUser = await this.usersService.findByEmail(email);
-        console.log(findUser);
         if (!findUser) {
             throw new common_1.HttpException('Merchant not found', 404);
         }
@@ -72,16 +71,13 @@ let OrderService = class OrderService {
         return this.orderModel.find({ merchantId }).exec();
     }
     async findAllByUser(userId) {
-        console.log(userId + 'yemmy');
         const findUser = await this.userModel.findById(userId);
         if (!findUser) {
             throw new common_1.HttpException('User not found', 404);
         }
         if (findUser) {
-            console.log(findUser);
         }
         const orders = await this.orderModel.find({ user: findUser._id }).exec();
-        console.log('Found Orders: ', orders);
         if (!orders.length) {
             throw new common_1.HttpException('Orders not found', 404);
         }
@@ -110,11 +106,9 @@ let OrderService = class OrderService {
     }
     async findOne(id, userId) {
         const findUser = await this.userModel.findById(userId);
-        console.log(userId);
         if (!findUser) {
             throw new common_1.HttpException('User not found', 404);
         }
-        console.log(id);
         const order = await this.orderModel.findOne({ _id: id }).exec();
         if (!order) {
             throw new common_1.HttpException('Order not found', 404);

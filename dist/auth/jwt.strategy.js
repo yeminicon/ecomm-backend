@@ -17,7 +17,7 @@ const passport_jwt_1 = require("passport-jwt");
 const passport_1 = require("@nestjs/passport");
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const user_schema_1 = require("../schemas/user.schema");
+const User_schema_1 = require("../schemas/User.schema");
 const mongoose_2 = require("mongoose");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(userModel) {
@@ -39,7 +39,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
 exports.JwtStrategy = JwtStrategy;
 exports.JwtStrategy = JwtStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
+    __param(0, (0, mongoose_1.InjectModel)(User_schema_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
 ], JwtStrategy);
 //# sourceMappingURL=jwt.strategy.js.map

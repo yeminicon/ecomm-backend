@@ -26,7 +26,7 @@ export class ProductController {
 
   @Get()
   async findAll(
-    @Query('page') page: string,
+    @Query('page') page?: string,
     @Query('keyword') keyword?: string,
   ): Promise<{ products: Product[]; total: number }> {
     const pageNumber = page ? parseInt(page, 10) : 1;

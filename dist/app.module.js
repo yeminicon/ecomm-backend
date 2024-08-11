@@ -20,6 +20,7 @@ const jwt_1 = require("@nestjs/jwt");
 const mailer_1 = require("@nestjs-modules/mailer");
 const analytics_module_1 = require("./analytics/analytics.module");
 const product_module_1 = require("./product/product.module");
+const payment_module_1 = require("./payment/payment.module");
 const dotenv = require("dotenv");
 dotenv.config();
 let AppModule = class AppModule {
@@ -75,6 +76,7 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             analytics_module_1.AnalyticsModule,
             product_module_1.ProductModule,
+            payment_module_1.PaymentModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, common_1.Logger],

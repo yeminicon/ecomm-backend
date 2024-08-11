@@ -54,7 +54,7 @@ export class ProductService {
     pageNumber: number,
     searchWord: string,
   ): Promise<{ products: Product[]; total: number }> {
-    const resPerPage = 4;
+    const resPerPage = 10;
     const currentPage = pageNumber > 0 ? pageNumber : 1;
     const skip = resPerPage * (currentPage - 1);
     const keyword = searchWord

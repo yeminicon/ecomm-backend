@@ -26,7 +26,6 @@ let AuthController = class AuthController {
         this.userService = userService;
     }
     async signUp(signUpDto) {
-        console.log(signUpDto);
         const user = await this.authService.createUser(signUpDto);
         return {
             message: 'User successfully registered, check your email for confirmation',
@@ -43,9 +42,6 @@ let AuthController = class AuthController {
             throw new common_1.UnauthorizedException('Invalid email or password');
         }
         const token = await this.authService.generateAuthToken(user);
-        console.log(user.name);
-        console.log(token);
-        console.log(user);
         return {
             token,
             userId: user._id,
@@ -55,7 +51,6 @@ let AuthController = class AuthController {
     }
     async adminLogin(adminLoginDto) {
         const { email, password } = adminLoginDto;
-        console.log(adminLoginDto);
         const user = await this.authService.validateUser(email, password);
         if (!user.verified) {
             throw new common_1.HttpException('Kindly verify your account', 401);
@@ -64,9 +59,6 @@ let AuthController = class AuthController {
             throw new common_1.UnauthorizedException('Invalid email or password');
         }
         const token = await this.authService.generateAuthToken(user);
-        console.log(user.name);
-        console.log(token);
-        console.log(user);
         return {
             token,
             userId: user._id,

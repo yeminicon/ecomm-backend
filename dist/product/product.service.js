@@ -40,7 +40,7 @@ let ProductService = class ProductService {
         return this.productModel.findByIdAndDelete(productId);
     }
     async findAll(pageNumber, searchWord) {
-        const resPerPage = 4;
+        const resPerPage = 10;
         const currentPage = pageNumber > 0 ? pageNumber : 1;
         const skip = resPerPage * (currentPage - 1);
         const keyword = searchWord
@@ -56,7 +56,6 @@ let ProductService = class ProductService {
             .find({ ...keyword })
             .limit(resPerPage)
             .skip(skip);
-        console.log(total);
         return { products, total };
     }
     async findAllByMerchant(merchantId) {
@@ -67,7 +66,6 @@ let ProductService = class ProductService {
         if (!isValidId) {
             throw new common_1.BadRequestException('Please enter correct id,');
         }
-        console.log(productId);
         const product = this.productModel.findOne({ _id: productId });
         if (!product) {
             throw new common_1.NotFoundException('product not found');

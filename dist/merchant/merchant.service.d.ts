@@ -24,8 +24,8 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Model } from 'mongoose';
-import { User } from '../schemas/User.schema';
-import { Merchant } from '../schemas/merchant.schema';
+import { User } from 'src/schemas/User.schema';
+import { Merchant } from 'src/schemas/Merchant.schema';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 export declare class MerchantService {
     private merchantModel;

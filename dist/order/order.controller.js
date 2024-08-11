@@ -22,14 +22,10 @@ let OrderController = class OrderController {
         this.orderService = orderService;
     }
     create(createOrderDto) {
-        console.log(createOrderDto);
         const result = this.orderService.createOrder(createOrderDto);
-        console.log(result);
         return result;
     }
     findAllByUser(userId) {
-        console.log(userId);
-        console.log('first step');
         return this.orderService.findAllByUser(userId);
     }
     findOne(id, userId) {

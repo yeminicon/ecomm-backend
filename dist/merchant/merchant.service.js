@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const User_schema_1 = require("../schemas/User.schema");
-const merchant_schema_1 = require("../schemas/merchant.schema");
+const Merchant_schema_1 = require("../schemas/Merchant.schema");
 let MerchantService = class MerchantService {
     constructor(merchantModel, userModel) {
         this.merchantModel = merchantModel;
@@ -42,7 +42,7 @@ let MerchantService = class MerchantService {
 exports.MerchantService = MerchantService;
 exports.MerchantService = MerchantService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(merchant_schema_1.Merchant.name)),
+    __param(0, (0, mongoose_1.InjectModel)(Merchant_schema_1.Merchant.name)),
     __param(1, (0, mongoose_1.InjectModel)(User_schema_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model])
