@@ -79,7 +79,6 @@ let OrderService = class OrderService {
         }
         const orders = await this.orderModel.find({ user: findUser._id }).exec();
         if (!orders.length) {
-            console.log('No transaction found');
             return {
                 message: 'No transaction found',
                 orders: [],

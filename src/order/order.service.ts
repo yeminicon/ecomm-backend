@@ -156,13 +156,7 @@ export class OrderService {
     // const merchant = 'home';
     const orders = await this.orderModel.find({ user: findUser._id }).exec();
 
-    // if (!orders.length) {
-    //   const orders = [];
-    //   return orders;
-    // }
-
     if (!orders.length) {
-      console.log('No transaction found');
       return {
         message: 'No transaction found',
         orders: [],
