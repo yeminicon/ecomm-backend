@@ -43,7 +43,7 @@ export declare class OrderService {
     createOrder({ ...createOrderDto }: CreateOrderDto): Promise<any>;
     findAllByMerchant(merchantId: string): Promise<Order[]>;
     findAllByUser(userId: string): Promise<any>;
-    findOne(id: string, userId: string): Promise<any>;
+    findOne(id: string): Promise<any>;
     update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order>;
     remove(id: string): Promise<string>;
 }

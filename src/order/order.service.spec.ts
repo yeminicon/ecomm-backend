@@ -148,35 +148,6 @@ describe('OrderService', () => {
     userModel = module.get<Model<User>>(getModelToken(User.name));
   });
 
-  // describe('create', () => {
-  //   it('should create and return an order', async () => {
-  //     const newOrder = {
-  //       _id: '66ade75e04802b152b1f465d',
-  //       shippingAddress: '13 Immaculate',
-  //       shippingCity: 'Ado Ota',
-  //       shippingState: 'Ogun',
-  //       shippingCountry: 'GD',
-  //       shippingZipCode: '112102',
-  //       name: 'home',
-  //       phoneNumber: '08144616094',
-  //       email: 'akinyele.adeyemi9005@gmail.com',
-  //       orderSum: 32000,
-  //       orderQuantity: 2,
-  //       cartItem: [],
-  //       paymentMethod: 'Pick-Up',
-  //       orderStatus: 'PENDING',
-  //       user: '66a9c224e86fd41e26be3e1b',
-  //       merchant: 'home',
-  //       createdAt: '2024-08-03T08:16:30.105+00:00',
-  //       updatedAt: '2024-08-03T08:16:30.105+00:00',
-  //     };
-
-  //     const result = await service.createOrder(newOrder as CreateOrderDto);
-  //     console.log(result);
-  //     expect(result).toEqual(mockOrder);
-  //   });
-  // });
-
   describe('findAllByUser', () => {
     it('should find all orders', async () => {
       const userId = '66a9c224e86fd41e26be3e1b';

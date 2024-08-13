@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  // UseGuards,
   Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
@@ -29,8 +28,8 @@ export class OrderController {
   }
 
   @Get('/id')
-  findOne(@Query('id') id: string, @Query('userId') userId: string) {
-    return this.orderService.findOne(id, userId);
+  findOne(@Query('id') id: string) {
+    return this.orderService.findOne(id);
   }
 
   @Patch(':id')

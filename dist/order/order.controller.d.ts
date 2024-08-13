@@ -6,7 +6,7 @@ export declare class OrderController {
     constructor(orderService: OrderService);
     create(createOrderDto: CreateOrderDto): Promise<any>;
     findAllByUser(userId: string): Promise<any>;
-    findOne(id: string, userId: string): Promise<any>;
+    findOne(id: string): Promise<any>;
     update(id: string, updateOrderDto: UpdateOrderDto): Promise<import("../schemas/Order.schema").Order>;
     remove(id: string): Promise<string>;
 }

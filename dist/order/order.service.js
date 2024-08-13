@@ -79,7 +79,11 @@ let OrderService = class OrderService {
         }
         const orders = await this.orderModel.find({ user: findUser._id }).exec();
         if (!orders.length) {
-            throw new common_1.HttpException('Orders not found', 404);
+            console.log('No transaction found');
+            return {
+                message: 'No transaction found',
+                orders: [],
+            };
         }
         return orders.map((order) => {
             const { _id, shippingAddress, shippingCity, shippingState, shippingCountry, shippingZipCode, name, email: orderEmail, phoneNumber, cartItem, paymentMethod, orderStatus, orderQuantity, orderSum, merchant, createdAt, updatedAt, } = order;
@@ -104,11 +108,7 @@ let OrderService = class OrderService {
             };
         });
     }
-    async findOne(id, userId) {
-        const findUser = await this.userModel.findById(userId);
-        if (!findUser) {
-            throw new common_1.HttpException('User not found', 404);
-        }
+    async findOne(id) {
         const order = await this.orderModel.findOne({ _id: id }).exec();
         if (!order) {
             throw new common_1.HttpException('Order not found', 404);

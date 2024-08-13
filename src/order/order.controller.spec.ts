@@ -96,15 +96,14 @@ describe('OrderController', () => {
   describe('findOne', () => {
     it('should call orderService.findOne and return the result', async () => {
       const id = 'test-id';
-      const userId = 'test-user-id';
       const mockResult = {
         /* mock order */
       };
 
       jest.spyOn(orderService, 'findOne').mockResolvedValue(mockResult);
 
-      const result = await orderController.findOne(id, userId);
-      expect(orderService.findOne).toHaveBeenCalledWith(id, userId);
+      const result = await orderController.findOne(id);
+      expect(orderService.findOne).toHaveBeenCalledWith(id);
       expect(result).toEqual(mockResult);
     });
   });
