@@ -18,6 +18,7 @@ import {
   UserOTPVerification,
   UserOTPVerificationSchema,
 } from '../schemas/UserOTPVerification';
+import { MailService } from 'src/mailer/mailer.service';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import {
     AnalyticsService,
     AuthService,
     JwtService,
+    MailService,
   ],
 })
 export class UsersModule {}

@@ -15,11 +15,18 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
+const smtpexpress_1 = require("smtpexpress");
 let MailService = MailService_1 = class MailService {
     constructor(configService) {
         this.configService = configService;
         this.logger = new common_1.Logger(MailService_1.name);
         this.templateExt = '.hbs';
+        this.smtpExpressApiUrl = this.configService.get('smtpExpressApiUrl');
+        this.projectSecret = this.configService.get('smtSecret');
+        this.smtpexpressClient = (0, smtpexpress_1.createClient)({
+            projectSecret: this.configService.get('smtSecret'),
+            projectId: this.configService.get('smtProjectId'),
+        });
         this.transporter = nodemailer.createTransport({
             host: this.configService.get(process.env.MailerHost),
             port: this.configService.get(process.env.Port),
@@ -58,6 +65,39 @@ let MailService = MailService_1 = class MailService {
         catch (error) {
             this.logger.error(`Failed to send email to ${to}: ${error}`);
             throw new Error(`Failed to send email to ${to}: ${error}`);
+        }
+    }
+    async sendEmail(email, name, link, otp) {
+        console.log(email);
+        console.log(link);
+        console.log(name);
+        console.log(otp);
+        try {
+            await this.smtpexpressClient.sendApi.sendMail({
+                subject: 'Verify your email',
+                template: {
+                    id: 'beNfwTrsRd12t_yJld6bF',
+                    variables: {
+                        name: name,
+                        link: link,
+                        emailAddress: email,
+                        otp: otp,
+                    },
+                },
+                sender: {
+                    name: this.configService.get('senderName'),
+                    email: this.configService.get('senderEmail'),
+                },
+                recipients: {
+                    name: name,
+                    email: email,
+                },
+            });
+            console.log('Email sent successfully');
+        }
+        catch (error) {
+            console.error('Error sending email:', error.message);
+            throw new Error('Failed to send email');
         }
     }
 };

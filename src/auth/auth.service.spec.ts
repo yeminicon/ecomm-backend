@@ -10,6 +10,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { UserOTPVerification } from 'src/schemas/UserOTPVerification';
 import { Merchant } from 'src/schemas/Merchant.schema';
 import { MailerService } from '@nestjs-modules/mailer';
+import { MailService } from 'src/mailer/mailer.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -20,6 +21,7 @@ describe('AuthService', () => {
   let otpModel: Model<UserOTPVerification>;
   let merchantModel: Model<Merchant>;
   let jwtService: JwtService;
+  let mailService: MailService;
 
   const mockUser = {
     _id: '66a9c224e86fd41e26be3e1b',
@@ -47,6 +49,7 @@ describe('AuthService', () => {
         JwtService,
         MerchantService,
         ConfigService,
+        MailService,
         {
           provide: MailerService,
           useValue: mockMailerService, // Mocking the MailerService

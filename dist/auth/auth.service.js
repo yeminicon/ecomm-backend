@@ -22,16 +22,16 @@ const jwt_1 = require("@nestjs/jwt");
 const User_schema_1 = require("../schemas/User.schema");
 const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
 const merchant_service_1 = require("../merchant/merchant.service");
-const mailer_1 = require("@nestjs-modules/mailer");
 const config_1 = require("@nestjs/config");
+const mailer_service_1 = require("../mailer/mailer.service");
 let AuthService = AuthService_1 = class AuthService {
-    constructor(userModel, userOtpVerificationModel, merchantService, jwtService, mailerService, configService) {
+    constructor(userModel, userOtpVerificationModel, merchantService, jwtService, configService, mailService) {
         this.userModel = userModel;
         this.userOtpVerificationModel = userOtpVerificationModel;
         this.merchantService = merchantService;
         this.jwtService = jwtService;
-        this.mailerService = mailerService;
         this.configService = configService;
+        this.mailService = mailService;
         this.logger = new common_1.Logger(AuthService_1.name);
     }
     async createUser(signUpDto) {
@@ -60,11 +60,6 @@ let AuthService = AuthService_1 = class AuthService {
         console.log(otp);
         const serverAppUrl = this.configService.get('SERVER_APP_URL');
         const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
-        console.log(verifyUrl);
-        const text = `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-             <p>This code <b>expires in 1 hour</b>.</p>
-             link: ${verifyUrl}
-             `;
         const hashedOTP = await bcrypt.hash(otp, 10);
         const newOTPVerification = new this.userOtpVerificationModel({
             userId,
@@ -73,12 +68,7 @@ let AuthService = AuthService_1 = class AuthService {
             expiresAt: Date.now() + 3600000,
         });
         await newOTPVerification.save();
-        const result = await this.mailerService.sendMail({
-            to: email,
-            subject: 'Verify Email Address',
-            from: 'contact@deepisces.com.ng',
-            text: text,
-        });
+        const result = await this.mailService.sendEmail(email, userId, verifyUrl, otp);
         this.logger.log('Email verification result', result);
         return;
     }
@@ -147,7 +137,7 @@ exports.AuthService = AuthService = AuthService_1 = __decorate([
         mongoose_2.Model,
         merchant_service_1.MerchantService,
         jwt_1.JwtService,
-        mailer_1.MailerService,
-        config_1.ConfigService])
+        config_1.ConfigService,
+        mailer_service_1.MailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

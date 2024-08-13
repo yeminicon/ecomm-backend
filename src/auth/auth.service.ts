@@ -8,12 +8,8 @@ import { User } from 'src/schemas/User.schema';
 import { UserOTPVerification } from '../schemas/UserOTPVerification';
 import { SignUpDto } from './dto/signup.dto';
 import { MerchantService } from '../merchant/merchant.service';
-
-import { MailerService } from '@nestjs-modules/mailer';
-
-// import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
-// import { ConfigService } from '@nestjs/config';
+import { MailService } from 'src/mailer/mailer.service';
 
 @Injectable()
 export class AuthService {
@@ -25,8 +21,8 @@ export class AuthService {
     private readonly userOtpVerificationModel: Model<UserOTPVerification>,
     private readonly merchantService: MerchantService,
     private readonly jwtService: JwtService,
-    private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
+    private readonly mailService: MailService,
   ) {}
 
   async createUser(signUpDto: SignUpDto): Promise<User> {
@@ -66,20 +62,6 @@ export class AuthService {
 
     const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
     const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
-    console.log(verifyUrl);
-
-    // const mailOptions = {
-    //   from: process.env.EMAIL_USER,
-    //   to: email,
-    //   subject: 'Verify your Email',
-    //   html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-    //          <p>This code <b>expires in 1 hour</b>.</p>`,
-    // };
-
-    const text = `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-             <p>This code <b>expires in 1 hour</b>.</p>
-             link: ${verifyUrl}
-             `;
     const hashedOTP = await bcrypt.hash(otp, 10);
 
     const newOTPVerification = new this.userOtpVerificationModel({
@@ -90,43 +72,21 @@ export class AuthService {
     });
 
     await newOTPVerification.save();
-    // await this.mailerService.sendMail({
-    //   to: email,
-    //   from: 'contact@deepisces.com.ng',
-    //   subject: 'Verify your Email',
-    //   text,
-    //   context: {
-    //     text: text,
-    //   },
-    // });
-
-    const result = await this.mailerService.sendMail({
-      to: email,
-      subject: 'Verify Email Address',
-      from: 'contact@deepisces.com.ng',
-      text: text,
-      // template: 'verify_email',
-      // context: {
-      //   hashedOTP,
-      //   email,
-      // },
-    });
+    const result = await this.mailService.sendEmail(
+      email,
+      userId,
+      verifyUrl,
+      otp,
+    );
 
     this.logger.log('Email verification result', result);
     return;
-
-    // await this.mailerService.sendMail(
-    //   email,
-    //   'Verify your Email',
-    //   mailOptions.html,
-    // );
   }
 
   async verifyOTP(
     userId: string,
     otp: string,
   ): Promise<UserOTPVerification | string> {
-    // const { userId, unVerifiedOtp } = verifyUpDto;
     const userOtpRecord = await this.userOtpVerificationModel.findOne({
       userId,
     });
@@ -155,17 +115,8 @@ export class AuthService {
   }
 
   async regenerateOTP(userId: string) {
-    // const findUser = await this.userModel.findOne({ userId });
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     console.log(otp);
-
-    // const mailOptions = {
-    //   from: process.env.EMAIL_USER,
-    //   to: findUser.email,
-    //   subject: 'reverify your Email',
-    //   html: `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-    //          <p>This code <b>expires in 1 hour</b>.</p>`,
-    // };
 
     const hashedOTP = await bcrypt.hash(otp, 10);
 
@@ -177,11 +128,6 @@ export class AuthService {
     });
 
     await newOTPVerification.save();
-    // await this.mailerService.sendMail(
-    //   findUser.email,
-    //   'Verify your Email',
-    //   mailOptions.html,
-    // );
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {

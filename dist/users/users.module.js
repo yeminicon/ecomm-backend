@@ -21,6 +21,7 @@ const auth_service_1 = require("../auth/auth.service");
 const jwt_1 = require("@nestjs/jwt");
 const Product_schema_1 = require("../schemas/Product.schema");
 const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
+const mailer_service_1 = require("../mailer/mailer.service");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -58,6 +59,7 @@ exports.UsersModule = UsersModule = __decorate([
             analytics_service_1.AnalyticsService,
             auth_service_1.AuthService,
             jwt_1.JwtService,
+            mailer_service_1.MailService,
         ],
     })
 ], UsersModule);

@@ -13,6 +13,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { ProductModule } from './product/product.module';
 import { PaymentModule } from './payment/payment.module';
 import * as dotenv from 'dotenv';
+// import { MailService } from './mailer/mailer.service';
 
 dotenv.config();
 
