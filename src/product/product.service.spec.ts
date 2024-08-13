@@ -108,9 +108,10 @@ describe('ProductService', () => {
       jest.spyOn(model, 'findByIdAndDelete').mockResolvedValue(mockProduct);
 
       const result = await service.deleteProduct(mockProduct._id);
+      const message = 'Succefully deleted this product';
 
       expect(model.findByIdAndDelete).toHaveBeenCalledWith(mockProduct._id);
-      expect(result).toEqual(mockProduct);
+      expect(result).toEqual(message);
     });
   });
 
