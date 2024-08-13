@@ -34,12 +34,12 @@ dotenv.config();
         const logger = new Logger('MailerModule');
         return {
           transport: {
-            host: configService.get<string>('MailerHost'),
-            port: Number(configService.get('MailerPort')),
+            host: configService.get<string>('MAILERHOST'),
+            port: Number(configService.get('MAILERPORT')),
             secure: false,
             auth: {
-              user: configService.get('MailerForm'),
-              pass: configService.get('MailerPass'),
+              user: configService.get('MAILERUSER'),
+              pass: configService.get('MAILERPASS'),
             },
             tls: {
               rejectUnauthorized: false,
@@ -52,7 +52,7 @@ dotenv.config();
             },
           },
           defaults: {
-            from: configService.get('MailerForm'),
+            from: configService.get('MAILERFROM'),
           },
         };
       },

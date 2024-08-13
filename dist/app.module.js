@@ -45,12 +45,12 @@ exports.AppModule = AppModule = __decorate([
                     const logger = new common_1.Logger('MailerModule');
                     return {
                         transport: {
-                            host: configService.get('MailerHost'),
-                            port: Number(configService.get('MailerPort')),
+                            host: configService.get('MAILERHOST'),
+                            port: Number(configService.get('MAILERPORT')),
                             secure: false,
                             auth: {
-                                user: configService.get('MailerForm'),
-                                pass: configService.get('MailerPass'),
+                                user: configService.get('MAILERUSER'),
+                                pass: configService.get('MAILERPASS'),
                             },
                             tls: {
                                 rejectUnauthorized: false,
@@ -63,7 +63,7 @@ exports.AppModule = AppModule = __decorate([
                             },
                         },
                         defaults: {
-                            from: configService.get('MailerForm'),
+                            from: configService.get('MAILERFROM'),
                         },
                     };
                 },
