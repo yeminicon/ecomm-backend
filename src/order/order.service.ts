@@ -86,61 +86,6 @@ export class OrderService {
     return this.orderModel.find({ merchantId }).exec();
   }
 
-  // async findAllByUser(userId: string): Promise<Order[]> {
-  //   const findUser = await this.userModel.findOne({ userId });
-  //   if (!findUser) {
-  //     throw new HttpException('Merchant not found', 404);
-  //   }
-  //   if (!Types.ObjectId.isValid(userId)) {
-  //     throw new HttpException('Order not found', 404);
-  //   }
-
-  //   const order = await this.orderModel.find({ userId }).exec();
-  //   if (!order) {
-  //     throw new HttpException('Order not found', 404);
-  //   }
-
-  //   const {
-  //     _id,
-  //     shippingAddress,
-  //     shippingCity,
-  //     shippingState,
-  //     shippingCountry,
-  //     shippingZipCode,
-  //     name,
-  //     email: orderEmail,
-  //     phoneNumber,
-  //     cartItem,
-  //     paymentMethod,
-  //     orderStatus,
-  //     orderQuantity,
-  //     orderSum,
-  //     merchant,
-  //     createdAt,
-  //     updatedAt,
-  //   } = order.toObject();
-
-  //   return {
-  //     _id,
-  //     shippingAddress,
-  //     shippingCity,
-  //     shippingState,
-  //     shippingCountry,
-  //     shippingZipCode,
-  //     name,
-  //     email: orderEmail,
-  //     phoneNumber,
-  //     cartItem,
-  //     paymentMethod,
-  //     orderStatus,
-  //     orderQuantity,
-  //     orderSum,
-  //     merchant,
-  //     createdAt,
-  //     updatedAt,
-  //   };
-  // }
-
   async findAllByUser(userId: string): Promise<any> {
     // if (!Types.ObjectId.isValid(userId)) {
     //   throw new HttpException('Invalid user ID', 400);
@@ -254,13 +199,13 @@ export class OrderService {
   }
 
   async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
-    if (!Types.ObjectId.isValid(id)) {
-      throw new HttpException('Order not found', 404);
-    }
-
-    const updatedOrder = await this.orderModel
-      .findByIdAndUpdate(id, updateOrderDto, { new: true })
-      .exec();
+    console.log(updateOrderDto);
+    console.log(id);
+    const updatedOrder = await this.orderModel.findByIdAndUpdate(
+      { _id: id },
+      updateOrderDto,
+      { new: true },
+    );
     if (!updatedOrder) {
       throw new HttpException('Order not found', 404);
     }

@@ -48,16 +48,16 @@ export class ProductController {
     return this.productService.findOne(productId);
   }
 
-  @Patch(':id')
+  @Patch('/id')
   update(
-    @Param('productId') productId: string,
+    @Query('productId') productId: string,
     @Body() updateProductDto: UpdateProductDto,
   ) {
     return this.productService.updateProductInfo(productId, updateProductDto);
   }
 
-  @Delete(':id')
-  remove(@Param('productId') productId: string) {
+  @Delete('/id')
+  remove(@Query('productId') productId: string) {
     return this.productService.deleteProduct(productId);
   }
 }

@@ -37,7 +37,12 @@ let ProductService = class ProductService {
         });
     }
     async deleteProduct(productId) {
-        return this.productModel.findByIdAndDelete(productId);
+        const removeProduct = await this.productModel.findByIdAndDelete(productId);
+        if (!removeProduct) {
+            throw new common_1.HttpException('Product not found', 404);
+        }
+        const message = 'Succefully deleted this product';
+        return message;
     }
     async findAll(pageNumber, searchWord) {
         const resPerPage = 10;

@@ -1,38 +1,44 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {  IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateProductDto {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   price?: number;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
+  name?: NamedCurve;
+
+  @IsString()
+  @IsOptional()
   description?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   imageurl?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   quantity?: number;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   packaging?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   dimensions?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MaxLength(100)
   ingredient?: string;
 
   @IsString()
+  @IsOptional()
   nutritionalInfo?: string;
 
   @IsString()
+  @IsOptional()
   storage?: string;
 }

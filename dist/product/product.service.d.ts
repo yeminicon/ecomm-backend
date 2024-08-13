@@ -40,9 +40,7 @@ export declare class ProductService {
     updateProductInfo(productId: string, updateProduct: UpdateProductDto): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
-    deleteProduct(productId: string): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
-        _id: unknown;
-    }>>;
+    deleteProduct(productId: string): Promise<string>;
     findAll(pageNumber: number, searchWord: string): Promise<{
         products: Product[];
         total: number;

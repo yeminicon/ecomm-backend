@@ -134,12 +134,9 @@ let OrderService = class OrderService {
         };
     }
     async update(id, updateOrderDto) {
-        if (!mongoose_2.Types.ObjectId.isValid(id)) {
-            throw new common_1.HttpException('Order not found', 404);
-        }
-        const updatedOrder = await this.orderModel
-            .findByIdAndUpdate(id, updateOrderDto, { new: true })
-            .exec();
+        console.log(updateOrderDto);
+        console.log(id);
+        const updatedOrder = await this.orderModel.findByIdAndUpdate({ _id: id }, updateOrderDto, { new: true });
         if (!updatedOrder) {
             throw new common_1.HttpException('Order not found', 404);
         }

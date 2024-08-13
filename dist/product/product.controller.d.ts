@@ -41,7 +41,5 @@ export declare class ProductController {
     update(productId: string, updateProductDto: UpdateProductDto): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
-    remove(productId: string): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
-        _id: unknown;
-    }>>;
+    remove(productId: string): Promise<string>;
 }

@@ -58,13 +58,13 @@ let AuthService = AuthService_1 = class AuthService {
     async sendOtpVerification(email, userId) {
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
         console.log(otp);
-        if (otp) {
-            const serverAppUrl = this.configService.get('SERVER_APP_URL');
-            const verifyUrl = `${serverAppUrl}/email_verification/${email}`;
-            console.log(verifyUrl);
-        }
+        const serverAppUrl = this.configService.get('SERVER_APP_URL');
+        const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
+        console.log(verifyUrl);
         const text = `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-             <p>This code <b>expires in 1 hour</b>.</p>`;
+             <p>This code <b>expires in 1 hour</b>.</p>
+             link: ${verifyUrl}
+             `;
         const hashedOTP = await bcrypt.hash(otp, 10);
         const newOTPVerification = new this.userOtpVerificationModel({
             userId,
@@ -76,6 +76,7 @@ let AuthService = AuthService_1 = class AuthService {
         const result = await this.mailerService.sendMail({
             to: email,
             subject: 'Verify Email Address',
+            from: 'contact@deepisces.com.ng',
             text: text,
         });
         this.logger.log('Email verification result', result);

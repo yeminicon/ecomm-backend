@@ -63,11 +63,10 @@ export class AuthService {
   ): Promise<void> {
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     console.log(otp);
-    if (otp) {
-      const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
-      const verifyUrl = `${serverAppUrl}/email_verification/${email}`;
-      console.log(verifyUrl);
-    }
+
+    const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
+    const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
+    console.log(verifyUrl);
 
     // const mailOptions = {
     //   from: process.env.EMAIL_USER,
@@ -78,7 +77,9 @@ export class AuthService {
     // };
 
     const text = `<p>Enter <b>${otp}</b> in the app to verify your email address and complete the signup process</p>
-             <p>This code <b>expires in 1 hour</b>.</p>`;
+             <p>This code <b>expires in 1 hour</b>.</p>
+             link: ${verifyUrl}
+             `;
     const hashedOTP = await bcrypt.hash(otp, 10);
 
     const newOTPVerification = new this.userOtpVerificationModel({
@@ -89,11 +90,20 @@ export class AuthService {
     });
 
     await newOTPVerification.save();
-    //await this.mailerService.sendMail(email, 'Verify your Email', text);
+    // await this.mailerService.sendMail({
+    //   to: email,
+    //   from: 'contact@deepisces.com.ng',
+    //   subject: 'Verify your Email',
+    //   text,
+    //   context: {
+    //     text: text,
+    //   },
+    // });
 
     const result = await this.mailerService.sendMail({
       to: email,
       subject: 'Verify Email Address',
+      from: 'contact@deepisces.com.ng',
       text: text,
       // template: 'verify_email',
       // context: {

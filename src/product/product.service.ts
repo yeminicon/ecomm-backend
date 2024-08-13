@@ -2,6 +2,7 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
+  HttpException,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -47,7 +48,12 @@ export class ProductService {
   }
 
   async deleteProduct(productId: string) {
-    return this.productModel.findByIdAndDelete(productId);
+    const removeProduct = await this.productModel.findByIdAndDelete(productId);
+    if (!removeProduct) {
+      throw new HttpException('Product not found', 404);
+    }
+    const message = 'Succefully deleted this product';
+    return message;
   }
 
   async findAll(
