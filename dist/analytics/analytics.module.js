@@ -19,6 +19,8 @@ const users_service_1 = require("../users/users.service");
 const Order_schema_1 = require("../schemas/Order.schema");
 const Product_schema_1 = require("../schemas/Product.schema");
 const product_service_1 = require("../product/product.service");
+const Wallet_schema_1 = require("../schemas/Wallet.schema");
+const wallet_service_1 = require("../wallet/wallet.service");
 let AnalyticsModule = class AnalyticsModule {
 };
 exports.AnalyticsModule = AnalyticsModule;
@@ -26,6 +28,10 @@ exports.AnalyticsModule = AnalyticsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([
+                {
+                    name: Wallet_schema_1.Wallet.name,
+                    schema: Wallet_schema_1.WalletSchema,
+                },
                 {
                     name: User_schema_1.User.name,
                     schema: User_schema_1.UserSchema,
@@ -51,6 +57,7 @@ exports.AnalyticsModule = AnalyticsModule = __decorate([
             users_service_1.UsersService,
             order_service_1.OrderService,
             product_service_1.ProductService,
+            wallet_service_1.WalletService,
         ],
     })
 ], AnalyticsModule);

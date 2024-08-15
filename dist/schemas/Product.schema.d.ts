@@ -28,6 +28,9 @@ export declare class Product extends Document {
     name: string;
     price: number;
     imageurl?: string;
+    category?: string;
+    brand?: string;
+    merchantId?: string;
     description?: string;
     quantity: number;
     packaging?: string;

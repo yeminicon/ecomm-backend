@@ -27,11 +27,19 @@ import { Model } from 'mongoose';
 import { User } from 'src/schemas/User.schema';
 import { Merchant } from 'src/schemas/Merchant.schema';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
+import { CreateMerchantDto } from './dto/create-merchant.dto';
+import { Wallet } from 'src/schemas/Wallet.schema';
+import { WalletService } from 'src/wallet/wallet.service';
 export declare class MerchantService {
     private merchantModel;
     private userModel;
-    constructor(merchantModel: Model<Merchant>, userModel: Model<User>);
-    create(userId: string): Promise<Merchant>;
+    private walletModel;
+    private readonly walletService;
+    constructor(merchantModel: Model<Merchant>, userModel: Model<User>, walletModel: Model<Wallet>, walletService: WalletService);
+    create(userId: string, createMerchantDto?: CreateMerchantDto): Promise<Merchant>;
     findById(id: string): Promise<Merchant>;
     update(id: string, merchant: UpdateMerchantDto): Promise<Merchant>;
+    delete(id: string): Promise<import("mongoose").Document<unknown, {}, Merchant> & Merchant & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
 }

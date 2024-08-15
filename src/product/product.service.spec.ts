@@ -10,12 +10,16 @@ import { MerchantService } from 'src/merchant/merchant.service';
 import { UsersService } from 'src/users/users.service';
 import { BadRequestException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
+import { Wallet } from 'src/schemas/Wallet.schema';
+import { WalletService } from 'src/wallet/wallet.service';
 
 describe('ProductService', () => {
   let service: ProductService;
   let usersService: UsersService;
   let merchantService: MerchantService;
   let model: Model<Product>;
+  let walletService: WalletService;
+  let walletModel: Model<Wallet>;
 
   const mockProduct = {
     _id: '66ab6c6cc5ed2e4a33aa46f9',
@@ -46,6 +50,7 @@ describe('ProductService', () => {
   };
   const mockUserService = {};
   const mockMerchantService = {};
+  const mockWalletService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -53,6 +58,7 @@ describe('ProductService', () => {
         ProductService,
         MerchantService,
         UsersService,
+        WalletService,
         {
           provide: getModelToken(Product.name),
           useValue: mockProductService,
@@ -65,6 +71,10 @@ describe('ProductService', () => {
           provide: getModelToken(Merchant.name),
           useValue: mockMerchantService,
         },
+        {
+          provide: getModelToken(Wallet.name),
+          useValue: mockWalletService,
+        },
       ],
     }).compile();
 
@@ -74,6 +84,8 @@ describe('ProductService', () => {
     model = module.get<Model<Product>>(getModelToken(Product.name));
     merchantModel = module.get<Model<Merchant>>(getModelToken(Merchant.name));
     userModel = module.get<Model<User>>(getModelToken(User.name));
+    walletModel = module.get<Model<Wallet>>(getModelToken(Wallet.name));
+    walletService = module.get<WalletService>(WalletService);
   });
 
   describe('create', () => {

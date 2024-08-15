@@ -11,6 +11,8 @@ import { UserOTPVerification } from 'src/schemas/UserOTPVerification';
 import { Merchant } from 'src/schemas/Merchant.schema';
 import { MailerService } from '@nestjs-modules/mailer';
 import { MailService } from 'src/mailer/mailer.service';
+import { Wallet } from 'src/schemas/Wallet.schema';
+import { WalletService } from 'src/wallet/wallet.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -19,9 +21,11 @@ describe('AuthService', () => {
   let configService: ConfigService;
   let model: Model<User>;
   let otpModel: Model<UserOTPVerification>;
+  let walletModel: Model<Wallet>;
   let merchantModel: Model<Merchant>;
   let jwtService: JwtService;
   let mailService: MailService;
+  let walletService: WalletService;
 
   const mockUser = {
     _id: '66a9c224e86fd41e26be3e1b',
@@ -41,6 +45,7 @@ describe('AuthService', () => {
   const mockUserService = {};
   const mockMerchantService = {};
   const mockMailerService = {};
+  const mockWalletService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -50,6 +55,7 @@ describe('AuthService', () => {
         MerchantService,
         ConfigService,
         MailService,
+        WalletService,
         {
           provide: MailerService,
           useValue: mockMailerService, // Mocking the MailerService
@@ -70,6 +76,10 @@ describe('AuthService', () => {
           provide: getModelToken(Merchant.name),
           useValue: mockMerchantService,
         },
+        {
+          provide: getModelToken(Wallet.name),
+          useValue: mockWalletService,
+        },
       ],
     }).compile();
 
@@ -80,7 +90,9 @@ describe('AuthService', () => {
     otpModel = module.get<Model<UserOTPVerification>>(
       getModelToken(UserOTPVerification.name),
     );
+    walletModel = module.get<Model<Wallet>>(getModelToken(Wallet.name));
     jwtService = module.get<JwtService>(JwtService);
+    walletService = module.get<WalletService>(WalletService);
   });
 
   it('should be defined', () => {

@@ -16,6 +16,8 @@ const Merchant_schema_1 = require("../schemas/Merchant.schema");
 const Product_schema_1 = require("../schemas/Product.schema");
 const product_service_1 = require("../product/product.service");
 const users_service_1 = require("../users/users.service");
+const Wallet_schema_1 = require("../schemas/Wallet.schema");
+const wallet_service_1 = require("../wallet/wallet.service");
 let MerchantModule = class MerchantModule {
 };
 exports.MerchantModule = MerchantModule;
@@ -35,10 +37,14 @@ exports.MerchantModule = MerchantModule = __decorate([
                     name: Product_schema_1.Product.name,
                     schema: Product_schema_1.ProductSchema,
                 },
+                {
+                    name: Wallet_schema_1.Wallet.name,
+                    schema: Wallet_schema_1.WalletSchema,
+                },
             ]),
         ],
         controllers: [merchant_controller_1.MerchantController],
-        providers: [merchant_service_1.MerchantService, product_service_1.ProductService, users_service_1.UsersService],
+        providers: [merchant_service_1.MerchantService, product_service_1.ProductService, users_service_1.UsersService, wallet_service_1.WalletService],
     })
 ], MerchantModule);
 //# sourceMappingURL=merchant.module.js.map

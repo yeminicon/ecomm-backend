@@ -9,10 +9,16 @@ import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
 import { Order, OrderSchema } from '../schemas/Order.schema';
 import { Product } from '../schemas/Product.schema';
 import { ProductService } from '../product/product.service';
+import { Wallet, WalletSchema } from 'src/schemas/Wallet.schema';
+import { WalletService } from 'src/wallet/wallet.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
+      {
+        name: Wallet.name,
+        schema: WalletSchema,
+      },
       {
         name: User.name,
         schema: UserSchema,
@@ -33,6 +39,12 @@ import { ProductService } from '../product/product.service';
     ]),
   ],
   controllers: [OrderController],
-  providers: [OrderService, UsersService, MerchantService, ProductService],
+  providers: [
+    OrderService,
+    UsersService,
+    MerchantService,
+    ProductService,
+    WalletService,
+  ],
 })
 export class OrderModule {}

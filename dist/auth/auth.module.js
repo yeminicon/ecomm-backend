@@ -22,6 +22,7 @@ const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
 const mailer_service_1 = require("../mailer/mailer.service");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
 const users_service_1 = require("../users/users.service");
+const wallet_service_1 = require("../wallet/wallet.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -64,6 +65,7 @@ exports.AuthModule = AuthModule = __decorate([
             auth_service_1.AuthService,
             jwt_strategy_1.JwtStrategy,
             merchant_service_1.MerchantService,
+            wallet_service_1.WalletService,
             mailer_service_1.MailService,
             users_service_1.UsersService,
         ],

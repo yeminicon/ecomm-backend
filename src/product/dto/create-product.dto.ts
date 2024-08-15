@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -18,6 +18,18 @@ export class CreateProductDto {
   imageurl?: string;
 
   @IsString()
+  @IsOptional()
+  category?: string;
+
+  @IsString()
+  @IsOptional()
+  brand?: string;
+
+  @IsString()
+  @IsOptional()
+  merchantId?: string;
+
+  @IsString()
   @IsNotEmpty()
   quantity?: number;
 
@@ -26,18 +38,19 @@ export class CreateProductDto {
   packaging?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   pm?: string;
 
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(100)
+  @IsOptional()
   ingredient?: string;
 
   @IsString()
+  @IsOptional()
   nutritionalInfo?: string;
 
   @IsString()
+  @IsOptional()
   storage?: string;
 
   // @IsString()

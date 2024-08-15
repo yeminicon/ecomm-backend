@@ -22,6 +22,8 @@ const analytics_module_1 = require("./analytics/analytics.module");
 const product_module_1 = require("./product/product.module");
 const payment_module_1 = require("./payment/payment.module");
 const dotenv = require("dotenv");
+const store_module_1 = require("./store/store.module");
+const wallet_module_1 = require("./wallet/wallet.module");
 dotenv.config();
 let AppModule = class AppModule {
 };
@@ -77,6 +79,8 @@ exports.AppModule = AppModule = __decorate([
             analytics_module_1.AnalyticsModule,
             product_module_1.ProductModule,
             payment_module_1.PaymentModule,
+            store_module_1.StoreModule,
+            wallet_module_1.WalletModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, common_1.Logger],

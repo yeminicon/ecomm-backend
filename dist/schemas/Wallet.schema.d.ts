@@ -21,20 +21,19 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
+/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
-import mongoose from 'mongoose';
-import { User } from './User.schema';
 export declare class Wallet {
     WalletName: string;
     Balance: number;
     acctNumber: string;
     phoneNumber: string;
+    meechantId: string;
     email: string;
-    user: User;
 }
-export declare const WalletSchema: mongoose.Schema<Wallet, mongoose.Model<Wallet, any, any, any, mongoose.Document<unknown, any, Wallet> & Wallet & {
-    _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Wallet, mongoose.Document<unknown, {}, mongoose.FlatRecord<Wallet>> & mongoose.FlatRecord<Wallet> & {
-    _id: mongoose.Types.ObjectId;
+export declare const WalletSchema: import("mongoose").Schema<Wallet, import("mongoose").Model<Wallet, any, any, any, import("mongoose").Document<unknown, any, Wallet> & Wallet & {
+    _id: import("mongoose").Types.ObjectId;
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Wallet, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Wallet>> & import("mongoose").FlatRecord<Wallet> & {
+    _id: import("mongoose").Types.ObjectId;
 }>;

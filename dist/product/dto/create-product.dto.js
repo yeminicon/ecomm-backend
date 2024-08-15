@@ -36,6 +36,21 @@ __decorate([
 ], CreateProductDto.prototype, "imageurl", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "category", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "brand", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "merchantId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "quantity", void 0);
@@ -46,21 +61,22 @@ __decorate([
 ], CreateProductDto.prototype, "packaging", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "pm", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.MaxLength)(100),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "ingredient", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "nutritionalInfo", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "storage", void 0);
 //# sourceMappingURL=create-product.dto.js.map

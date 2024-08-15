@@ -17,24 +17,56 @@ const common_1 = require("@nestjs/common");
 const merchant_service_1 = require("./merchant.service");
 const update_merchant_dto_1 = require("./dto/update-merchant.dto");
 const passport_1 = require("@nestjs/passport");
+const create_merchant_dto_1 = require("./dto/create-merchant.dto");
 let MerchantController = class MerchantController {
     constructor(merchantService) {
         this.merchantService = merchantService;
     }
+    create(userId, createMechantDto) {
+        return this.merchantService.create(userId, createMechantDto);
+    }
+    findById(id) {
+        return this.merchantService.findById(id);
+    }
     update(id, updateMerchantDto) {
         return this.merchantService.update(id, updateMerchantDto);
+    }
+    delete(id) {
+        return this.merchantService.delete(id);
     }
 };
 exports.MerchantController = MerchantController;
 __decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Query)('userId')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_merchant_dto_1.CreateMerchantDto]),
+    __metadata("design:returntype", void 0)
+], MerchantController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('/id'),
+    __param(0, (0, common_1.Query)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], MerchantController.prototype, "findById", null);
+__decorate([
     (0, common_1.Patch)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Query)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_merchant_dto_1.UpdateMerchantDto]),
     __metadata("design:returntype", void 0)
 ], MerchantController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)('/id'),
+    __param(0, (0, common_1.Query)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], MerchantController.prototype, "delete", null);
 exports.MerchantController = MerchantController = __decorate([
     (0, common_1.Controller)('merchant'),
     __metadata("design:paramtypes", [merchant_service_1.MerchantService])

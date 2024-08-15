@@ -1,20 +1,24 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
-import { User } from './User.schema';
 
 @Schema()
 export class Merchant {
-  @Prop({ unique: true, required: true })
+  @Prop({ unique: true, required: false })
   merchantName?: string;
 
   @Prop({ required: false })
   businessType?: string;
 
   @Prop({ required: false })
+  phoneNumber?: string;
+
+  @Prop({ required: false })
+  businessEmail?: string;
+
+  @Prop({ required: false })
   businessCategory?: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
+  @Prop({ required: false })
+  user: string;
 }
 
 export const MerchantSchema = SchemaFactory.createForClass(Merchant);

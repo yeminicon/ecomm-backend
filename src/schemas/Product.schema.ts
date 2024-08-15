@@ -13,6 +13,15 @@ export class Product extends Document {
   imageurl?: string;
 
   @Prop({ required: false })
+  category?: string;
+
+  @Prop({ required: false })
+  brand?: string;
+
+  @Prop({ required: false })
+  merchantId?: string;
+
+  @Prop({ required: false })
   description?: string;
 
   @Prop({ required: true })
@@ -32,9 +41,6 @@ export class Product extends Document {
 
   @Prop({ required: false })
   storage?: string;
-
-  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Merchant' }] })
-  // merchant?: Merchant;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

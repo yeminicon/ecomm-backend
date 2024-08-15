@@ -19,6 +19,9 @@ import {
   UserOTPVerificationSchema,
 } from '../schemas/UserOTPVerification';
 import { MailService } from 'src/mailer/mailer.service';
+import { WalletService } from 'src/wallet/wallet.service';
+
+import { Wallet, WalletSchema } from 'src/schemas/Wallet.schema';
 
 @Module({
   imports: [
@@ -44,6 +47,10 @@ import { MailService } from 'src/mailer/mailer.service';
         name: UserOTPVerification.name,
         schema: UserOTPVerificationSchema,
       },
+      {
+        name: Wallet.name,
+        schema: WalletSchema,
+      },
     ]),
   ],
   controllers: [UsersController],
@@ -55,6 +62,7 @@ import { MailService } from 'src/mailer/mailer.service';
     AuthService,
     JwtService,
     MailService,
+    WalletService,
   ],
 })
 export class UsersModule {}

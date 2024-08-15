@@ -14,6 +14,8 @@ import { ProductModule } from './product/product.module';
 import { PaymentModule } from './payment/payment.module';
 import * as dotenv from 'dotenv';
 // import { MailService } from './mailer/mailer.service';
+import { StoreModule } from './store/store.module';
+import { WalletModule } from './wallet/wallet.module';
 
 dotenv.config();
 
@@ -67,6 +69,8 @@ dotenv.config();
     AnalyticsModule,
     ProductModule,
     PaymentModule,
+    StoreModule,
+    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],

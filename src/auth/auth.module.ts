@@ -18,6 +18,7 @@ import {
 import { MailService } from '../mailer/mailer.service';
 import { Wallet, WalletSchema } from '../schemas/Wallet.schema';
 import { UsersService } from '../users/users.service';
+import { WalletService } from 'src/wallet/wallet.service';
 
 @Module({
   imports: [
@@ -58,7 +59,7 @@ import { UsersService } from '../users/users.service';
     AuthService,
     JwtStrategy,
     MerchantService,
-
+    WalletService,
     MailService,
     UsersService,
   ],

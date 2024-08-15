@@ -12,6 +12,8 @@ import { Merchant } from 'src/schemas/Merchant.schema';
 import { Order } from 'src/schemas/Order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { HttpException } from '@nestjs/common';
+import { WalletService } from 'src/wallet/wallet.service';
+import { Wallet } from 'src/schemas/Wallet.schema';
 
 describe('OrderService', () => {
   let service: OrderService;
@@ -22,6 +24,8 @@ describe('OrderService', () => {
   let userModel: Model<User>;
   let merchantModel: Model<Merchant>;
   let productModel: Model<Product>;
+  let walletService: WalletService;
+  let walletModel: Model<Wallet>;
 
   const mockOrder = {
     _id: '66ade75e04802b152b1f465d',
@@ -88,7 +92,7 @@ describe('OrderService', () => {
     email: 'akinyele.adeyemi9005@gmail.com',
     _id: '66a9c224e86fd41e26be3e1b',
   };
-
+  const mockWalletService = {};
   const mockOrderService = {
     findOne: jest.fn(),
     findAll: jest.fn(),
@@ -120,6 +124,7 @@ describe('OrderService', () => {
         ProductService,
         MerchantService,
         UsersService,
+        WalletService,
         {
           provide: getModelToken(Order.name),
           useValue: mockOrderService,
@@ -136,6 +141,10 @@ describe('OrderService', () => {
           provide: getModelToken(Merchant.name),
           useValue: mockMerchantService,
         },
+        {
+          provide: getModelToken(Wallet.name),
+          useValue: mockWalletService,
+        },
       ],
     }).compile();
 
@@ -146,6 +155,8 @@ describe('OrderService', () => {
     orderModel = module.get<Model<Order>>(getModelToken(Order.name));
     merchantModel = module.get<Model<Merchant>>(getModelToken(Merchant.name));
     userModel = module.get<Model<User>>(getModelToken(User.name));
+    walletModel = module.get<Model<Wallet>>(getModelToken(Wallet.name));
+    walletService = module.get<WalletService>(WalletService);
   });
 
   describe('findAllByUser', () => {

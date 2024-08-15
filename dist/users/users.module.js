@@ -22,6 +22,8 @@ const jwt_1 = require("@nestjs/jwt");
 const Product_schema_1 = require("../schemas/Product.schema");
 const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
 const mailer_service_1 = require("../mailer/mailer.service");
+const wallet_service_1 = require("../wallet/wallet.service");
+const Wallet_schema_1 = require("../schemas/Wallet.schema");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -49,6 +51,10 @@ exports.UsersModule = UsersModule = __decorate([
                     name: UserOTPVerification_1.UserOTPVerification.name,
                     schema: UserOTPVerification_1.UserOTPVerificationSchema,
                 },
+                {
+                    name: Wallet_schema_1.Wallet.name,
+                    schema: Wallet_schema_1.WalletSchema,
+                },
             ]),
         ],
         controllers: [users_controller_1.UsersController],
@@ -60,6 +66,7 @@ exports.UsersModule = UsersModule = __decorate([
             auth_service_1.AuthService,
             jwt_1.JwtService,
             mailer_service_1.MailService,
+            wallet_service_1.WalletService,
         ],
     })
 ], UsersModule);

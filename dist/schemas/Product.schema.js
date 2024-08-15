@@ -30,6 +30,18 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
+], Product.prototype, "category", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Product.prototype, "brand", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Product.prototype, "merchantId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),

@@ -3,6 +3,9 @@ export declare class CreateProductDto {
     price: number;
     description?: string;
     imageurl?: string;
+    category?: string;
+    brand?: string;
+    merchantId?: string;
     quantity?: number;
     packaging?: string;
     pm?: string;
