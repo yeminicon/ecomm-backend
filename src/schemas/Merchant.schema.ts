@@ -19,6 +19,9 @@ export class Merchant {
 
   @Prop({ required: false })
   user: string;
+
+  @Prop({ required: false })
+  password: string;
 }
 
 export const MerchantSchema = SchemaFactory.createForClass(Merchant);

@@ -38,6 +38,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Merchant.prototype, "user", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Merchant.prototype, "password", void 0);
 exports.Merchant = Merchant = __decorate([
     (0, mongoose_1.Schema)()
 ], Merchant);

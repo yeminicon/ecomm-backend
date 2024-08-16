@@ -20,6 +20,7 @@ const User_schema_1 = require("../schemas/User.schema");
 const Merchant_schema_1 = require("../schemas/Merchant.schema");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
 const wallet_service_1 = require("../wallet/wallet.service");
+const bcrypt = require("bcryptjs");
 let MerchantService = class MerchantService {
     constructor(merchantModel, userModel, walletModel, walletService) {
         this.merchantModel = merchantModel;
@@ -33,6 +34,7 @@ let MerchantService = class MerchantService {
         if (!findUser) {
             throw new common_1.BadRequestException('No user record found for this user.');
         }
+        const hashedPassword = await bcrypt.hash(createMerchantDto.password, 10);
         const createdMerchant = new this.merchantModel({
             user: userId,
             merchantName: createMerchantDto.merchantName,
@@ -40,6 +42,7 @@ let MerchantService = class MerchantService {
             phoneNumber: createMerchantDto.phoneNumber,
             businessEmail: createMerchantDto.businessEmail,
             businessCategory: createMerchantDto.businessCategory,
+            password: hashedPassword,
         });
         const result = await createdMerchant.save();
         console.log(result);

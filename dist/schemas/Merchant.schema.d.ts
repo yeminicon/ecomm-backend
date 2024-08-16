@@ -31,6 +31,7 @@ export declare class Merchant {
     businessEmail?: string;
     businessCategory?: string;
     user: string;
+    password: string;
 }
 export declare const MerchantSchema: import("mongoose").Schema<Merchant, import("mongoose").Model<Merchant, any, any, any, import("mongoose").Document<unknown, any, Merchant> & Merchant & {
     _id: import("mongoose").Types.ObjectId;

@@ -34,4 +34,8 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateMerchantDto.prototype, "businessCategory", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateMerchantDto.prototype, "password", void 0);
 //# sourceMappingURL=create-merchant.dto.js.map

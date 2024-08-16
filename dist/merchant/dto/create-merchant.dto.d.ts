@@ -4,4 +4,5 @@ export declare class CreateMerchantDto {
     phoneNumber: string;
     businessEmail: string;
     businessCategory: string;
+    password: string;
 }

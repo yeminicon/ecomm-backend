@@ -29,7 +29,7 @@ export declare class Wallet {
     Balance: number;
     acctNumber: string;
     phoneNumber: string;
-    meechantId: string;
+    mechantId: string;
     email: string;
 }
 export declare const WalletSchema: import("mongoose").Schema<Wallet, import("mongoose").Model<Wallet, any, any, any, import("mongoose").Document<unknown, any, Wallet> & Wallet & {

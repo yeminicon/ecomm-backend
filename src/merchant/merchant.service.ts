@@ -7,6 +7,7 @@ import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { Wallet } from 'src/schemas/Wallet.schema';
 import { WalletService } from 'src/wallet/wallet.service';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class MerchantService {
@@ -27,6 +28,8 @@ export class MerchantService {
     if (!findUser) {
       throw new BadRequestException('No user record found for this user.');
     }
+
+    const hashedPassword = await bcrypt.hash(createMerchantDto.password, 10);
     const createdMerchant = new this.merchantModel({
       user: userId,
       merchantName: createMerchantDto.merchantName,
@@ -34,6 +37,7 @@ export class MerchantService {
       phoneNumber: createMerchantDto.phoneNumber,
       businessEmail: createMerchantDto.businessEmail,
       businessCategory: createMerchantDto.businessCategory,
+      password: hashedPassword,
     });
     const result = await createdMerchant.save();
     console.log(result);

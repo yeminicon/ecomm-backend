@@ -11,4 +11,6 @@ export class CreateMerchantDto {
   businessEmail: string;
   @IsString()
   businessCategory: string;
+  @IsString()
+  password: string;
 }

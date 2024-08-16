@@ -15,7 +15,7 @@ export class Wallet {
   phoneNumber: string;
 
   @Prop({ required: false })
-  meechantId: string;
+  mechantId: string;
 
   @Prop({ required: false })
   email: string;
