@@ -18,9 +18,6 @@ export class Merchant {
   businessCategory?: string;
 
   @Prop({ required: false })
-  user: string;
-
-  @Prop({ required: false })
   password: string;
 }
 

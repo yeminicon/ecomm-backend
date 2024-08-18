@@ -32,6 +32,10 @@ let WalletController = class WalletController {
     update(id, updateWalletDto) {
         return this.walletService.update(id, updateWalletDto);
     }
+    updateAcctBalance(addFundDto) {
+        console.log(addFundDto);
+        return this.walletService.addFund(addFundDto.merchantId, addFundDto.confirmAmount);
+    }
     remove(id) {
         return this.walletService.remove(id);
     }
@@ -65,6 +69,13 @@ __decorate([
     __metadata("design:paramtypes", [String, update_wallet_dto_1.UpdateWalletDto]),
     __metadata("design:returntype", void 0)
 ], WalletController.prototype, "update", null);
+__decorate([
+    (0, common_1.Post)('/addFund'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], WalletController.prototype, "updateAcctBalance", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Query)('id')),

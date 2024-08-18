@@ -18,11 +18,8 @@ export class MerchantController {
   constructor(private readonly merchantService: MerchantService) {}
 
   @Post()
-  create(
-    @Query('userId') userId: string,
-    @Body() createMechantDto: CreateMerchantDto,
-  ) {
-    return this.merchantService.create(userId, createMechantDto);
+  create(@Body() createMechantDto: CreateMerchantDto) {
+    return this.merchantService.create(createMechantDto);
   }
 
   @Get('/id')

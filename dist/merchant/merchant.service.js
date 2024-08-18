@@ -21,22 +21,25 @@ const Merchant_schema_1 = require("../schemas/Merchant.schema");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
 const wallet_service_1 = require("../wallet/wallet.service");
 const bcrypt = require("bcryptjs");
+const product_service_1 = require("../product/product.service");
 let MerchantService = class MerchantService {
-    constructor(merchantModel, userModel, walletModel, walletService) {
+    constructor(merchantModel, userModel, walletModel, walletService, productService) {
         this.merchantModel = merchantModel;
         this.userModel = userModel;
         this.walletModel = walletModel;
         this.walletService = walletService;
+        this.productService = productService;
     }
-    async create(userId, createMerchantDto) {
+    async create(createMerchantDto) {
         console.log(createMerchantDto);
-        const findUser = this.userModel.findById(userId);
-        if (!findUser) {
-            throw new common_1.BadRequestException('No user record found for this user.');
+        const findMerchant = await this.merchantModel.findOne({
+            merchantName: createMerchantDto.merchantName,
+        });
+        if (findMerchant) {
+            throw new common_1.BadRequestException('Choose another name A merchant with tha name exist');
         }
         const hashedPassword = await bcrypt.hash(createMerchantDto.password, 10);
         const createdMerchant = new this.merchantModel({
-            user: userId,
             merchantName: createMerchantDto.merchantName,
             businessType: createMerchantDto.businessType,
             phoneNumber: createMerchantDto.phoneNumber,
@@ -53,10 +56,21 @@ let MerchantService = class MerchantService {
     async findById(id) {
         return this.merchantModel.findById(id).populate('user').exec();
     }
+    async findByName(name) {
+        return this.merchantModel.findOne({ merchantName: name });
+    }
     async update(id, merchant) {
         return this.merchantModel
             .findByIdAndUpdate(id, merchant, { new: true })
             .exec();
+    }
+    async createProduct(merchantId, createProductDto) {
+        const findMerchant = await this.merchantModel.findById(merchantId);
+        if (!findMerchant) {
+            throw new common_1.BadRequestException('No Merchant record found with this merchant id');
+        }
+        const createProduct = await this.productService.createNewProduct(createProductDto, merchantId);
+        return createProduct;
     }
     async delete(id) {
         return this.merchantModel.findByIdAndDelete(id);
@@ -71,6 +85,7 @@ exports.MerchantService = MerchantService = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model,
-        wallet_service_1.WalletService])
+        wallet_service_1.WalletService,
+        product_service_1.ProductService])
 ], MerchantService);
 //# sourceMappingURL=merchant.service.js.map

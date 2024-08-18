@@ -36,7 +36,7 @@ export declare class ProductService {
     private productModel;
     private merchantModel;
     constructor(userService: UsersService, userModel: Model<User>, productModel: Model<Product>, merchantModel: Model<Merchant>);
-    createNewProduct(createProductDto: CreateProductDto): Promise<Product>;
+    createNewProduct(createProductDto: CreateProductDto, merchantId?: string): Promise<Product>;
     updateProductInfo(productId: string, updateProduct: UpdateProductDto): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;

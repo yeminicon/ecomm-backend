@@ -7,14 +7,16 @@ import { UsersService } from '../users/users.service';
 import { MerchantService } from '../merchant/merchant.service';
 import { Merchant } from '../schemas/Merchant.schema';
 import { User } from '../schemas/User.schema';
-import { Order } from '../schemas/Order.schema';
+import { Order, PaymentStatus } from '../schemas/Order.schema';
 import { Product } from '../schemas/Product.schema';
+import { WalletService } from 'src/wallet/wallet.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     private readonly usersService: UsersService,
     private readonly merchantService: MerchantService,
+    private readonly walletService: WalletService,
     @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Product.name) private productModel: Model<Product>,
@@ -213,6 +215,45 @@ export class OrderService {
     return updatedOrder;
   }
 
+  async updateWalletBasedOnMerchant(
+    orderId: string,
+    orderStatus: PaymentStatus,
+  ) {
+    if (orderStatus === PaymentStatus.PENDING ) {
+      throw new HttpException('Payment not confirm yet', 404);
+    } else if (orderStatus ===  PaymentStatus.FAILED) {
+      throw new HttpException('Payment failed yet', 404);
+    } 
+
+    const findOrder = await this.orderModel.findById(orderId);
+
+    if (!findOrder) {
+      throw new HttpException('Order not found', 404);
+    }
+
+    // Iterate over each cart item
+    for (const item of findOrder.cartItem) {
+      const productId = item.id;
+      const quantity = item.quantity;
+
+      // Find the product to get the price and merchant ID
+      const findProduct = await this.productModel
+        .findById(productId)
+        .populate('merchant');
+      if (!findProduct) {
+        throw new HttpException(`Product with ID ${productId} not found`, 404);
+      }
+
+      const price = findProduct.price;
+      const totalAmount = price * quantity;
+      const deveolopmemtFee = totalAmount * 0.075;
+      const calculatedAmount = totalAmount - deveolopmemtFee;
+      const merchantId = findProduct.merchantId;
+
+      // Update the merchant's wallet
+      await this.walletService.addFund(merchantId, calculatedAmount);
+    }
+  }
   async remove(id: string) {
     if (!Types.ObjectId.isValid(id)) {
       throw new HttpException('Order not found', 404);

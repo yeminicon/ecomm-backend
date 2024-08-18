@@ -138,6 +138,14 @@ __decorate([
     __metadata("design:type", Date)
 ], Order.prototype, "updatedAt", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Boolean)
+], Order.prototype, "MerchantRecievedPayment", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: Date.now }),
+    __metadata("design:type", Date)
+], Order.prototype, "PaidMerchant", void 0);
+__decorate([
     (0, mongoose_1.Prop)({
         required: false,
     }),

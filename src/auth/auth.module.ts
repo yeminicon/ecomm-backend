@@ -19,6 +19,8 @@ import { MailService } from '../mailer/mailer.service';
 import { Wallet, WalletSchema } from '../schemas/Wallet.schema';
 import { UsersService } from '../users/users.service';
 import { WalletService } from 'src/wallet/wallet.service';
+import { ProductService } from 'src/product/product.service';
+import { Product, ProductSchema } from 'src/schemas/Product.schema';
 
 @Module({
   imports: [
@@ -52,6 +54,10 @@ import { WalletService } from 'src/wallet/wallet.service';
         name: Wallet.name,
         schema: WalletSchema,
       },
+      {
+        name: Product.name,
+        schema: ProductSchema,
+      },
     ]),
   ],
   controllers: [AuthController],
@@ -62,6 +68,7 @@ import { WalletService } from 'src/wallet/wallet.service';
     WalletService,
     MailService,
     UsersService,
+    ProductService,
   ],
   exports: [JwtStrategy, PassportModule],
 })

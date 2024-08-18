@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Merchant, MerchantSchema } from 'src/schemas/Merchant.schema';
 import { MerchantService } from 'src/merchant/merchant.service';
 import { User, UserSchema } from '../schemas/User.schema';
+import { UsersService } from 'src/users/users.service';
+import { ProductService } from 'src/product/product.service';
+import { Product, ProductSchema } from 'src/schemas/Product.schema';
 
 @Module({
   imports: [
@@ -22,9 +25,13 @@ import { User, UserSchema } from '../schemas/User.schema';
         name: Wallet.name,
         schema: WalletSchema,
       },
+      {
+        name: Product.name,
+        schema: ProductSchema,
+      },
     ]),
   ],
   controllers: [WalletController],
-  providers: [WalletService, MerchantService],
+  providers: [WalletService, MerchantService, UsersService, ProductService],
 })
 export class WalletModule {}

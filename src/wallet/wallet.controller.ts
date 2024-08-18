@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { WalletService } from './wallet.service';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
+import { AddFundDtoDto } from './dto/addFundt.dto';
 
 @Controller('wallet')
 export class WalletController {
@@ -32,6 +33,15 @@ export class WalletController {
   @Patch(':id')
   update(@Query('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
     return this.walletService.update(id, updateWalletDto);
+  }
+
+  @Post('/addFund')
+  updateAcctBalance(@Body() addFundDto: any) {
+    console.log(addFundDto);
+    return this.walletService.addFund(
+      addFundDto.merchantId,
+      addFundDto.confirmAmount,
+    );
   }
 
   @Delete(':id')

@@ -8,6 +8,9 @@ import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { Wallet } from 'src/schemas/Wallet.schema';
 import { WalletService } from 'src/wallet/wallet.service';
 import * as bcrypt from 'bcryptjs';
+import { Product } from 'src/schemas/Product.schema';
+import { CreateProductDto } from 'src/product/dto/create-product.dto';
+import { ProductService } from 'src/product/product.service';
 
 @Injectable()
 export class MerchantService {
@@ -16,22 +19,27 @@ export class MerchantService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Wallet.name) private walletModel: Model<Wallet>,
     private readonly walletService: WalletService,
+    private readonly productService: ProductService,
   ) {}
 
   async create(
-    userId: string,
+    // userId: string,
     createMerchantDto?: CreateMerchantDto,
   ): Promise<Merchant> {
     console.log(createMerchantDto);
-    const findUser = this.userModel.findById(userId);
+    const findMerchant = await this.merchantModel.findOne({
+      merchantName: createMerchantDto.merchantName,
+    });
 
-    if (!findUser) {
-      throw new BadRequestException('No user record found for this user.');
+    if (findMerchant) {
+      throw new BadRequestException(
+        'Choose another name A merchant with tha name exist',
+      );
     }
 
     const hashedPassword = await bcrypt.hash(createMerchantDto.password, 10);
     const createdMerchant = new this.merchantModel({
-      user: userId,
+      // user: userId,
       merchantName: createMerchantDto.merchantName,
       businessType: createMerchantDto.businessType,
       phoneNumber: createMerchantDto.phoneNumber,
@@ -51,10 +59,33 @@ export class MerchantService {
     return this.merchantModel.findById(id).populate('user').exec();
   }
 
+  async findByName(name: string): Promise<Merchant> {
+    return this.merchantModel.findOne({ merchantName: name });
+  }
+
   async update(id: string, merchant: UpdateMerchantDto): Promise<Merchant> {
     return this.merchantModel
       .findByIdAndUpdate(id, merchant, { new: true })
       .exec();
+  }
+
+  async createProduct(
+    merchantId: string,
+    createProductDto: CreateProductDto,
+  ): Promise<Product> {
+    const findMerchant = await this.merchantModel.findById(merchantId);
+
+    if (!findMerchant) {
+      throw new BadRequestException(
+        'No Merchant record found with this merchant id',
+      );
+    }
+
+    const createProduct = await this.productService.createNewProduct(
+      createProductDto,
+      merchantId,
+    );
+    return createProduct;
   }
 
   async delete(id: string) {

@@ -24,6 +24,9 @@ const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
 const mailer_service_1 = require("../mailer/mailer.service");
 const wallet_service_1 = require("../wallet/wallet.service");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
+const product_service_1 = require("../product/product.service");
+const merchant_module_1 = require("../merchant/merchant.module");
+const wallet_module_1 = require("../wallet/wallet.module");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -56,6 +59,8 @@ exports.UsersModule = UsersModule = __decorate([
                     schema: Wallet_schema_1.WalletSchema,
                 },
             ]),
+            merchant_module_1.MerchantModule,
+            wallet_module_1.WalletModule,
         ],
         controllers: [users_controller_1.UsersController],
         providers: [
@@ -67,6 +72,7 @@ exports.UsersModule = UsersModule = __decorate([
             jwt_1.JwtService,
             mailer_service_1.MailService,
             wallet_service_1.WalletService,
+            product_service_1.ProductService,
         ],
     })
 ], UsersModule);

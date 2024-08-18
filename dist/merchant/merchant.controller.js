@@ -22,8 +22,8 @@ let MerchantController = class MerchantController {
     constructor(merchantService) {
         this.merchantService = merchantService;
     }
-    create(userId, createMechantDto) {
-        return this.merchantService.create(userId, createMechantDto);
+    create(createMechantDto) {
+        return this.merchantService.create(createMechantDto);
     }
     findById(id) {
         return this.merchantService.findById(id);
@@ -38,10 +38,9 @@ let MerchantController = class MerchantController {
 exports.MerchantController = MerchantController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Query)('userId')),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, create_merchant_dto_1.CreateMerchantDto]),
+    __metadata("design:paramtypes", [create_merchant_dto_1.CreateMerchantDto]),
     __metadata("design:returntype", void 0)
 ], MerchantController.prototype, "create", null);
 __decorate([

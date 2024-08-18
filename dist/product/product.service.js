@@ -27,8 +27,14 @@ let ProductService = class ProductService {
         this.productModel = productModel;
         this.merchantModel = merchantModel;
     }
-    async createNewProduct(createProductDto) {
-        const product = await this.productModel.create(createProductDto);
+    async createNewProduct(createProductDto, merchantId) {
+        if (createProductDto.quantity === 0) {
+            throw new common_1.BadRequestException(' Quantity cannot be empty');
+        }
+        const product = await this.productModel.create({
+            createProductDto,
+            merchantId,
+        });
         return product;
     }
     async updateProductInfo(productId, updateProduct) {

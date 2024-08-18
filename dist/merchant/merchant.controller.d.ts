@@ -30,7 +30,7 @@ import { CreateMerchantDto } from './dto/create-merchant.dto';
 export declare class MerchantController {
     private readonly merchantService;
     constructor(merchantService: MerchantService);
-    create(userId: string, createMechantDto: CreateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
+    create(createMechantDto: CreateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
     findById(id: string): Promise<import("../schemas/Merchant.schema").Merchant>;
     update(id: string, updateMerchantDto: UpdateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
     delete(id: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Merchant.schema").Merchant> & import("../schemas/Merchant.schema").Merchant & {

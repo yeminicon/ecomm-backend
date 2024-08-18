@@ -34,6 +34,9 @@ export declare class WalletService {
     private generateAccountNumber;
     private isAccountNumberUnique;
     create(merchantId: string): Promise<Wallet>;
+    addFund(merchantId: string, confirmAmount: number): Promise<import("mongoose").Document<unknown, {}, Wallet> & Wallet & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     findAll(): Promise<(import("mongoose").Document<unknown, {}, Wallet> & Wallet & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;

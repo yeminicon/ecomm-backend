@@ -56,6 +56,25 @@ let WalletService = class WalletService {
         });
         return createWallet.save();
     }
+    async addFund(merchantId, confirmAmount) {
+        const findMerchant = await this.merchantModel.findOne({ _id: merchantId });
+        console.log(findMerchant);
+        console.log(merchantId);
+        if (!findMerchant) {
+            throw new common_1.BadRequestException('No merchant record found for this user.');
+        }
+        const findAccount = await this.walletModel.findOne({
+            merchantId: merchantId,
+        });
+        if (!findAccount) {
+            throw new common_1.BadRequestException('No account found for this user.');
+        }
+        const updatedInformation = {
+            Balance: findAccount.Balance + confirmAmount,
+        };
+        const fundAccount = await this.walletModel.findByIdAndUpdate(findAccount._id.toString(), updatedInformation);
+        return fundAccount;
+    }
     async findAll() {
         return this.walletModel.find().exec();
     }

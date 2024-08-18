@@ -24,7 +24,10 @@ export class ProductService {
     @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
   ) {}
 
-  async createNewProduct(createProductDto: CreateProductDto): Promise<Product> {
+  async createNewProduct(
+    createProductDto: CreateProductDto,
+    merchantId?: string,
+  ): Promise<Product> {
     // const { merchant } = createProductDto;
 
     // const findMerchant = await this.merchantModel.findById(merchant);
@@ -34,7 +37,14 @@ export class ProductService {
     // }
 
     // const product = new this.productModel(createProductDto);
-    const product = await this.productModel.create(createProductDto);
+
+    if (createProductDto.quantity === 0) {
+      throw new BadRequestException(' Quantity cannot be empty');
+    }
+    const product = await this.productModel.create({
+      createProductDto,
+      merchantId,
+    });
 
     // await product.save();
 

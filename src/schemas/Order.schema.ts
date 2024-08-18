@@ -96,6 +96,12 @@ export class Order {
   @Prop({ default: Date.now })
   updatedAt: Date;
 
+  @Prop({ required: false })
+  MerchantRecievedPayment: boolean;
+
+  @Prop({ default: Date.now })
+  PaidMerchant: Date;
+
   @Prop({
     required: false,
   })

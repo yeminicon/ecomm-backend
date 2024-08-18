@@ -30,20 +30,23 @@ import { UsersService } from '../users/users.service';
 import { MerchantService } from '../merchant/merchant.service';
 import { Merchant } from '../schemas/Merchant.schema';
 import { User } from '../schemas/User.schema';
-import { Order } from '../schemas/Order.schema';
+import { Order, PaymentStatus } from '../schemas/Order.schema';
 import { Product } from '../schemas/Product.schema';
+import { WalletService } from 'src/wallet/wallet.service';
 export declare class OrderService {
     private readonly usersService;
     private readonly merchantService;
+    private readonly walletService;
     private merchantModel;
     private userModel;
     private productModel;
     private orderModel;
-    constructor(usersService: UsersService, merchantService: MerchantService, merchantModel: Model<Merchant>, userModel: Model<User>, productModel: Model<Product>, orderModel: Model<Order>);
+    constructor(usersService: UsersService, merchantService: MerchantService, walletService: WalletService, merchantModel: Model<Merchant>, userModel: Model<User>, productModel: Model<Product>, orderModel: Model<Order>);
     createOrder({ ...createOrderDto }: CreateOrderDto): Promise<any>;
     findAllByMerchant(merchantId: string): Promise<Order[]>;
     findAllByUser(userId: string): Promise<any>;
     findOne(id: string): Promise<any>;
     update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order>;
+    updateWalletBasedOnMerchant(orderId: string, orderStatus: PaymentStatus): Promise<void>;
     remove(id: string): Promise<string>;
 }

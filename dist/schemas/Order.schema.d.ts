@@ -54,6 +54,8 @@ export declare class Order {
     user: User;
     createdAt: Date;
     updatedAt: Date;
+    MerchantRecievedPayment: boolean;
+    PaidMerchant: Date;
     merchant: string;
 }
 export declare const OrderSchema: import("mongoose").Schema<Order, import("mongoose").Model<Order, any, any, any, import("mongoose").Document<unknown, any, Order> & Order & {

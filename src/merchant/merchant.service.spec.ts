@@ -8,6 +8,8 @@ import { User } from 'src/schemas/User.schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { WalletService } from 'src/wallet/wallet.service';
 import { Wallet } from 'src/schemas/Wallet.schema';
+import { ProductService } from 'src/product/product.service';
+import { Product } from 'src/schemas/Product.schema';
 
 describe('MerchantService', () => {
   let service: MerchantService;
@@ -16,10 +18,12 @@ describe('MerchantService', () => {
   let userModel: Model<User>;
   let walletService: WalletService;
   let walletModel: Model<Wallet>;
+  let productService: ProductService;
 
   const mockMerchantService = {};
   const mockUserService = {};
   const mockWalletService = {};
+  const mockProductService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,6 +31,7 @@ describe('MerchantService', () => {
         MerchantService,
         UsersService,
         WalletService,
+        ProductService,
         {
           provide: getModelToken(Merchant.name),
           useValue: mockMerchantService,
@@ -39,6 +44,10 @@ describe('MerchantService', () => {
           provide: getModelToken(Wallet.name),
           useValue: mockWalletService,
         },
+        {
+          provide: getModelToken(Product.name),
+          useValue: mockProductService,
+        },
       ],
     }).compile();
 
@@ -46,6 +55,7 @@ describe('MerchantService', () => {
     userService = module.get<UsersService>(UsersService);
     walletModel = module.get<Model<Wallet>>(getModelToken(Wallet.name));
     walletService = module.get<WalletService>(WalletService);
+    productService = module.get<ProductService>(ProductService);
   });
 
   it('should be defined', () => {

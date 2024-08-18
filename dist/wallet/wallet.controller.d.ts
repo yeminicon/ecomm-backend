@@ -39,6 +39,9 @@ export declare class WalletController {
     update(id: string, updateWalletDto: UpdateWalletDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Wallet.schema").Wallet> & import("../schemas/Wallet.schema").Wallet & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    updateAcctBalance(addFundDto: any): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Wallet.schema").Wallet> & import("../schemas/Wallet.schema").Wallet & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     remove(id: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Wallet.schema").Wallet> & import("../schemas/Wallet.schema").Wallet & {
         _id: import("mongoose").Types.ObjectId;
     }>;

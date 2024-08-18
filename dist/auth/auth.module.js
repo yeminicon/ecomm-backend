@@ -23,6 +23,8 @@ const mailer_service_1 = require("../mailer/mailer.service");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
 const users_service_1 = require("../users/users.service");
 const wallet_service_1 = require("../wallet/wallet.service");
+const product_service_1 = require("../product/product.service");
+const Product_schema_1 = require("../schemas/Product.schema");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -58,6 +60,10 @@ exports.AuthModule = AuthModule = __decorate([
                     name: Wallet_schema_1.Wallet.name,
                     schema: Wallet_schema_1.WalletSchema,
                 },
+                {
+                    name: Product_schema_1.Product.name,
+                    schema: Product_schema_1.ProductSchema,
+                },
             ]),
         ],
         controllers: [auth_controller_1.AuthController],
@@ -68,6 +74,7 @@ exports.AuthModule = AuthModule = __decorate([
             wallet_service_1.WalletService,
             mailer_service_1.MailService,
             users_service_1.UsersService,
+            product_service_1.ProductService,
         ],
         exports: [jwt_strategy_1.JwtStrategy, passport_1.PassportModule],
     })

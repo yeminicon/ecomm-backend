@@ -15,6 +15,9 @@ const mongoose_1 = require("@nestjs/mongoose");
 const Merchant_schema_1 = require("../schemas/Merchant.schema");
 const merchant_service_1 = require("../merchant/merchant.service");
 const User_schema_1 = require("../schemas/User.schema");
+const users_service_1 = require("../users/users.service");
+const product_service_1 = require("../product/product.service");
+const Product_schema_1 = require("../schemas/Product.schema");
 let WalletModule = class WalletModule {
 };
 exports.WalletModule = WalletModule;
@@ -34,10 +37,14 @@ exports.WalletModule = WalletModule = __decorate([
                     name: Wallet_schema_1.Wallet.name,
                     schema: Wallet_schema_1.WalletSchema,
                 },
+                {
+                    name: Product_schema_1.Product.name,
+                    schema: Product_schema_1.ProductSchema,
+                },
             ]),
         ],
         controllers: [wallet_controller_1.WalletController],
-        providers: [wallet_service_1.WalletService, merchant_service_1.MerchantService],
+        providers: [wallet_service_1.WalletService, merchant_service_1.MerchantService, users_service_1.UsersService, product_service_1.ProductService],
     })
 ], WalletModule);
 //# sourceMappingURL=wallet.module.js.map

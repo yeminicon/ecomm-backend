@@ -9,6 +9,8 @@ import { getModelToken } from '@nestjs/mongoose';
 import { HttpException } from '@nestjs/common';
 import { WalletService } from 'src/wallet/wallet.service';
 import { Wallet } from 'src/schemas/Wallet.schema';
+import { ProductService } from 'src/product/product.service';
+import { Product } from 'src/schemas/Product.schema';
 
 describe('MerchantService', () => {
   let merchantService: MerchantService;
@@ -17,6 +19,7 @@ describe('MerchantService', () => {
   let userModel: Model<User>;
   let walletService: WalletService;
   let walletModel: Model<Wallet>;
+  let productService: ProductService;
 
   const mockUser = {
     _id: '66a9c224e86fd41e26be3e1b',
@@ -41,12 +44,14 @@ describe('MerchantService', () => {
     exec: jest.fn().mockResolvedValue(mockUser),
   };
   const mockWalletService = {};
+  const mockProductServive = {};
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         MerchantService,
         UsersService,
         WalletService,
+        ProductService,
         {
           provide: getModelToken(Merchant.name),
           useValue: mockMerchantService,
@@ -59,6 +64,10 @@ describe('MerchantService', () => {
           provide: getModelToken(Wallet.name),
           useValue: mockWalletService,
         },
+        {
+          provide: getModelToken(Product.name),
+          useValue: mockProductServive,
+        },
       ],
     }).compile();
 
@@ -66,6 +75,7 @@ describe('MerchantService', () => {
     service = module.get<UsersService>(UsersService);
     walletModel = module.get<Model<Wallet>>(getModelToken(Wallet.name));
     walletService = module.get<WalletService>(WalletService);
+    // productService = module.get<Model<Product>>(getModelToken(Product.name));
   });
 
   afterEach(() => {

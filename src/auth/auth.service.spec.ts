@@ -13,6 +13,9 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { MailService } from 'src/mailer/mailer.service';
 import { Wallet } from 'src/schemas/Wallet.schema';
 import { WalletService } from 'src/wallet/wallet.service';
+import { ProductService } from 'src/product/product.service';
+import { Product } from 'src/schemas/Product.schema';
+import { UsersService } from 'src/users/users.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -26,6 +29,7 @@ describe('AuthService', () => {
   let jwtService: JwtService;
   let mailService: MailService;
   let walletService: WalletService;
+  let productService: ProductService;
 
   const mockUser = {
     _id: '66a9c224e86fd41e26be3e1b',
@@ -46,6 +50,7 @@ describe('AuthService', () => {
   const mockMerchantService = {};
   const mockMailerService = {};
   const mockWalletService = {};
+  const mockProductService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -56,6 +61,8 @@ describe('AuthService', () => {
         ConfigService,
         MailService,
         WalletService,
+        ProductService,
+        UsersService,
         {
           provide: MailerService,
           useValue: mockMailerService, // Mocking the MailerService
@@ -79,6 +86,10 @@ describe('AuthService', () => {
         {
           provide: getModelToken(Wallet.name),
           useValue: mockWalletService,
+        },
+        {
+          provide: getModelToken(Product.name),
+          useValue: mockProductService,
         },
       ],
     }).compile();
