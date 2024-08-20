@@ -60,7 +60,6 @@ let AuthService = AuthService_1 = class AuthService {
         return user;
     }
     async createMerchant(createMerchantDto) {
-        console.log(createMerchantDto);
         const findMerchant = await this.merchantModel.findOne({
             merchantName: createMerchantDto.merchantName,
         });
@@ -80,7 +79,7 @@ let AuthService = AuthService_1 = class AuthService {
         console.log(result);
         const _id = result._id.toString();
         await this.walletService.create(_id);
-        await this.sendOtpVerification(result.businessEmail, _id);
+        await this.sendMerchantOtpVerification(result.businessEmail, _id);
         return result;
     }
     async sendOtpVerification(email, userId) {
@@ -88,6 +87,23 @@ let AuthService = AuthService_1 = class AuthService {
         console.log(otp);
         const serverAppUrl = this.configService.get('SERVER_APP_URL');
         const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
+        const hashedOTP = await bcrypt.hash(otp, 10);
+        const newOTPVerification = new this.userOtpVerificationModel({
+            userId,
+            otp: hashedOTP,
+            createdAt: Date.now(),
+            expiresAt: Date.now() + 3600000,
+        });
+        await newOTPVerification.save();
+        const result = await this.mailService.sendEmail(email, userId, verifyUrl, otp);
+        this.logger.log('Email verification result', result);
+        return;
+    }
+    async sendMerchantOtpVerification(email, userId) {
+        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+        console.log(otp);
+        const serverAppUrl = this.configService.get('SERVER_APP_URL');
+        const verifyUrl = `${serverAppUrl}/emailMerchantVerification/${email}`;
         const hashedOTP = await bcrypt.hash(otp, 10);
         const newOTPVerification = new this.userOtpVerificationModel({
             userId,
@@ -124,7 +140,7 @@ let AuthService = AuthService_1 = class AuthService {
     }
     async verifyMerchantOTP(merchantId, otp) {
         const userOtpRecord = await this.userOtpVerificationModel.findOne({
-            merchantId,
+            userId: merchantId,
         });
         if (!userOtpRecord) {
             this.regenerateOTP(merchantId);

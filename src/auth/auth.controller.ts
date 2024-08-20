@@ -125,6 +125,7 @@ export class AuthController {
   async verifyMerchantUserOTP(@Body() verifyUpDto: VerifyOTPDto) {
     const { email, otp } = verifyUpDto;
     const findMerchant = await this.merchantService.findByEmail(email);
+    console.log(findMerchant);
     return this.authService.verifyMerchantOTP(findMerchant.id, otp);
   }
 

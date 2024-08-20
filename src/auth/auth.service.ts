@@ -62,7 +62,6 @@ export class AuthService {
     // userId: string,
     createMerchantDto?: CreateMerchantDto,
   ): Promise<Merchant> {
-    console.log(createMerchantDto);
     const findMerchant = await this.merchantModel.findOne({
       merchantName: createMerchantDto.merchantName,
     });
@@ -88,7 +87,7 @@ export class AuthService {
     const _id = result._id.toString(); // Convert ObjectId to string
     await this.walletService.create(_id);
 
-    await this.sendOtpVerification(result.businessEmail, _id);
+    await this.sendMerchantOtpVerification(result.businessEmail, _id);
 
     return result;
   }
@@ -102,6 +101,36 @@ export class AuthService {
 
     const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
     const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
+    const hashedOTP = await bcrypt.hash(otp, 10);
+
+    const newOTPVerification = new this.userOtpVerificationModel({
+      userId,
+      otp: hashedOTP,
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 3600000,
+    });
+
+    await newOTPVerification.save();
+    const result = await this.mailService.sendEmail(
+      email,
+      userId,
+      verifyUrl,
+      otp,
+    );
+
+    this.logger.log('Email verification result', result);
+    return;
+  }
+
+  private async sendMerchantOtpVerification(
+    email: string,
+    userId: string,
+  ): Promise<void> {
+    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+    console.log(otp);
+
+    const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
+    const verifyUrl = `${serverAppUrl}/emailMerchantVerification/${email}`;
     const hashedOTP = await bcrypt.hash(otp, 10);
 
     const newOTPVerification = new this.userOtpVerificationModel({
@@ -159,7 +188,7 @@ export class AuthService {
     otp: string,
   ): Promise<UserOTPVerification | string> {
     const userOtpRecord = await this.userOtpVerificationModel.findOne({
-      merchantId,
+      userId: merchantId,
     });
 
     if (!userOtpRecord) {

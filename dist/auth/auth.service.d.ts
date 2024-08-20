@@ -48,6 +48,7 @@ export declare class AuthService {
     createUser(signUpDto: SignUpDto): Promise<User>;
     createMerchant(createMerchantDto?: CreateMerchantDto): Promise<Merchant>;
     private sendOtpVerification;
+    private sendMerchantOtpVerification;
     verifyOTP(userId: string, otp: string): Promise<UserOTPVerification | string>;
     verifyMerchantOTP(merchantId: string, otp: string): Promise<UserOTPVerification | string>;
     regenerateOTP(userId: string): Promise<void>;
