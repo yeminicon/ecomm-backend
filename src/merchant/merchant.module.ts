@@ -9,6 +9,13 @@ import { ProductService } from '../product/product.service';
 import { UsersService } from '../users/users.service';
 import { Wallet, WalletSchema } from 'src/schemas/Wallet.schema';
 import { WalletService } from 'src/wallet/wallet.service';
+import { AuthService } from 'src/auth/auth.service';
+import {
+  UserOTPVerification,
+  UserOTPVerificationSchema,
+} from 'src/schemas/UserOTPVerification';
+import { JwtService } from '@nestjs/jwt';
+import { MailService } from 'src/mailer/mailer.service';
 
 @Module({
   imports: [
@@ -29,9 +36,21 @@ import { WalletService } from 'src/wallet/wallet.service';
         name: Wallet.name,
         schema: WalletSchema,
       },
+      {
+        name: UserOTPVerification.name,
+        schema: UserOTPVerificationSchema,
+      },
     ]),
   ],
   controllers: [MerchantController],
-  providers: [MerchantService, ProductService, UsersService, WalletService],
+  providers: [
+    MerchantService,
+    ProductService,
+    UsersService,
+    WalletService,
+    AuthService,
+    JwtService,
+    MailService,
+  ],
 })
 export class MerchantModule {}

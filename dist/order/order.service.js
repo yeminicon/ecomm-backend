@@ -144,16 +144,16 @@ let OrderService = class OrderService {
         }
         return updatedOrder;
     }
-    async updateWalletBasedOnMerchant(orderId, orderStatus) {
-        if (orderStatus === Order_schema_1.PaymentStatus.PENDING) {
-            throw new common_1.HttpException('Payment not confirm yet', 404);
-        }
-        else if (orderStatus === Order_schema_1.PaymentStatus.FAILED) {
-            throw new common_1.HttpException('Payment failed yet', 404);
-        }
+    async updateWalletBasedOnMerchant(orderId) {
         const findOrder = await this.orderModel.findById(orderId);
         if (!findOrder) {
             throw new common_1.HttpException('Order not found', 404);
+        }
+        if (findOrder.orderStatus === Order_schema_1.PaymentStatus.PENDING) {
+            throw new common_1.HttpException('Payment not confirm yet', 400);
+        }
+        else if (findOrder.orderStatus === Order_schema_1.PaymentStatus.FAILED) {
+            throw new common_1.HttpException('Payment failed yet', 400);
         }
         for (const item of findOrder.cartItem) {
             const productId = item.id;

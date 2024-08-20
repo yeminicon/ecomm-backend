@@ -12,14 +12,18 @@ import { MerchantService } from './merchant.service';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('merchant')
 export class MerchantController {
-  constructor(private readonly merchantService: MerchantService) {}
+  constructor(
+    private readonly merchantService: MerchantService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post()
   create(@Body() createMechantDto: CreateMerchantDto) {
-    return this.merchantService.create(createMechantDto);
+    return this.authService.createMerchant(createMechantDto);
   }
 
   @Get('/id')

@@ -3,10 +3,12 @@ import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { VerifyOTPDto } from './dto/otp.dto';
 import { UsersService } from '../users/users.service';
+import { MerchantService } from 'src/merchant/merchant.service';
 export declare class AuthController {
     private authService;
     private readonly userService;
-    constructor(authService: AuthService, userService: UsersService);
+    private readonly merchantService;
+    constructor(authService: AuthService, userService: UsersService, merchantService: MerchantService);
     signUp(signUpDto: SignUpDto): Promise<{
         message: string;
         user: import("../schemas/User.schema").User;
@@ -23,5 +25,12 @@ export declare class AuthController {
         user: string;
         message: string;
     }>;
+    merchantLogin(loginDto: LoginDto): Promise<{
+        token: string;
+        userId: unknown;
+        user: import("../schemas/Merchant.schema").Merchant;
+        message: string;
+    }>;
+    verifyMerchantUserOTP(verifyUpDto: VerifyOTPDto): Promise<string | import("../schemas/UserOTPVerification").UserOTPVerification>;
     verifyUserOTP(verifyUpDto: VerifyOTPDto): Promise<string | import("../schemas/UserOTPVerification").UserOTPVerification>;
 }

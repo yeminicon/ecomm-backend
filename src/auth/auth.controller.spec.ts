@@ -6,11 +6,13 @@ import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { VerifyOTPDto } from './dto/otp.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { MerchantService } from 'src/merchant/merchant.service';
 
 describe('AuthController', () => {
   let authController: AuthController;
   let authService: AuthService;
   let usersService: UsersService;
+  let merchantService: MerchantService;
 
   const mockAuthService = {
     createUser: jest.fn(),
@@ -22,6 +24,8 @@ describe('AuthController', () => {
   const mockUsersService = {
     findByEmail: jest.fn(),
   };
+
+  const mockMerchantService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -35,12 +39,17 @@ describe('AuthController', () => {
           provide: UsersService,
           useValue: mockUsersService,
         },
+        {
+          provide: MerchantService,
+          useValue: mockMerchantService,
+        },
       ],
     }).compile();
 
     authController = module.get<AuthController>(AuthController);
     authService = module.get<AuthService>(AuthService);
     usersService = module.get<UsersService>(UsersService);
+    merchantService = module.get<MerchantService>(MerchantService);
   });
 
   it('should be defined', () => {

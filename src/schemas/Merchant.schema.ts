@@ -1,7 +1,8 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @Schema()
-export class Merchant {
+export class Merchant extends Document {
   @Prop({ unique: true, required: false })
   merchantName?: string;
 
@@ -19,6 +20,9 @@ export class Merchant {
 
   @Prop({ required: false })
   password: string;
+
+  @Prop({ required: true, default: false })
+  verified?: boolean;
 }
 
 export const MerchantSchema = SchemaFactory.createForClass(Merchant);

@@ -64,6 +64,20 @@ let MerchantService = class MerchantService {
             .findByIdAndUpdate(id, merchant, { new: true })
             .exec();
     }
+    async validateMerchant(businessEmail, password) {
+        const merchant = await this.merchantModel.findOne({ businessEmail });
+        if (merchant && (await bcrypt.compare(password, merchant.password))) {
+            return merchant;
+        }
+        return null;
+    }
+    async findByEmail(email) {
+        const merchant = await this.merchantModel.findOne({ businessEmail: email });
+        if (!merchant) {
+            throw new common_1.BadRequestException('No merchant record found');
+        }
+        return merchant;
+    }
     async createProduct(merchantId, createProductDto) {
         const findMerchant = await this.merchantModel.findById(merchantId);
         if (!findMerchant) {

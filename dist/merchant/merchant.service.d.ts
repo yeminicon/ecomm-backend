@@ -44,8 +44,10 @@ export declare class MerchantService {
     findById(id: string): Promise<Merchant>;
     findByName(name: string): Promise<Merchant>;
     update(id: string, merchant: UpdateMerchantDto): Promise<Merchant>;
+    validateMerchant(businessEmail: string, password: string): Promise<Merchant | null>;
+    findByEmail(email: string): Promise<Merchant>;
     createProduct(merchantId: string, createProductDto: CreateProductDto): Promise<Product>;
-    delete(id: string): Promise<import("mongoose").Document<unknown, {}, Merchant> & Merchant & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+    delete(id: string): Promise<import("mongoose").Document<unknown, {}, Merchant> & Merchant & Required<{
+        _id: unknown;
+    }>>;
 }

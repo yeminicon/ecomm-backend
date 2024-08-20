@@ -21,19 +21,20 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
-export declare class Merchant {
+import { Document } from 'mongoose';
+export declare class Merchant extends Document {
     merchantName?: string;
     businessType?: string;
     phoneNumber?: string;
     businessEmail?: string;
     businessCategory?: string;
     password: string;
+    verified?: boolean;
 }
-export declare const MerchantSchema: import("mongoose").Schema<Merchant, import("mongoose").Model<Merchant, any, any, any, import("mongoose").Document<unknown, any, Merchant> & Merchant & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Merchant, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Merchant>> & import("mongoose").FlatRecord<Merchant> & {
-    _id: import("mongoose").Types.ObjectId;
-}>;
+export declare const MerchantSchema: import("mongoose").Schema<Merchant, import("mongoose").Model<Merchant, any, any, any, Document<unknown, any, Merchant> & Merchant & Required<{
+    _id: unknown;
+}>, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Merchant, Document<unknown, {}, import("mongoose").FlatRecord<Merchant>> & import("mongoose").FlatRecord<Merchant> & Required<{
+    _id: unknown;
+}>>;

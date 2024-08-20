@@ -18,6 +18,10 @@ const product_service_1 = require("../product/product.service");
 const users_service_1 = require("../users/users.service");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
 const wallet_service_1 = require("../wallet/wallet.service");
+const auth_service_1 = require("../auth/auth.service");
+const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
+const jwt_1 = require("@nestjs/jwt");
+const mailer_service_1 = require("../mailer/mailer.service");
 let MerchantModule = class MerchantModule {
 };
 exports.MerchantModule = MerchantModule;
@@ -41,10 +45,22 @@ exports.MerchantModule = MerchantModule = __decorate([
                     name: Wallet_schema_1.Wallet.name,
                     schema: Wallet_schema_1.WalletSchema,
                 },
+                {
+                    name: UserOTPVerification_1.UserOTPVerification.name,
+                    schema: UserOTPVerification_1.UserOTPVerificationSchema,
+                },
             ]),
         ],
         controllers: [merchant_controller_1.MerchantController],
-        providers: [merchant_service_1.MerchantService, product_service_1.ProductService, users_service_1.UsersService, wallet_service_1.WalletService],
+        providers: [
+            merchant_service_1.MerchantService,
+            product_service_1.ProductService,
+            users_service_1.UsersService,
+            wallet_service_1.WalletService,
+            auth_service_1.AuthService,
+            jwt_1.JwtService,
+            mailer_service_1.MailService,
+        ],
     })
 ], MerchantModule);
 //# sourceMappingURL=merchant.module.js.map

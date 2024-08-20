@@ -27,13 +27,15 @@
 import { MerchantService } from './merchant.service';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
+import { AuthService } from 'src/auth/auth.service';
 export declare class MerchantController {
     private readonly merchantService;
-    constructor(merchantService: MerchantService);
+    private readonly authService;
+    constructor(merchantService: MerchantService, authService: AuthService);
     create(createMechantDto: CreateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
     findById(id: string): Promise<import("../schemas/Merchant.schema").Merchant>;
     update(id: string, updateMerchantDto: UpdateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
-    delete(id: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Merchant.schema").Merchant> & import("../schemas/Merchant.schema").Merchant & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+    delete(id: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Merchant.schema").Merchant> & import("../schemas/Merchant.schema").Merchant & Required<{
+        _id: unknown;
+    }>>;
 }

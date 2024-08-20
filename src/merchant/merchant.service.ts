@@ -69,6 +69,28 @@ export class MerchantService {
       .exec();
   }
 
+  async validateMerchant(
+    businessEmail: string,
+    password: string,
+  ): Promise<Merchant | null> {
+    const merchant = await this.merchantModel.findOne({ businessEmail });
+
+    if (merchant && (await bcrypt.compare(password, merchant.password))) {
+      return merchant;
+    }
+
+    return null;
+  }
+
+  async findByEmail(email: string): Promise<Merchant> {
+    const merchant = await this.merchantModel.findOne({ businessEmail: email });
+
+    if (!merchant) {
+      throw new BadRequestException('No merchant record found');
+    }
+    return merchant;
+  }
+
   async createProduct(
     merchantId: string,
     createProductDto: CreateProductDto,

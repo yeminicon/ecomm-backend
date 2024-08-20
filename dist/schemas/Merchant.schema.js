@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MerchantSchema = exports.Merchant = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-let Merchant = class Merchant {
+const mongoose_2 = require("mongoose");
+let Merchant = class Merchant extends mongoose_2.Document {
 };
 exports.Merchant = Merchant;
 __decorate([
@@ -38,6 +39,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Merchant.prototype, "password", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: false }),
+    __metadata("design:type", Boolean)
+], Merchant.prototype, "verified", void 0);
 exports.Merchant = Merchant = __decorate([
     (0, mongoose_1.Schema)()
 ], Merchant);

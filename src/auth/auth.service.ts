@@ -10,6 +10,9 @@ import { SignUpDto } from './dto/signup.dto';
 import { MerchantService } from '../merchant/merchant.service';
 import { ConfigService } from '@nestjs/config';
 import { MailService } from 'src/mailer/mailer.service';
+import { Merchant } from 'src/schemas/Merchant.schema';
+import { CreateMerchantDto } from 'src/merchant/dto/create-merchant.dto';
+import { WalletService } from 'src/wallet/wallet.service';
 
 @Injectable()
 export class AuthService {
@@ -19,10 +22,12 @@ export class AuthService {
     private readonly userModel: Model<User>,
     @InjectModel(UserOTPVerification.name)
     private readonly userOtpVerificationModel: Model<UserOTPVerification>,
+    @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
     private readonly merchantService: MerchantService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly mailService: MailService,
+    private readonly walletService: WalletService,
   ) {}
 
   async createUser(signUpDto: SignUpDto): Promise<User> {
@@ -51,6 +56,41 @@ export class AuthService {
     await this.sendOtpVerification(email, user.id);
 
     return user;
+  }
+
+  async createMerchant(
+    // userId: string,
+    createMerchantDto?: CreateMerchantDto,
+  ): Promise<Merchant> {
+    console.log(createMerchantDto);
+    const findMerchant = await this.merchantModel.findOne({
+      merchantName: createMerchantDto.merchantName,
+    });
+
+    if (findMerchant) {
+      throw new BadRequestException(
+        'Choose another name A merchant with tha name exist',
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(createMerchantDto.password, 10);
+    const createdMerchant = new this.merchantModel({
+      // user: userId,
+      merchantName: createMerchantDto.merchantName,
+      businessType: createMerchantDto.businessType,
+      phoneNumber: createMerchantDto.phoneNumber,
+      businessEmail: createMerchantDto.businessEmail,
+      businessCategory: createMerchantDto.businessCategory,
+      password: hashedPassword,
+    });
+    const result = await createdMerchant.save();
+    console.log(result);
+    const _id = result._id.toString(); // Convert ObjectId to string
+    await this.walletService.create(_id);
+
+    await this.sendOtpVerification(result.businessEmail, _id);
+
+    return result;
   }
 
   private async sendOtpVerification(
@@ -114,6 +154,40 @@ export class AuthService {
     return userOtpRecord;
   }
 
+  async verifyMerchantOTP(
+    merchantId: string,
+    otp: string,
+  ): Promise<UserOTPVerification | string> {
+    const userOtpRecord = await this.userOtpVerificationModel.findOne({
+      merchantId,
+    });
+
+    if (!userOtpRecord) {
+      this.regenerateOTP(merchantId);
+      throw new BadRequestException('No OTP record found for this user.');
+    }
+
+    if (userOtpRecord.expiresAt <= new Date()) {
+      this.regenerateOTP(merchantId);
+      throw new BadRequestException('OTP has expired.');
+    }
+
+    const isMatch = await bcrypt.compare(otp, userOtpRecord.otp);
+    if (!isMatch) {
+      this.regenerateOTP(merchantId);
+      throw new BadRequestException('Incorrect OTP.');
+    }
+
+    if (isMatch) {
+      await this.merchantModel.updateOne(
+        { _id: merchantId },
+        { verified: true },
+      );
+    }
+
+    return userOtpRecord;
+  }
+
   async regenerateOTP(userId: string) {
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
     console.log(otp);
@@ -143,6 +217,16 @@ export class AuthService {
   async generateAuthToken(user: User): Promise<string> {
     return this.jwtService.sign(
       { id: user._id },
+      // {
+      //   secret: this.configService.get('Secret'),
+      //   expiresIn: '10days',
+      // }
+    );
+  }
+
+  async generateMerchantAuthToken(merchant: Merchant): Promise<string> {
+    return this.jwtService.sign(
+      { id: merchant.merchantName },
       // {
       //   secret: this.configService.get('Secret'),
       //   expiresIn: '10days',

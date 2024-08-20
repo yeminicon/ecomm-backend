@@ -20,10 +20,12 @@ const login_dto_1 = require("./dto/login.dto");
 const otp_dto_1 = require("./dto/otp.dto");
 const swagger_1 = require("@nestjs/swagger");
 const users_service_1 = require("../users/users.service");
+const merchant_service_1 = require("../merchant/merchant.service");
 let AuthController = class AuthController {
-    constructor(authService, userService) {
+    constructor(authService, userService, merchantService) {
         this.authService = authService;
         this.userService = userService;
+        this.merchantService = merchantService;
     }
     async signUp(signUpDto) {
         const user = await this.authService.createUser(signUpDto);
@@ -66,6 +68,32 @@ let AuthController = class AuthController {
             message: 'Login successful',
         };
     }
+    async merchantLogin(loginDto) {
+        const { email, password } = loginDto;
+        const businessEmail = email;
+        const merchant = await this.merchantService.validateMerchant(businessEmail, password);
+        if (!merchant.verified) {
+            throw new common_1.HttpException('Kindly verify your account', 401);
+        }
+        if (!merchant) {
+            throw new common_1.UnauthorizedException('Invalid email or password');
+        }
+        const token = await this.authService.generateMerchantAuthToken(merchant);
+        const { merchantName } = merchant;
+        console.log(merchantName);
+        console.log(token);
+        return {
+            token,
+            userId: merchant._id,
+            user: merchant,
+            message: 'Login successful',
+        };
+    }
+    async verifyMerchantUserOTP(verifyUpDto) {
+        const { email, otp } = verifyUpDto;
+        const findMerchant = await this.merchantService.findByEmail(email);
+        return this.authService.verifyMerchantOTP(findMerchant.id, otp);
+    }
     async verifyUserOTP(verifyUpDto) {
         const { email, otp } = verifyUpDto;
         const findUser = await this.userService.findByEmail(email);
@@ -106,6 +134,23 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "adminLogin", null);
 __decorate([
+    (0, swagger_1.ApiOkResponse)({ description: 'User successfully logged in.' }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Invalid email or password.' }),
+    (0, common_1.Post)('/merchantlogin'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [login_dto_1.LoginDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "merchantLogin", null);
+__decorate([
+    (0, common_1.Post)('/verifyMerchantOTP'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [otp_dto_1.VerifyOTPDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyMerchantUserOTP", null);
+__decorate([
     (0, common_1.Post)('/verifyOTP'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -116,6 +161,7 @@ exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('Authentication'),
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
-        users_service_1.UsersService])
+        users_service_1.UsersService,
+        merchant_service_1.MerchantService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

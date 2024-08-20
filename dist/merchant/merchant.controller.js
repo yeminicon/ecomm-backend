@@ -18,12 +18,14 @@ const merchant_service_1 = require("./merchant.service");
 const update_merchant_dto_1 = require("./dto/update-merchant.dto");
 const passport_1 = require("@nestjs/passport");
 const create_merchant_dto_1 = require("./dto/create-merchant.dto");
+const auth_service_1 = require("../auth/auth.service");
 let MerchantController = class MerchantController {
-    constructor(merchantService) {
+    constructor(merchantService, authService) {
         this.merchantService = merchantService;
+        this.authService = authService;
     }
     create(createMechantDto) {
-        return this.merchantService.create(createMechantDto);
+        return this.authService.createMerchant(createMechantDto);
     }
     findById(id) {
         return this.merchantService.findById(id);
@@ -68,6 +70,7 @@ __decorate([
 ], MerchantController.prototype, "delete", null);
 exports.MerchantController = MerchantController = __decorate([
     (0, common_1.Controller)('merchant'),
-    __metadata("design:paramtypes", [merchant_service_1.MerchantService])
+    __metadata("design:paramtypes", [merchant_service_1.MerchantService,
+        auth_service_1.AuthService])
 ], MerchantController);
 //# sourceMappingURL=merchant.controller.js.map

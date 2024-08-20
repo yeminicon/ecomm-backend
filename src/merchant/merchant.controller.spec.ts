@@ -5,14 +5,18 @@ import { MerchantService } from './merchant.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Merchant } from 'src/schemas/Merchant.schema';
 import mongoose from 'mongoose';
+import { AuthService } from 'src/auth/auth.service';
 
 describe('MerchantController', () => {
   let merchantController: MerchantController;
   let merchantService: MerchantService;
+  let authService: AuthService;
 
   const mockMerchantService = {
     update: jest.fn(),
   };
+
+  const mockAuthService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,12 +26,17 @@ describe('MerchantController', () => {
           provide: MerchantService,
           useValue: mockMerchantService,
         },
+        {
+          provide: AuthService,
+          useValue: mockAuthService,
+        },
         { provide: getModelToken(Merchant.name), useValue: mongoose.Model },
       ],
     }).compile();
 
     merchantController = module.get<MerchantController>(MerchantController);
     merchantService = module.get<MerchantService>(MerchantService);
+    authService = module.get<AuthService>(AuthService);
   });
 
   it('should be defined', () => {
