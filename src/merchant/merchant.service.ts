@@ -56,7 +56,7 @@ export class MerchantService {
   }
 
   async findById(id: string): Promise<Merchant> {
-    return this.merchantModel.findById(id).populate('user').exec();
+    return this.merchantModel.findById(id).exec();
   }
 
   async findByName(name: string): Promise<Merchant> {

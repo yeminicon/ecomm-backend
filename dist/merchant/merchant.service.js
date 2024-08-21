@@ -54,7 +54,7 @@ let MerchantService = class MerchantService {
         return result;
     }
     async findById(id) {
-        return this.merchantModel.findById(id).populate('user').exec();
+        return this.merchantModel.findById(id).exec();
     }
     async findByName(name) {
         return this.merchantModel.findOne({ merchantName: name });
