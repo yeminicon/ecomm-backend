@@ -72,7 +72,7 @@ let AuthController = class AuthController {
         const { email, password } = loginDto;
         const businessEmail = email;
         const merchant = await this.merchantService.validateMerchant(businessEmail, password);
-        if (!merchant.verified) {
+        if (!merchant.verified === false) {
             throw new common_1.HttpException('Kindly verify your account', 401);
         }
         if (!merchant) {
@@ -85,7 +85,8 @@ let AuthController = class AuthController {
         return {
             token,
             userId: merchant._id,
-            user: merchant,
+            email: businessEmail,
+            name: merchantName,
             message: 'Login successful',
         };
     }

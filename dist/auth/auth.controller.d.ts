@@ -28,7 +28,8 @@ export declare class AuthController {
     merchantLogin(loginDto: LoginDto): Promise<{
         token: string;
         userId: unknown;
-        user: import("../schemas/Merchant.schema").Merchant;
+        email: string;
+        name: string;
         message: string;
     }>;
     verifyMerchantUserOTP(verifyUpDto: VerifyOTPDto): Promise<string | import("../schemas/UserOTPVerification").UserOTPVerification>;
