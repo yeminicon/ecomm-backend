@@ -24,6 +24,13 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Document } from 'mongoose';
+declare class CustomerCareItems {
+    id: string;
+    name: string;
+    imageurl: string;
+    email: string;
+    phoneNumber: string;
+}
 export declare class Merchant extends Document {
     merchantName?: string;
     businessType?: string;
@@ -31,6 +38,11 @@ export declare class Merchant extends Document {
     businessEmail?: string;
     businessCategory?: string;
     password: string;
+    country: string;
+    contactName: string;
+    contactEmail: string;
+    contactPhone: string;
+    cartItem: CustomerCareItems[];
     verified?: boolean;
 }
 export declare const MerchantSchema: import("mongoose").Schema<Merchant, import("mongoose").Model<Merchant, any, any, any, Document<unknown, any, Merchant> & Merchant & Required<{
@@ -38,3 +50,4 @@ export declare const MerchantSchema: import("mongoose").Schema<Merchant, import(
 }>, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Merchant, Document<unknown, {}, import("mongoose").FlatRecord<Merchant>> & import("mongoose").FlatRecord<Merchant> & Required<{
     _id: unknown;
 }>>;
+export {};

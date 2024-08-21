@@ -83,7 +83,6 @@ export class AuthService {
       password: hashedPassword,
     });
     const result = await createdMerchant.save();
-    console.log(result);
     const _id = result._id.toString(); // Convert ObjectId to string
     await this.walletService.create(_id);
 
@@ -97,7 +96,6 @@ export class AuthService {
     userId: string,
   ): Promise<void> {
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-    console.log(otp);
 
     const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
     const verifyUrl = `${serverAppUrl}/emailVerification/${email}`;
@@ -127,7 +125,6 @@ export class AuthService {
     userId: string,
   ): Promise<void> {
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-    console.log(otp);
 
     const serverAppUrl = this.configService.get<string>('SERVER_APP_URL');
     const verifyUrl = `${serverAppUrl}/emailMerchantVerification/${email}`;
@@ -219,7 +216,6 @@ export class AuthService {
 
   async regenerateOTP(userId: string) {
     const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-    console.log(otp);
 
     const hashedOTP = await bcrypt.hash(otp, 10);
 
