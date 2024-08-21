@@ -102,7 +102,7 @@ export class AuthController {
       password,
     );
 
-    if (!merchant.verified === false) {
+    if (merchant.verified === false) {
       throw new HttpException('Kindly verify your account', 401);
     }
     if (!merchant) {
