@@ -54,7 +54,7 @@ export class Merchant extends Document {
   contactPhone: string;
 
   @Prop({ type: [CustomerCareSchema], required: false })
-  cartItem: CustomerCareItems[];
+  customerCareItem: CustomerCareItems[];
 
   @Prop({ required: true, default: false })
   verified?: boolean;

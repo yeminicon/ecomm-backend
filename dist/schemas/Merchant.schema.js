@@ -84,7 +84,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ type: [CustomerCareSchema], required: false }),
     __metadata("design:type", Array)
-], Merchant.prototype, "cartItem", void 0);
+], Merchant.prototype, "customerCareItem", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
