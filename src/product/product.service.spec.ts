@@ -12,6 +12,7 @@ import { BadRequestException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Wallet } from 'src/schemas/Wallet.schema';
 import { WalletService } from 'src/wallet/wallet.service';
+import { Order } from 'src/schemas/Order.schema';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -51,6 +52,7 @@ describe('ProductService', () => {
   const mockUserService = {};
   const mockMerchantService = {};
   const mockWalletService = {};
+  const mockOrderService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -74,6 +76,10 @@ describe('ProductService', () => {
         {
           provide: getModelToken(Wallet.name),
           useValue: mockWalletService,
+        },
+        {
+          provide: getModelToken(Order.name),
+          useValue: mockOrderService,
         },
       ],
     }).compile();

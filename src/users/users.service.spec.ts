@@ -11,6 +11,7 @@ import { WalletService } from 'src/wallet/wallet.service';
 import { Wallet } from 'src/schemas/Wallet.schema';
 import { ProductService } from 'src/product/product.service';
 import { Product } from 'src/schemas/Product.schema';
+import { Order } from 'src/schemas/Order.schema';
 
 describe('MerchantService', () => {
   let merchantService: MerchantService;
@@ -45,6 +46,7 @@ describe('MerchantService', () => {
   };
   const mockWalletService = {};
   const mockProductServive = {};
+  const mockOrderService = {};
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -67,6 +69,10 @@ describe('MerchantService', () => {
         {
           provide: getModelToken(Product.name),
           useValue: mockProductServive,
+        },
+        {
+          provide: getModelToken(Order.name),
+          useValue: mockOrderService,
         },
       ],
     }).compile();

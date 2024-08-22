@@ -11,6 +11,8 @@ import { MerchantService } from '../merchant/merchant.service';
 
 import { Merchant, MerchantSchema } from '../schemas/Merchant.schema';
 
+import { Order, OrderSchema } from 'src/schemas/Order.schema';
+
 import {
   UserOTPVerification,
   UserOTPVerificationSchema,
@@ -57,6 +59,10 @@ import { Product, ProductSchema } from 'src/schemas/Product.schema';
       {
         name: Product.name,
         schema: ProductSchema,
+      },
+      {
+        name: Order.name,
+        schema: OrderSchema,
       },
     ]),
   ],

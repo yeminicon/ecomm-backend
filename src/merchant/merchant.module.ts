@@ -16,6 +16,7 @@ import {
 } from 'src/schemas/UserOTPVerification';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/mailer/mailer.service';
+import { Order, OrderSchema } from 'src/schemas/Order.schema';
 
 @Module({
   imports: [
@@ -39,6 +40,10 @@ import { MailService } from 'src/mailer/mailer.service';
       {
         name: UserOTPVerification.name,
         schema: UserOTPVerificationSchema,
+      },
+      {
+        name: Order.name,
+        schema: OrderSchema,
       },
     ]),
   ],

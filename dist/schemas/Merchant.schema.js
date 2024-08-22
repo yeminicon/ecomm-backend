@@ -89,6 +89,14 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], Merchant.prototype, "verified", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: Date.now }),
+    __metadata("design:type", Date)
+], Merchant.prototype, "createdAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: Date.now }),
+    __metadata("design:type", Date)
+], Merchant.prototype, "updatedAt", void 0);
 exports.Merchant = Merchant = __decorate([
     (0, mongoose_1.Schema)()
 ], Merchant);

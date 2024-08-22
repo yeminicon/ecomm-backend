@@ -36,6 +36,7 @@ declare class CartItem {
     imageurl: string;
     quantity: number;
     price: number;
+    merchantId: string;
 }
 export declare class Order {
     shippingAddress: string;

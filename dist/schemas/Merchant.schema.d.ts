@@ -44,6 +44,8 @@ export declare class Merchant extends Document {
     contactPhone: string;
     customerCareItem: CustomerCareItems[];
     verified?: boolean;
+    createdAt: Date;
+    updatedAt: Date;
 }
 export declare const MerchantSchema: import("mongoose").Schema<Merchant, import("mongoose").Model<Merchant, any, any, any, Document<unknown, any, Merchant> & Merchant & Required<{
     _id: unknown;

@@ -9,6 +9,7 @@ import { User, UserSchema } from '../schemas/User.schema';
 import { UsersService } from 'src/users/users.service';
 import { ProductService } from 'src/product/product.service';
 import { Product, ProductSchema } from 'src/schemas/Product.schema';
+import { Order, OrderSchema } from 'src/schemas/Order.schema';
 
 @Module({
   imports: [
@@ -28,6 +29,10 @@ import { Product, ProductSchema } from 'src/schemas/Product.schema';
       {
         name: Product.name,
         schema: ProductSchema,
+      },
+      {
+        name: Order.name,
+        schema: OrderSchema,
       },
     ]),
   ],

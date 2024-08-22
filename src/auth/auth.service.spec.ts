@@ -16,6 +16,7 @@ import { WalletService } from 'src/wallet/wallet.service';
 import { ProductService } from 'src/product/product.service';
 import { Product } from 'src/schemas/Product.schema';
 import { UsersService } from 'src/users/users.service';
+import { Order } from 'src/schemas/Order.schema';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -51,6 +52,7 @@ describe('AuthService', () => {
   const mockMailerService = {};
   const mockWalletService = {};
   const mockProductService = {};
+  const mockOrderService = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -90,6 +92,10 @@ describe('AuthService', () => {
         {
           provide: getModelToken(Product.name),
           useValue: mockProductService,
+        },
+        {
+          provide: getModelToken(Order.name),
+          useValue: mockOrderService,
         },
       ],
     }).compile();

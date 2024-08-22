@@ -22,6 +22,7 @@ const auth_service_1 = require("../auth/auth.service");
 const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
 const jwt_1 = require("@nestjs/jwt");
 const mailer_service_1 = require("../mailer/mailer.service");
+const Order_schema_1 = require("../schemas/Order.schema");
 let MerchantModule = class MerchantModule {
 };
 exports.MerchantModule = MerchantModule;
@@ -48,6 +49,10 @@ exports.MerchantModule = MerchantModule = __decorate([
                 {
                     name: UserOTPVerification_1.UserOTPVerification.name,
                     schema: UserOTPVerification_1.UserOTPVerificationSchema,
+                },
+                {
+                    name: Order_schema_1.Order.name,
+                    schema: Order_schema_1.OrderSchema,
                 },
             ]),
         ],

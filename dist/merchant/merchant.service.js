@@ -22,11 +22,13 @@ const Wallet_schema_1 = require("../schemas/Wallet.schema");
 const wallet_service_1 = require("../wallet/wallet.service");
 const bcrypt = require("bcryptjs");
 const product_service_1 = require("../product/product.service");
+const Order_schema_1 = require("../schemas/Order.schema");
 let MerchantService = class MerchantService {
-    constructor(merchantModel, userModel, walletModel, walletService, productService) {
+    constructor(merchantModel, userModel, walletModel, orderModel, walletService, productService) {
         this.merchantModel = merchantModel;
         this.userModel = userModel;
         this.walletModel = walletModel;
+        this.orderModel = orderModel;
         this.walletService = walletService;
         this.productService = productService;
     }
@@ -89,6 +91,24 @@ let MerchantService = class MerchantService {
     async delete(id) {
         return this.merchantModel.findByIdAndDelete(id);
     }
+    async findMerchantOrders(merchantId) {
+        const orders = await this.orderModel
+            .find({
+            'cartItem.merchantId': merchantId,
+        })
+            .exec();
+        if (!orders.length) {
+            throw new common_1.NotFoundException('No orders found for this merchant');
+        }
+        const filteredOrders = orders.map((order) => {
+            const filteredCartItems = order.cartItem.filter((item) => item.merchantId === merchantId);
+            return {
+                ...order.toObject(),
+                cartItem: filteredCartItems,
+            };
+        });
+        return filteredOrders;
+    }
 };
 exports.MerchantService = MerchantService;
 exports.MerchantService = MerchantService = __decorate([
@@ -96,7 +116,9 @@ exports.MerchantService = MerchantService = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(Merchant_schema_1.Merchant.name)),
     __param(1, (0, mongoose_1.InjectModel)(User_schema_1.User.name)),
     __param(2, (0, mongoose_1.InjectModel)(Wallet_schema_1.Wallet.name)),
+    __param(3, (0, mongoose_1.InjectModel)(Order_schema_1.Order.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model,
         wallet_service_1.WalletService,

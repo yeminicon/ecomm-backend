@@ -33,13 +33,15 @@ import { WalletService } from 'src/wallet/wallet.service';
 import { Product } from 'src/schemas/Product.schema';
 import { CreateProductDto } from 'src/product/dto/create-product.dto';
 import { ProductService } from 'src/product/product.service';
+import { Order } from 'src/schemas/Order.schema';
 export declare class MerchantService {
     private merchantModel;
     private userModel;
     private walletModel;
+    private orderModel;
     private readonly walletService;
     private readonly productService;
-    constructor(merchantModel: Model<Merchant>, userModel: Model<User>, walletModel: Model<Wallet>, walletService: WalletService, productService: ProductService);
+    constructor(merchantModel: Model<Merchant>, userModel: Model<User>, walletModel: Model<Wallet>, orderModel: Model<Order>, walletService: WalletService, productService: ProductService);
     create(createMerchantDto?: CreateMerchantDto): Promise<Merchant>;
     findById(id: string): Promise<Merchant>;
     findByName(name: string): Promise<Merchant>;
@@ -50,4 +52,5 @@ export declare class MerchantService {
     delete(id: string): Promise<import("mongoose").Document<unknown, {}, Merchant> & Merchant & Required<{
         _id: unknown;
     }>>;
+    findMerchantOrders(merchantId: string): Promise<Order[]>;
 }

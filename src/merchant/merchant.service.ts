@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/schemas/User.schema';
@@ -11,6 +15,7 @@ import * as bcrypt from 'bcryptjs';
 import { Product } from 'src/schemas/Product.schema';
 import { CreateProductDto } from 'src/product/dto/create-product.dto';
 import { ProductService } from 'src/product/product.service';
+import { Order } from 'src/schemas/Order.schema';
 
 @Injectable()
 export class MerchantService {
@@ -18,6 +23,7 @@ export class MerchantService {
     @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Wallet.name) private walletModel: Model<Wallet>,
+    @InjectModel(Order.name) private orderModel: Model<Order>,
     private readonly walletService: WalletService,
     private readonly productService: ProductService,
   ) {}
@@ -114,7 +120,29 @@ export class MerchantService {
     return this.merchantModel.findByIdAndDelete(id);
   }
 
-  // async scheduledCampaign(merchantId: string, goferId?: string) {
+  async findMerchantOrders(merchantId: string): Promise<Order[]> {
+    // Fetch all orders that contain products for this merchant
+    const orders = await this.orderModel
+      .find({
+        'cartItem.merchantId': merchantId,
+      })
+      .exec();
 
-  // }
+    if (!orders.length) {
+      throw new NotFoundException('No orders found for this merchant');
+    }
+
+    // Filter out the items that belong to this merchant
+    const filteredOrders = orders.map((order) => {
+      const filteredCartItems = order.cartItem.filter(
+        (item) => item.merchantId === merchantId,
+      );
+      return {
+        ...order.toObject(),
+        cartItem: filteredCartItems,
+      };
+    });
+
+    return filteredOrders;
+  }
 }

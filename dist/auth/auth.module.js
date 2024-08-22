@@ -18,6 +18,7 @@ const config_1 = require("@nestjs/config");
 const jwt_strategy_1 = require("./jwt.strategy");
 const merchant_service_1 = require("../merchant/merchant.service");
 const Merchant_schema_1 = require("../schemas/Merchant.schema");
+const Order_schema_1 = require("../schemas/Order.schema");
 const UserOTPVerification_1 = require("../schemas/UserOTPVerification");
 const mailer_service_1 = require("../mailer/mailer.service");
 const Wallet_schema_1 = require("../schemas/Wallet.schema");
@@ -63,6 +64,10 @@ exports.AuthModule = AuthModule = __decorate([
                 {
                     name: Product_schema_1.Product.name,
                     schema: Product_schema_1.ProductSchema,
+                },
+                {
+                    name: Order_schema_1.Order.name,
+                    schema: Order_schema_1.OrderSchema,
                 },
             ]),
         ],

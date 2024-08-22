@@ -22,6 +22,9 @@ class CartItem {
 
   @Prop({ required: true })
   price: number;
+
+  @Prop({required: false})
+  merchantId: string;
 }
 
 const CartItemSchema = SchemaFactory.createForClass(CartItem);

@@ -18,6 +18,7 @@ const User_schema_1 = require("../schemas/User.schema");
 const users_service_1 = require("../users/users.service");
 const product_service_1 = require("../product/product.service");
 const Product_schema_1 = require("../schemas/Product.schema");
+const Order_schema_1 = require("../schemas/Order.schema");
 let WalletModule = class WalletModule {
 };
 exports.WalletModule = WalletModule;
@@ -40,6 +41,10 @@ exports.WalletModule = WalletModule = __decorate([
                 {
                     name: Product_schema_1.Product.name,
                     schema: Product_schema_1.ProductSchema,
+                },
+                {
+                    name: Order_schema_1.Order.name,
+                    schema: Order_schema_1.OrderSchema,
                 },
             ]),
         ],

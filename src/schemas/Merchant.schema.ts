@@ -58,6 +58,12 @@ export class Merchant extends Document {
 
   @Prop({ required: true, default: false })
   verified?: boolean;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
+
+  @Prop({ default: Date.now })
+  updatedAt: Date;
 }
 
 export const MerchantSchema = SchemaFactory.createForClass(Merchant);
