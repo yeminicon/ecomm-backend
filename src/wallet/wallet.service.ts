@@ -102,6 +102,10 @@ export class WalletService {
     return this.walletModel.findById(id);
   }
 
+  async findByMerchantId(merchantId: string) {
+    return this.walletModel.findOne({ merchantId: merchantId });
+  }
+
   async update(id: string, updateWalletDto: UpdateWalletDto) {
     const findWallet = await this.walletModel.findById(id);
 

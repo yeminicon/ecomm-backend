@@ -36,6 +36,9 @@ export declare class WalletController {
     findOne(id: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Wallet.schema").Wallet> & import("../schemas/Wallet.schema").Wallet & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    findByMerchant(merchantId: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Wallet.schema").Wallet> & import("../schemas/Wallet.schema").Wallet & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     update(id: string, updateWalletDto: UpdateWalletDto): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Wallet.schema").Wallet> & import("../schemas/Wallet.schema").Wallet & {
         _id: import("mongoose").Types.ObjectId;
     }>;

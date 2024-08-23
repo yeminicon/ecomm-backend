@@ -81,6 +81,9 @@ let WalletService = class WalletService {
     async findOne(id) {
         return this.walletModel.findById(id);
     }
+    async findByMerchantId(merchantId) {
+        return this.walletModel.findOne({ merchantId: merchantId });
+    }
     async update(id, updateWalletDto) {
         const findWallet = await this.walletModel.findById(id);
         if (!findWallet) {

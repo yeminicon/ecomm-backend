@@ -43,6 +43,9 @@ export declare class WalletService {
     findOne(id: string): Promise<import("mongoose").Document<unknown, {}, Wallet> & Wallet & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    findByMerchantId(merchantId: string): Promise<import("mongoose").Document<unknown, {}, Wallet> & Wallet & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     update(id: string, updateWalletDto: UpdateWalletDto): Promise<import("mongoose").Document<unknown, {}, Wallet> & Wallet & {
         _id: import("mongoose").Types.ObjectId;
     }>;

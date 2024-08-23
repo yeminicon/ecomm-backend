@@ -30,6 +30,11 @@ export class WalletController {
     return this.walletService.findOne(id);
   }
 
+  @Get('/merchantId')
+  findByMerchant(@Query('merchantId') merchantId: string) {
+    return this.walletService.findByMerchantId(merchantId);
+  }
+
   @Patch(':id')
   update(@Query('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
     return this.walletService.update(id, updateWalletDto);

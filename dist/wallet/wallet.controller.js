@@ -29,6 +29,9 @@ let WalletController = class WalletController {
     findOne(id) {
         return this.walletService.findOne(id);
     }
+    findByMerchant(merchantId) {
+        return this.walletService.findByMerchantId(merchantId);
+    }
     update(id, updateWalletDto) {
         return this.walletService.update(id, updateWalletDto);
     }
@@ -61,6 +64,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], WalletController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)('/merchantId'),
+    __param(0, (0, common_1.Query)('merchantId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], WalletController.prototype, "findByMerchant", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Query)('id')),
