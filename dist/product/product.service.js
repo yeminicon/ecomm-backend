@@ -38,9 +38,23 @@ let ProductService = class ProductService {
         return product;
     }
     async updateProductInfo(productId, updateProduct) {
-        return this.productModel.findByIdAndUpdate(productId, updateProduct, {
-            new: true,
-        });
+        try {
+            const productUpdate = await this.productModel.findByIdAndUpdate(productId, updateProduct, {
+                new: true,
+                useFindAndModify: false,
+            });
+            if (!productUpdate) {
+                console.error('No document found with the given ID');
+            }
+            else {
+                console.log('Updated Document:', productUpdate);
+            }
+            return productUpdate;
+        }
+        catch (error) {
+            console.error('Error during product update:', error);
+            throw error;
+        }
     }
     async deleteProduct(productId) {
         const removeProduct = await this.productModel.findByIdAndDelete(productId);

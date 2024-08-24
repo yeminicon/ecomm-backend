@@ -1,6 +1,6 @@
 export declare class UpdateProductDto {
     price?: number;
-    name?: NamedCurve;
+    name?: string;
     description?: string;
     imageurl?: string;
     quantity?: number;

@@ -25,7 +25,6 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { ProductService } from './product.service';
-import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from 'src/schemas/Product.schema';
 export declare class ProductController {
     private readonly productService;
@@ -37,7 +36,7 @@ export declare class ProductController {
     }>;
     findBYMerchant(merchantId: string): Promise<Product[]>;
     findOne(productId: string): Promise<Product>;
-    update(productId: string, updateProductDto: UpdateProductDto): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
+    update(productId: string, updateProductDto: any): Promise<import("mongoose").Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
     remove(productId: string): Promise<string>;

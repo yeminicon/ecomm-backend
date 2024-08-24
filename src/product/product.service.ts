@@ -37,15 +37,31 @@ export class ProductService {
     console.log('Product created successfully');
     console.log(product);
 
-    // No need to call `save()` again, as `create()` already saves the document
-
     return product;
   }
 
-  async updateProductInfo(productId: string, updateProduct: UpdateProductDto) {
-    return this.productModel.findByIdAndUpdate(productId, updateProduct, {
-      new: true,
-    });
+  async updateProductInfo(productId: string, updateProduct: any) {
+    try {
+      const productUpdate = await this.productModel.findByIdAndUpdate(
+        productId,
+        updateProduct,
+        {
+          new: true,
+          useFindAndModify: false,
+        },
+      );
+
+      if (!productUpdate) {
+        console.error('No document found with the given ID');
+      } else {
+        console.log('Updated Document:', productUpdate);
+      }
+
+      return productUpdate;
+    } catch (error) {
+      console.error('Error during product update:', error);
+      throw error;
+    }
   }
 
   async deleteProduct(productId: string) {

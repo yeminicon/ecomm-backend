@@ -7,7 +7,7 @@ export class UpdateProductDto {
 
   @IsString()
   @IsOptional()
-  name?: NamedCurve;
+  name?: string;
 
   @IsString()
   @IsOptional()

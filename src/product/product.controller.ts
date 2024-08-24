@@ -9,9 +9,6 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-//import { Query as ExpressQuery } from 'express-serve-static-core';
 import { Product } from 'src/schemas/Product.schema';
 
 @Controller('product')
@@ -21,7 +18,7 @@ export class ProductController {
   @Post()
   create(@Body() createProductDto: any) {
     console.log(createProductDto);
-     return this.productService.createNewProduct(createProductDto);
+    return this.productService.createNewProduct(createProductDto);
   }
 
   @Get()
@@ -49,10 +46,8 @@ export class ProductController {
   }
 
   @Patch('/id')
-  update(
-    @Query('productId') productId: string,
-    @Body() updateProductDto: UpdateProductDto,
-  ) {
+  update(@Query('productId') productId: string, @Body() updateProductDto: any) {
+    console.log(productId);
     return this.productService.updateProductInfo(productId, updateProductDto);
   }
 

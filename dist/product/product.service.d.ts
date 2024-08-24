@@ -23,7 +23,6 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
-import { UpdateProductDto } from './dto/update-product.dto';
 import { UsersService } from '../users/users.service';
 import { User } from '../schemas/User.schema';
 import mongoose, { Model } from 'mongoose';
@@ -36,7 +35,7 @@ export declare class ProductService {
     private merchantModel;
     constructor(userService: UsersService, userModel: Model<User>, productModel: Model<Product>, merchantModel: Model<Merchant>);
     createNewProduct(createProductDto: any): Promise<Product>;
-    updateProductInfo(productId: string, updateProduct: UpdateProductDto): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
+    updateProductInfo(productId: string, updateProduct: any): Promise<mongoose.Document<unknown, {}, Product> & Product & Required<{
         _id: unknown;
     }>>;
     deleteProduct(productId: string): Promise<string>;

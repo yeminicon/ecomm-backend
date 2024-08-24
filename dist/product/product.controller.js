@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
 const common_1 = require("@nestjs/common");
 const product_service_1 = require("./product.service");
-const update_product_dto_1 = require("./dto/update-product.dto");
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
@@ -39,6 +38,7 @@ let ProductController = class ProductController {
         return this.productService.findOne(productId);
     }
     update(productId, updateProductDto) {
+        console.log(productId);
         return this.productService.updateProductInfo(productId, updateProductDto);
     }
     remove(productId) {
@@ -80,7 +80,7 @@ __decorate([
     __param(0, (0, common_1.Query)('productId')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_product_dto_1.UpdateProductDto]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "update", null);
 __decorate([
