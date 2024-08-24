@@ -24,29 +24,20 @@ export class ProductService {
     @InjectModel(Merchant.name) private merchantModel: Model<Merchant>,
   ) {}
 
-  async createNewProduct(
-    createProductDto: CreateProductDto,
-    merchantId?: string,
-  ): Promise<Product> {
-    // const { merchant } = createProductDto;
-
-    // const findMerchant = await this.merchantModel.findById(merchant);
-
-    // if (!findMerchant) {
-    //   throw new BadRequestException('No Merchant record found for this user.');
-    // }
-
-    // const product = new this.productModel(createProductDto);
+  async createNewProduct(createProductDto: any): Promise<Product> {
+    console.log(createProductDto);
 
     if (createProductDto.quantity === 0) {
-      throw new BadRequestException(' Quantity cannot be empty');
+      throw new BadRequestException('Quantity cannot be empty');
     }
-    const product = await this.productModel.create({
-      createProductDto,
-      merchantId,
-    });
 
-    // await product.save();
+    // Creating a new product directly with the provided DTO
+    const product = await this.productModel.create(createProductDto);
+
+    console.log('Product created successfully');
+    console.log(product);
+
+    // No need to call `save()` again, as `create()` already saves the document
 
     return product;
   }

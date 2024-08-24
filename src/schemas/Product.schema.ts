@@ -4,10 +4,10 @@ import { Document } from 'mongoose';
 @Schema()
 export class Product extends Document {
   @Prop({ required: true })
-  name: string;
+  name?: string;
 
   @Prop({ required: true })
-  price: number;
+  price?: number;
 
   @Prop({ required: false })
   imageurl?: string;
@@ -18,14 +18,14 @@ export class Product extends Document {
   @Prop({ required: false })
   brand?: string;
 
-  @Prop({ required: false })
+  @Prop({ required: true })
   merchantId?: string;
 
   @Prop({ required: false })
   description?: string;
 
   @Prop({ required: true })
-  quantity: number;
+  quantity?: number;
 
   @Prop({ required: false })
   packaging?: string;

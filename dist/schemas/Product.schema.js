@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "brand", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Product.prototype, "merchantId", void 0);
 __decorate([

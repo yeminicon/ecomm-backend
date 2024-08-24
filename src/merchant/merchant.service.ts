@@ -109,10 +109,8 @@ export class MerchantService {
       );
     }
 
-    const createProduct = await this.productService.createNewProduct(
-      createProductDto,
-      merchantId,
-    );
+    const createProduct =
+      await this.productService.createNewProduct(createProductDto);
     return createProduct;
   }
 

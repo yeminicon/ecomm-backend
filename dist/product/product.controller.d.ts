@@ -25,13 +25,12 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { ProductService } from './product.service';
-import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from 'src/schemas/Product.schema';
 export declare class ProductController {
     private readonly productService;
     constructor(productService: ProductService);
-    create(createProductDto: CreateProductDto): Promise<Product>;
+    create(createProductDto: any): Promise<Product>;
     findAll(page?: string, keyword?: string): Promise<{
         products: Product[];
         total: number;

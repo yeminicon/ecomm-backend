@@ -25,14 +25,14 @@
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Document } from 'mongoose';
 export declare class Product extends Document {
-    name: string;
-    price: number;
+    name?: string;
+    price?: number;
     imageurl?: string;
     category?: string;
     brand?: string;
     merchantId?: string;
     description?: string;
-    quantity: number;
+    quantity?: number;
     packaging?: string;
     pm?: string;
     ingredient?: string;

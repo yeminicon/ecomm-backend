@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   Delete,
   Query,
   BadRequestException,
@@ -20,8 +19,9 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productService.createNewProduct(createProductDto);
+  create(@Body() createProductDto: any) {
+    console.log(createProductDto);
+     return this.productService.createNewProduct(createProductDto);
   }
 
   @Get()

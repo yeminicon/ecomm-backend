@@ -85,7 +85,7 @@ let MerchantService = class MerchantService {
         if (!findMerchant) {
             throw new common_1.BadRequestException('No Merchant record found with this merchant id');
         }
-        const createProduct = await this.productService.createNewProduct(createProductDto, merchantId);
+        const createProduct = await this.productService.createNewProduct(createProductDto);
         return createProduct;
     }
     async delete(id) {
