@@ -23,7 +23,7 @@ class CartItem {
   @Prop({ required: true })
   price: number;
 
-  @Prop({required: false})
+  @Prop({ required: false })
   merchantId: string;
 }
 

@@ -65,7 +65,7 @@ let ProductService = class ProductService {
         return message;
     }
     async findAll(pageNumber, searchWord) {
-        const resPerPage = 10;
+        const resPerPage = 16;
         const currentPage = pageNumber > 0 ? pageNumber : 1;
         const skip = resPerPage * (currentPage - 1);
         const keyword = searchWord

@@ -2,7 +2,10 @@ import { ConfigService } from '@nestjs/config';
 export declare class PaymentService {
     private readonly configService;
     private readonly paystackSecretKey;
+    private readonly flutterwaveSecretKey;
     constructor(configService: ConfigService);
-    initializePayment(email: string, amount: number): Promise<any>;
-    verifyPayment(reference: string): Promise<any>;
+    initializePaystackPayment(email: string, amount: number): Promise<any>;
+    verifyPaystackPayment(reference: string): Promise<any>;
+    initializeFlutterwavePayment(email: string, amount: number, currency?: string): Promise<any>;
+    verifyFlutterwavePayment(transactionId: string): Promise<any>;
 }

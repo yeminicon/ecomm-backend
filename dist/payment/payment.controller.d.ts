@@ -4,4 +4,6 @@ export declare class PaymentController {
     constructor(paymentService: PaymentService);
     initializePayment(email: string, amount: number): Promise<any>;
     verifyPayment(reference: string): Promise<any>;
+    initializeFlutterWavePayment(email: string, amount: number): Promise<any>;
+    verifyFlutterWavePayment(reference: string): Promise<any>;
 }

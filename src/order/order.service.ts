@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -30,14 +30,11 @@ export class OrderService {
       throw new HttpException('Merchant not found', 404);
     }
 
-    // Creating the new order with user information included
     const newOrder = new this.orderModel({
       user: findUser._id,
       ...createOrderDto,
     });
     await newOrder.save();
-
-    // Exclude user information from the response
     const {
       _id,
       shippingAddress,
@@ -56,7 +53,7 @@ export class OrderService {
       merchant,
       createdAt,
       updatedAt,
-    } = newOrder.toObject(); // Convert the document to a plain JavaScript object
+    } = newOrder.toObject();
 
     return {
       _id,
@@ -228,6 +225,10 @@ export class OrderService {
       throw new HttpException('Payment failed yet', 400);
     }
 
+    if (findOrder.MerchantRecievedPayment === true) {
+      throw new BadRequestException('Merchant has been paid');
+    }
+
     // Iterate over each cart item
     for (const item of findOrder.cartItem) {
       const productId = item.id;
@@ -248,7 +249,17 @@ export class OrderService {
       const merchantId = findProduct.merchantId;
 
       // Update the merchant's wallet
-      await this.walletService.addFund(merchantId, calculatedAmount);
+      const paymentSuccessful = await this.walletService.addFund(
+        merchantId,
+        calculatedAmount,
+      );
+
+      if (paymentSuccessful) {
+        await this.orderModel.findByIdAndUpdate({
+          orderId,
+          MerchantRecievedPayment: true,
+        });
+      }
     }
   }
   async remove(id: string) {

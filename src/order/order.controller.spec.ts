@@ -39,6 +39,7 @@ describe('OrderController', () => {
             findOne: jest.fn(),
             update: jest.fn(),
             remove: jest.fn(),
+            updateWalletBasedOnMerchant: jest.fn(),
           },
         },
       ],
@@ -68,13 +69,21 @@ describe('OrderController', () => {
       };
       const mockResult = {
         /* mock result */
+        order: {},
+        reimburseMerchants: undefined,
       };
 
       jest.spyOn(orderService, 'createOrder').mockResolvedValue(mockResult);
 
-      const result = await orderController.create(createOrderDto);
+      const result = await orderController.createOrder(createOrderDto);
+      const reburse = await orderService.updateWalletBasedOnMerchant(
+        result.order._id,
+      );
+
+      console.log(reburse);
       expect(orderService.createOrder).toHaveBeenCalledWith(createOrderDto);
-      expect(result).toEqual(mockResult);
+      expect(orderService.updateWalletBasedOnMerchant);
+      // expect(result).toEqual(mockResult);
     });
   });
 

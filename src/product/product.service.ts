@@ -4,8 +4,8 @@ import {
   NotFoundException,
   HttpException,
 } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+// import { CreateProductDto } from './dto/create-product.dto';
+// import { UpdateProductDto } from './dto/update-product.dto';
 import { UsersService } from '../users/users.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/User.schema';
@@ -77,7 +77,7 @@ export class ProductService {
     pageNumber: number,
     searchWord: string,
   ): Promise<{ products: Product[]; total: number }> {
-    const resPerPage = 10;
+    const resPerPage = 16;
     const currentPage = pageNumber > 0 ? pageNumber : 1;
     const skip = resPerPage * (currentPage - 1);
     const keyword = searchWord

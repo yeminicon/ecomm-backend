@@ -21,9 +21,11 @@ let OrderController = class OrderController {
     constructor(orderService) {
         this.orderService = orderService;
     }
-    create(createOrderDto) {
-        const result = this.orderService.createOrder(createOrderDto);
-        return result;
+    async createOrder(createOrderDto) {
+        const order = await this.orderService.createOrder(createOrderDto);
+        const { _id } = order;
+        const reimburseMerchants = await this.orderService.updateWalletBasedOnMerchant(_id);
+        return { order, reimburseMerchants };
     }
     findAllByUser(userId) {
         return this.orderService.findAllByUser(userId);
@@ -44,8 +46,8 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
-    __metadata("design:returntype", void 0)
-], OrderController.prototype, "create", null);
+    __metadata("design:returntype", Promise)
+], OrderController.prototype, "createOrder", null);
 __decorate([
     (0, common_1.Get)('/userId'),
     __param(0, (0, common_1.Query)('userId')),

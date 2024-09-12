@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
 import { PaymentService } from './payment.service';
 import { ConfigService } from '@nestjs/config';
@@ -52,7 +53,7 @@ describe('PaymentService', () => {
       const email = 'test@example.com';
       const amount = 5000;
 
-      const result = await service.initializePayment(email, amount);
+      const result = await service.initializePaystackPayment(email, amount);
 
       expect(result).toEqual(mockResponse.data);
       expect(mockedAxios.post).toHaveBeenCalledWith(
@@ -76,9 +77,11 @@ describe('PaymentService', () => {
       const email = 'test@example.com';
       const amount = 5000;
 
-      await expect(service.initializePayment(email, amount)).rejects.toThrow(
+      await expect(
+        service.initializePaystackPayment(email, amount),
+      ).rejects.toThrow(
         new HttpException(
-          'Payment initialization failed',
+          'Paystack payment initialization failed',
           HttpStatus.BAD_REQUEST,
         ),
       );
@@ -107,7 +110,7 @@ describe('PaymentService', () => {
 
       const reference = 'mock-reference';
 
-      const result = await service.verifyPayment(reference);
+      const result = await service.verifyPaystackPayment(reference);
 
       expect(result).toEqual(mockResponse.data);
       expect(mockedAxios.get).toHaveBeenCalledWith(
@@ -126,9 +129,9 @@ describe('PaymentService', () => {
 
       const reference = 'mock-reference';
 
-      await expect(service.verifyPayment(reference)).rejects.toThrow(
+      await expect(service.verifyPaystackPayment(reference)).rejects.toThrow(
         new HttpException(
-          'Payment verification failed',
+          'Paystack payment verification failed',
           HttpStatus.BAD_REQUEST,
         ),
       );

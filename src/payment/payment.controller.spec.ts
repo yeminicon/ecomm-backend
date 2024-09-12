@@ -40,12 +40,12 @@ describe('PaymentController', () => {
       const amount = 5000;
 
       jest
-        .spyOn(paymentService, 'initializePayment')
+        .spyOn(paymentService, 'initializePaystackPayment')
         .mockResolvedValue(mockPayment);
 
       const result = await controller.initializePayment(email, amount);
 
-      expect(paymentService.initializePayment).toHaveBeenCalledWith(
+      expect(paymentService.initializePaystackPayment).toHaveBeenCalledWith(
         email,
         amount,
       );
@@ -57,7 +57,7 @@ describe('PaymentController', () => {
       const amount = 5000;
 
       jest
-        .spyOn(paymentService, 'initializePayment')
+        .spyOn(paymentService, 'initializePaystackPayment')
         .mockRejectedValue(
           new HttpException(
             'Payment initialization failed',
@@ -83,12 +83,14 @@ describe('PaymentController', () => {
       const reference = 'mock-reference';
 
       jest
-        .spyOn(paymentService, 'verifyPayment')
+        .spyOn(paymentService, 'verifyPaystackPayment')
         .mockResolvedValue(mockVerification);
 
       const result = await controller.verifyPayment(reference);
 
-      expect(paymentService.verifyPayment).toHaveBeenCalledWith(reference);
+      expect(paymentService.verifyPaystackPayment).toHaveBeenCalledWith(
+        reference,
+      );
       expect(result).toEqual(mockVerification);
     });
 
@@ -96,7 +98,7 @@ describe('PaymentController', () => {
       const reference = 'mock-reference';
 
       jest
-        .spyOn(paymentService, 'verifyPayment')
+        .spyOn(paymentService, 'verifyPaystackPayment')
         .mockRejectedValue(
           new HttpException(
             'Payment verification failed',

@@ -24,7 +24,7 @@ let ProductController = class ProductController {
         return this.productService.createNewProduct(createProductDto);
     }
     async findAll(page, keyword) {
-        const pageNumber = page ? parseInt(page, 10) : 1;
+        const pageNumber = page ? parseInt(page, 16) : 1;
         if (isNaN(pageNumber) || pageNumber < 1) {
             throw new common_1.BadRequestException('Invalid page number');
         }

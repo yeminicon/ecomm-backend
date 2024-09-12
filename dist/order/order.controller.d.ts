@@ -4,7 +4,10 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 export declare class OrderController {
     private readonly orderService;
     constructor(orderService: OrderService);
-    create(createOrderDto: CreateOrderDto): Promise<any>;
+    createOrder(createOrderDto: CreateOrderDto): Promise<{
+        order: any;
+        reimburseMerchants: void;
+    }>;
     findAllByUser(userId: string): Promise<any>;
     findOne(id: string): Promise<any>;
     update(id: string, updateOrderDto: UpdateOrderDto): Promise<import("../schemas/Order.schema").Order>;

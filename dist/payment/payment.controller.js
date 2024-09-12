@@ -22,12 +22,23 @@ let PaymentController = class PaymentController {
     async initializePayment(email, amount) {
         console.log(email);
         console.log(amount);
-        const payment = await this.paymentService.initializePayment(email, amount);
+        const payment = await this.paymentService.initializePaystackPayment(email, amount);
         console.log(payment);
         return payment;
     }
     async verifyPayment(reference) {
-        const verification = await this.paymentService.verifyPayment(reference);
+        const verification = await this.paymentService.verifyPaystackPayment(reference);
+        return verification;
+    }
+    async initializeFlutterWavePayment(email, amount) {
+        console.log(email);
+        console.log(amount);
+        const payment = await this.paymentService.initializeFlutterwavePayment(email, amount);
+        console.log(payment);
+        return payment;
+    }
+    async verifyFlutterWavePayment(reference) {
+        const verification = await this.paymentService.verifyFlutterwavePayment(reference);
         return verification;
     }
 };
@@ -47,6 +58,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PaymentController.prototype, "verifyPayment", null);
+__decorate([
+    (0, common_1.Post)('initializeFlutter'),
+    __param(0, (0, common_1.Body)('email')),
+    __param(1, (0, common_1.Body)('amount')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], PaymentController.prototype, "initializeFlutterWavePayment", null);
+__decorate([
+    (0, common_1.Post)('verifyFlutter'),
+    __param(0, (0, common_1.Query)('reference')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PaymentController.prototype, "verifyFlutterWavePayment", null);
 exports.PaymentController = PaymentController = __decorate([
     (0, common_1.Controller)('payment'),
     __metadata("design:paramtypes", [payment_service_1.PaymentService])

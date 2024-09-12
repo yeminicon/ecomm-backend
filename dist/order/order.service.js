@@ -155,6 +155,9 @@ let OrderService = class OrderService {
         else if (findOrder.orderStatus === Order_schema_1.PaymentStatus.FAILED) {
             throw new common_1.HttpException('Payment failed yet', 400);
         }
+        if (findOrder.MerchantRecievedPayment === true) {
+            throw new common_1.BadRequestException('Merchant has been paid');
+        }
         for (const item of findOrder.cartItem) {
             const productId = item.id;
             const quantity = item.quantity;
@@ -169,7 +172,13 @@ let OrderService = class OrderService {
             const deveolopmemtFee = totalAmount * 0.075;
             const calculatedAmount = totalAmount - deveolopmemtFee;
             const merchantId = findProduct.merchantId;
-            await this.walletService.addFund(merchantId, calculatedAmount);
+            const paymentSuccessful = await this.walletService.addFund(merchantId, calculatedAmount);
+            if (paymentSuccessful) {
+                await this.orderModel.findByIdAndUpdate({
+                    orderId,
+                    MerchantRecievedPayment: true,
+                });
+            }
         }
     }
     async remove(id) {

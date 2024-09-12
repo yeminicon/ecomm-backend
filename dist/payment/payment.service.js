@@ -17,8 +17,9 @@ let PaymentService = class PaymentService {
     constructor(configService) {
         this.configService = configService;
         this.paystackSecretKey = this.configService.get('PAYSTACK_SECRET_KEY');
+        this.flutterwaveSecretKey = this.configService.get('FLUTTERWAVE_SECRET_KEY');
     }
-    async initializePayment(email, amount) {
+    async initializePaystackPayment(email, amount) {
         const url = 'https://api.paystack.co/transaction/initialize';
         const headers = {
             Authorization: `Bearer ${this.paystackSecretKey}`,
@@ -33,10 +34,10 @@ let PaymentService = class PaymentService {
             return response.data;
         }
         catch (error) {
-            throw new common_1.HttpException('Payment initialization failed', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('Paystack payment initialization failed', common_1.HttpStatus.BAD_REQUEST);
         }
     }
-    async verifyPayment(reference) {
+    async verifyPaystackPayment(reference) {
         const url = `https://api.paystack.co/transaction/verify/${reference}`;
         const headers = {
             Authorization: `Bearer ${this.paystackSecretKey}`,
@@ -47,7 +48,44 @@ let PaymentService = class PaymentService {
             return response.data;
         }
         catch (error) {
-            throw new common_1.HttpException('Payment verification failed', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('Paystack payment verification failed', common_1.HttpStatus.BAD_REQUEST);
+        }
+    }
+    async initializeFlutterwavePayment(email, amount, currency = 'NGN') {
+        const url = 'https://api.flutterwave.com/v3/payments';
+        const headers = {
+            Authorization: `Bearer ${this.flutterwaveSecretKey}`,
+            'Content-Type': 'application/json',
+        };
+        const data = {
+            tx_ref: `tx-${Date.now()}`,
+            amount,
+            currency,
+            redirect_url: 'https://your-redirect-url.com/callback',
+            customer: {
+                email,
+            },
+        };
+        try {
+            const response = await axios_1.default.post(url, data, { headers });
+            return response.data;
+        }
+        catch (error) {
+            throw new common_1.HttpException('Flutterwave payment initialization failed', common_1.HttpStatus.BAD_REQUEST);
+        }
+    }
+    async verifyFlutterwavePayment(transactionId) {
+        const url = `https://api.flutterwave.com/v3/transactions/${transactionId}/verify`;
+        const headers = {
+            Authorization: `Bearer ${this.flutterwaveSecretKey}`,
+            'Content-Type': 'application/json',
+        };
+        try {
+            const response = await axios_1.default.get(url, { headers });
+            return response.data;
+        }
+        catch (error) {
+            throw new common_1.HttpException('Flutterwave payment verification failed', common_1.HttpStatus.BAD_REQUEST);
         }
     }
 };

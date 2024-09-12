@@ -26,7 +26,7 @@ export class ProductController {
     @Query('page') page?: string,
     @Query('keyword') keyword?: string,
   ): Promise<{ products: Product[]; total: number }> {
-    const pageNumber = page ? parseInt(page, 10) : 1;
+    const pageNumber = page ? parseInt(page, 16) : 1;
     if (isNaN(pageNumber) || pageNumber < 1) {
       throw new BadRequestException('Invalid page number');
     }

@@ -16,9 +16,14 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    const result = this.orderService.createOrder(createOrderDto);
-    return result;
+  async createOrder(@Body() createOrderDto: CreateOrderDto) {
+    const order = await this.orderService.createOrder(createOrderDto);
+    const { _id } = order;
+
+    const reimburseMerchants =
+      await this.orderService.updateWalletBasedOnMerchant(_id);
+
+    return { order, reimburseMerchants };
   }
 
   @Get('/userId')
