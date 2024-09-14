@@ -137,6 +137,8 @@ describe('ProductService', () => {
     it('should return an array of product', async () => {
       const pageNumber = 1;
       const searchWord = 'test';
+      const minPrice = 100;
+      const maxPrice = 1000000;
 
       jest.spyOn(model, 'countDocuments').mockResolvedValueOnce(1);
       jest.spyOn(model, 'find').mockImplementation(
@@ -147,12 +149,19 @@ describe('ProductService', () => {
             }),
           }) as any,
       );
-      const result = await service.findAll(pageNumber, searchWord);
+      const result = await service.findAll(
+        pageNumber,
+        searchWord,
+        minPrice,
+        maxPrice,
+      );
       expect(model.countDocuments).toHaveBeenCalledWith({
         name: { $regex: 'test', $options: 'i' },
+        price: { $gte: minPrice, $lte: maxPrice },
       });
       expect(model.find).toHaveBeenCalledWith({
         name: { $regex: 'test', $options: 'i' },
+        price: { $gte: minPrice, $lte: maxPrice },
       });
       expect(result).toEqual({ products: [mockProduct], total: 1 });
     });

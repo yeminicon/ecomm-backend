@@ -25,6 +25,8 @@ export class ProductController {
   async findAll(
     @Query('page') page?: string,
     @Query('keyword') keyword?: string,
+    @Query('minPrice') minPrice?: number,
+    @Query('maxPrice') maxPrice?: number,
   ): Promise<{ products: Product[]; total: number }> {
     const pageNumber = page ? parseInt(page, 16) : 1;
     if (isNaN(pageNumber) || pageNumber < 1) {
@@ -33,7 +35,12 @@ export class ProductController {
 
     const searchWord = keyword || '';
 
-    return this.productService.findAll(pageNumber, searchWord);
+    return this.productService.findAll(
+      pageNumber,
+      searchWord,
+      minPrice,
+      maxPrice,
+    );
   }
 
   @Get()

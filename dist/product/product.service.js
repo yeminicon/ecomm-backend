@@ -64,7 +64,7 @@ let ProductService = class ProductService {
         const message = 'Succefully deleted this product';
         return message;
     }
-    async findAll(pageNumber, searchWord) {
+    async findAll(pageNumber, searchWord, minPrice = 100, maxPrice = 1000000) {
         const resPerPage = 16;
         const currentPage = pageNumber > 0 ? pageNumber : 1;
         const skip = resPerPage * (currentPage - 1);
@@ -76,9 +76,13 @@ let ProductService = class ProductService {
                 },
             }
             : {};
-        const total = await this.productModel.countDocuments({ ...keyword });
+        const priceFilter = {
+            price: { $gte: minPrice, $lte: maxPrice },
+        };
+        const filters = { ...keyword, ...priceFilter };
+        const total = await this.productModel.countDocuments(filters);
         const products = await this.productModel
-            .find({ ...keyword })
+            .find(filters)
             .limit(resPerPage)
             .skip(skip);
         return { products, total };

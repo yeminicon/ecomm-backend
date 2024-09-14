@@ -39,7 +39,7 @@ export declare class ProductService {
         _id: unknown;
     }>>;
     deleteProduct(productId: string): Promise<string>;
-    findAll(pageNumber: number, searchWord: string): Promise<{
+    findAll(pageNumber: number, searchWord: string, minPrice?: number, maxPrice?: number): Promise<{
         products: Product[];
         total: number;
     }>;

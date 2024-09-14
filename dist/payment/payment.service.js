@@ -61,7 +61,7 @@ let PaymentService = class PaymentService {
             tx_ref: `tx-${Date.now()}`,
             amount,
             currency,
-            redirect_url: 'https://your-redirect-url.com/callback',
+            redirect_url: 'https://deepisces.com.ng/callback',
             customer: {
                 email,
             },

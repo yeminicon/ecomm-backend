@@ -23,13 +23,13 @@ let ProductController = class ProductController {
         console.log(createProductDto);
         return this.productService.createNewProduct(createProductDto);
     }
-    async findAll(page, keyword) {
+    async findAll(page, keyword, minPrice, maxPrice) {
         const pageNumber = page ? parseInt(page, 16) : 1;
         if (isNaN(pageNumber) || pageNumber < 1) {
             throw new common_1.BadRequestException('Invalid page number');
         }
         const searchWord = keyword || '';
-        return this.productService.findAll(pageNumber, searchWord);
+        return this.productService.findAll(pageNumber, searchWord, minPrice, maxPrice);
     }
     findBYMerchant(merchantId) {
         return this.productService.findAllByMerchant(merchantId);
@@ -57,8 +57,10 @@ __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('page')),
     __param(1, (0, common_1.Query)('keyword')),
+    __param(2, (0, common_1.Query)('minPrice')),
+    __param(3, (0, common_1.Query)('maxPrice')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, String, Number, Number]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "findAll", null);
 __decorate([
