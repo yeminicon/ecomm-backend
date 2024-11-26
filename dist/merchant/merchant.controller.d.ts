@@ -35,6 +35,7 @@ export declare class MerchantController {
     create(createMechantDto: CreateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
     findById(id: string): Promise<import("../schemas/Merchant.schema").Merchant>;
     findMerchantOrders(merchantId: string): Promise<import("../schemas/Order.schema").Order[]>;
+    findProductById(merchantId: string): Promise<import("../schemas/Order.schema").Order[]>;
     update(id: string, updateMerchantDto: UpdateMerchantDto): Promise<import("../schemas/Merchant.schema").Merchant>;
     delete(id: string): Promise<import("mongoose").Document<unknown, {}, import("../schemas/Merchant.schema").Merchant> & import("../schemas/Merchant.schema").Merchant & Required<{
         _id: unknown;

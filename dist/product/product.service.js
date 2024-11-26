@@ -80,7 +80,7 @@ let ProductService = class ProductService {
             price: { $gte: minPrice, $lte: maxPrice },
         };
         const filters = { ...keyword, ...priceFilter };
-        const total = await this.productModel.countDocuments(filters);
+        const total = await this.productModel.length;
         const products = await this.productModel
             .find(filters)
             .limit(resPerPage)

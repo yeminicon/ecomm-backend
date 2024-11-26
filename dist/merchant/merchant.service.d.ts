@@ -49,6 +49,7 @@ export declare class MerchantService {
     validateMerchant(businessEmail: string, password: string): Promise<Merchant | null>;
     findByEmail(email: string): Promise<Merchant>;
     createProduct(merchantId: string, createProductDto: CreateProductDto): Promise<Product>;
+    findProductByMerchantId(merchantId: string): Promise<void>;
     delete(id: string): Promise<import("mongoose").Document<unknown, {}, Merchant> & Merchant & Required<{
         _id: unknown;
     }>>;

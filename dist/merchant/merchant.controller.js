@@ -33,6 +33,9 @@ let MerchantController = class MerchantController {
     async findMerchantOrders(merchantId) {
         return await this.merchantService.findMerchantOrders(merchantId);
     }
+    async findProductById(merchantId) {
+        return await this.merchantService.findMerchantOrders(merchantId);
+    }
     update(id, updateMerchantDto) {
         return this.merchantService.update(id, updateMerchantDto);
     }
@@ -62,6 +65,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], MerchantController.prototype, "findMerchantOrders", null);
+__decorate([
+    (0, common_1.Get)('/fetchProductById'),
+    __param(0, (0, common_1.Query)('merchantId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MerchantController.prototype, "findProductById", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),

@@ -88,6 +88,9 @@ let MerchantService = class MerchantService {
         const createProduct = await this.productService.createNewProduct(createProductDto);
         return createProduct;
     }
+    async findProductByMerchantId(merchantId) {
+        await this.productService.findAllByMerchant(merchantId);
+    }
     async delete(id) {
         return this.merchantModel.findByIdAndDelete(id);
     }

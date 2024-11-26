@@ -36,6 +36,11 @@ export class MerchantController {
     return await this.merchantService.findMerchantOrders(merchantId);
   }
 
+  @Get('/fetchProductById')
+  async findProductById(@Query('merchantId') merchantId: string) {
+    return await this.merchantService.findMerchantOrders(merchantId);
+  }
+
   @Patch(':id')
   @UseGuards(AuthGuard())
   update(

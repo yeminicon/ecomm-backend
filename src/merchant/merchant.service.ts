@@ -114,6 +114,9 @@ export class MerchantService {
     return createProduct;
   }
 
+  async findProductByMerchantId(merchantId: string) {
+    await this.productService.findAllByMerchant(merchantId);
+  }
   async delete(id: string) {
     return this.merchantModel.findByIdAndDelete(id);
   }
