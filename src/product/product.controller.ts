@@ -28,7 +28,7 @@ export class ProductController {
     @Query('minPrice') minPrice?: number,
     @Query('maxPrice') maxPrice?: number,
   ): Promise<{ products: Product[]; total: number }> {
-    const pageNumber = page ? parseInt(page, 16) : 1;
+    const pageNumber = page ? parseInt(page, 12) : 1;
     if (isNaN(pageNumber) || pageNumber < 1) {
       throw new BadRequestException('Invalid page number');
     }

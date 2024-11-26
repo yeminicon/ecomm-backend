@@ -98,8 +98,7 @@ export class ProductService {
 
     const filters = { ...keyword, ...priceFilter };
 
-    // const total = await this.productModel.countDocuments(filters);
-    const total = await this.productModel.length;
+    const total = await this.productModel.countDocuments(filters);
 
     const products = await this.productModel
       .find(filters)
